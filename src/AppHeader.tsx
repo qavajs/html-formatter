@@ -1,11 +1,17 @@
 import * as React from "react";
-import logo from "./icons/logo.svg";
-import { MainMenu, MainMenuButton } from "@epam/promo";
+import { MainMenu, Text, LinkButton } from "@epam/promo";
+import css from './App.module.scss';
 
 export const AppHeader = () => {
     return (
-        <MainMenu appLogoUrl={ logo }>
-            <MainMenuButton caption='Home' link={ { pathname: '/' } } priority={ 1 } estimatedWidth={ 72 } />
+        <MainMenu>
+            <LinkButton
+                caption='@qavajs/html-formatter'
+                link={ { pathname: '/' } }
+                size='48'
+                cx={css.title}
+                captionCX={css.caption}
+            />
         </MainMenu>
     )
 }
