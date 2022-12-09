@@ -34,7 +34,7 @@ export const Features = (props: any) => {
             key: 'status',
             caption: 'Status',
             render: item => <FlexRow>
-                <Badge cx={css.tagBadge} size='18' color={item.status === 'failed' ? 'red' : 'green'} fill='transparent' caption={item.status} />
+                <Badge cx={css.tagBadge} size='24' color={item.status === 'failed' ? 'red' : 'green'} fill='transparent' caption={item.status} />
             </FlexRow>,
             isSortable: true,
             width: 100,

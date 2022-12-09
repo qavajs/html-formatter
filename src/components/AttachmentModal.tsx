@@ -12,12 +12,10 @@ import {
     Button
 } from '@epam/promo';
 
-import css from './Modal.module.scss';
-
 export const AttachmentModal = (modalProps: any) => {
     return <>
         <ModalBlocker blockerShadow='dark' {...modalProps}>
-            <ModalWindow style={{width: '80%', margin: 'auto'}}>
+            <ModalWindow style={{width: '90%', margin: 'auto'}}>
                 <Panel background="white">
                     <ModalHeader title="Attachment" onClose={() => modalProps.success('close')}/>
                     <ScrollBars hasTopShadow hasBottomShadow>

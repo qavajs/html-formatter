@@ -15,12 +15,14 @@ import {
 export const ErrorModal = (modalProps: any) => {
     return <>
         <ModalBlocker blockerShadow='dark' {...modalProps}>
-            <ModalWindow style={{width: '60%', margin: 'auto'}}>
+            <ModalWindow style={{width: '100%', margin: 'auto'}}>
                 <Panel background="white">
                     <ModalHeader title="Error" onClose={() => modalProps.success('close')}/>
                     <ScrollBars hasTopShadow hasBottomShadow>
                         <FlexRow padding='24'>
-                            <Text size='36'>{modalProps.error}</Text>
+                            <pre style={{width: '100%'}}>
+                                {modalProps.error}
+                            </pre>
                         </FlexRow>
                     </ScrollBars>
                     <ModalFooter/>
