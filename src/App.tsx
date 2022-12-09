@@ -7,7 +7,7 @@ import css from './App.module.scss';
 
 import sourceData from './report.json';
 
-const data = sourceData
+const data = (sourceData as Array<any>)
     .map((feature: any) => ({
         ...feature,
         total: feature.elements.length,
@@ -20,7 +20,6 @@ const data = sourceData
         ...feature,
         failed: feature.elements.filter((scenario: any) => scenario.isFailed).length,
         passed: feature.elements.filter((scenario: any) => !scenario.isFailed).length,
-        status: feature.failed > 0 ? 'failed' : 'passed'
     }))
     .map((feature: any) => ({
         ...feature,
@@ -41,7 +40,7 @@ export const App = () => {
                 <Route path="/" exact component={ MainPage } />
                 <Route path="/:id" exact component={ FeaturePage } />
             </main>
-            <footer></footer>
+            <footer/>
         </div>
     );
 }

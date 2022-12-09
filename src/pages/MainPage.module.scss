@@ -19,10 +19,11 @@
 
 
 .statisticsPanel {
-    width: 50%;
+    min-width: 500px;
+    max-width: 600px;
+    height: 300px;
 }
 
 .features {
     width: 100%;
 }
-
