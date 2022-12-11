@@ -300,13 +300,7 @@ module.exports = function (webpackEnv) {
       splitChunks: {
         chunks: 'all',
         name: isEnvDevelopment,
-      },
-      // Keep the runtime chunk separated to enable long term caching
-      // https://twitter.com/wSokra/status/969679223278505985
-      // https://github.com/facebook/create-react-app/issues/5358
-      runtimeChunk: {
-        name: entrypoint => `runtime-${entrypoint.name}`,
-      },
+      }
     },
     resolve: {
       // This allows you to set a fallback for where webpack should look for modules.
@@ -603,7 +597,7 @@ module.exports = function (webpackEnv) {
       // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
       // It is absolutely essential that NODE_ENV is set to production
       // during a production build.
-      // Otherwise React will be compiled in the very slow development mode.
+      // Otherwise, React will be compiled in the very slow development mode.
       new webpack.DefinePlugin(env.stringified),
       // This is necessary to emit hot updates (CSS and Fast Refresh):
       isEnvDevelopment && new webpack.HotModuleReplacementPlugin(),

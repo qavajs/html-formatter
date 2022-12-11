@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import { HashRouter } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { ContextProvider } from '@epam/uui-core';
@@ -33,4 +33,4 @@ const RoutedApp = () => (
     </HashRouter>
 );
 
-ReactDOM.render(<RoutedApp />, document.getElementById('root'));
+render(<RoutedApp />, document.getElementById('root'));

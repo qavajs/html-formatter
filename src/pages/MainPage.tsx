@@ -2,7 +2,7 @@ import React from 'react';
 import { Panel, FlexSpacer, FlexRow, Text, FlexCell } from '@epam/promo';
 import { Features } from '../components/Features';
 import { StatisticsPieChart } from '../components/StatisticsPieChart';
-import css from './MainPage.module.scss';
+import css from '../App.module.scss';
 import { Legend } from '../components/Legend';
 
 export const MainPage = () => {

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { MainMenu, FlexSpacer, LinkButton } from '@epam/promo';
 import css from './App.module.scss';
 

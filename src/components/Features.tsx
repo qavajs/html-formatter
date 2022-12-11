@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import {
     Panel,
     FlexRow,
@@ -8,8 +8,8 @@ import {
     LinkButton,
     TextInput, Switch, FlexSpacer
 } from '@epam/promo';
-import {DataColumnProps, useArrayDataSource} from '@epam/uui-core';
-import css from './Features.module.scss';
+import { DataColumnProps, useArrayDataSource } from '@epam/uui-core';
+import css from '../App.module.scss';
 
 type Feature = {
     id: string,

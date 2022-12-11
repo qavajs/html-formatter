@@ -8,7 +8,7 @@ import { ReactComponent as SkippedIcon } from '@epam/assets/icons/common/navigat
 import { ReactComponent as ErrorIcon } from '@epam/assets/icons/common/notification-info-fill-24.svg';
 import { ReactComponent as AttachmentIcon } from '@epam/assets/icons/common/file-attachment-24.svg';
 
-import css from './Step.module.scss';
+import css from '../App.module.scss';
 import { useUuiContext } from '@epam/uui-core';
 import { AttachmentModal } from './AttachmentModal';
 

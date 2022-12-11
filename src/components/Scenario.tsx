@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlexRow, Text, Badge, FlexCell, Accordion} from '@epam/promo';
+import { FlexRow, Text, Badge, FlexCell, Accordion } from '@epam/promo';
 import { Step } from './Step';
 
 const filterByStatus = (scenario: any, status: string) => scenario.steps.filter((step: any) => step.result.status === status);

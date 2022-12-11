@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import { FlexSpacer, FlexRow, TextInput, Switch} from '@epam/promo';
-import {useParams} from 'react-router-dom';
-import {Scenario} from '../components/Scenario';
-import css from "./FeaturePage.module.scss";
+import React, { useState } from 'react';
+import { FlexSpacer, FlexRow, TextInput, Switch } from '@epam/promo';
+import { useParams } from 'react-router-dom';
+import { Scenario } from '../components/Scenario';
+import css from "../App.module.scss";
 
 const filterScenarios = (
     tableData: Array<any>,
