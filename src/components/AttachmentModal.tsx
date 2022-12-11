@@ -5,11 +5,8 @@ import {
     ModalHeader,
     ModalWindow,
     FlexRow,
-    FlexSpacer,
     Panel,
-    ScrollBars,
-    Text,
-    Button
+    ScrollBars
 } from '@epam/promo';
 
 export const AttachmentModal = (modalProps: any) => {

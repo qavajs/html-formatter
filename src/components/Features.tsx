@@ -1,4 +1,4 @@
-import React, { useMemo, useState} from 'react';
+import React, { useState} from 'react';
 import {
     Panel,
     FlexRow,
@@ -8,7 +8,7 @@ import {
     LinkButton,
     TextInput, Switch, FlexSpacer
 } from '@epam/promo';
-import {DataColumnProps, useArrayDataSource} from "@epam/uui-core";
+import {DataColumnProps, useArrayDataSource} from '@epam/uui-core';
 import css from './Features.module.scss';
 
 type Feature = {
@@ -25,7 +25,7 @@ const featureColumns: DataColumnProps<Feature>[] = [
     {
         key: 'name',
         caption: 'Name',
-        render: item => <LinkButton caption={item.name} link={ { pathname: `/${item.id}` } } size='42' />,
+        render: item => <LinkButton caption={item.name} link={ { pathname: `/feature/${item.id}` } } size='42' />,
         isSortable: true,
         width: 400
     },

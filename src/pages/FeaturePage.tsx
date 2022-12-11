@@ -18,7 +18,12 @@ const filterScenarios = (
 
 export const FeaturePage = (props: any) => {
     const { id }: { id: string } = useParams();
-    const feature = window.data.find((feature: any) => feature.id === id);
+    const feature = id
+        ? window.data.find((feature: any) => feature.id === id)
+        : window.data.reduce((failedScenarios: any, feature: any) => {
+            failedScenarios.elements.push(...feature.elements.filter((scenario: any) => scenario.isFailed))
+            return failedScenarios
+        }, {elements: []});
     const [searchValue, setSearchValue] = useState('');
     const [showOnlyFailed, setShowOnlyFailed] = useState(false);
 

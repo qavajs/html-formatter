@@ -5,9 +5,14 @@ import { Route } from 'react-router-dom';
 import { AppHeader } from './AppHeader';
 import css from './App.module.scss';
 
-import sourceData from './report.json';
+declare global {
+    interface Window {
+        data: any;
+        sourceData: Array<any>
+    }
+}
 
-const data = (sourceData as Array<any>)
+const data = window.sourceData
     .map((feature: any) => ({
         ...feature,
         total: feature.elements.length,
@@ -26,10 +31,6 @@ const data = (sourceData as Array<any>)
         status: feature.failed > 0 ? 'failed' : 'passed'
     }));
 
-declare global {
-    interface Window { data: any; }
-}
-
 window.data = data;
 
 export const App = () => {
@@ -38,7 +39,8 @@ export const App = () => {
             <Route component={ AppHeader } />
             <main>
                 <Route path="/" exact component={ MainPage } />
-                <Route path="/:id" exact component={ FeaturePage } />
+                <Route path="/feature/:id" exact component={ FeaturePage } />
+                <Route path="/failed-scenarios" exact component={ FeaturePage } />
             </main>
             <footer/>
         </div>

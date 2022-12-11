@@ -1,5 +1,5 @@
-import React, { useMemo, useState} from 'react';
-import { Panel, FlexRow, DataTable, Text, Badge, LinkButton, IconContainer, IconButton } from '@epam/promo';
+import React from 'react';
+import { Text, IconContainer, IconButton } from '@epam/promo';
 import { ErrorModal } from './ErrorModal';
 import { ReactComponent as PassedIcon } from '@epam/assets/icons/common/notification-done-24.svg';
 import { ReactComponent as FailedIcon } from '@epam/assets/icons/common/navigation-close-24.svg';
@@ -9,8 +9,8 @@ import { ReactComponent as ErrorIcon } from '@epam/assets/icons/common/notificat
 import { ReactComponent as AttachmentIcon } from '@epam/assets/icons/common/file-attachment-24.svg';
 
 import css from './Step.module.scss';
-import {useUuiContext} from "@epam/uui-core";
-import {AttachmentModal} from "./AttachmentModal";
+import { useUuiContext } from '@epam/uui-core';
+import { AttachmentModal } from './AttachmentModal';
 
 const icon = (status: string) => {
     switch (status) {

@@ -1,6 +1,6 @@
-import React, { useMemo, useState} from 'react';
-import {Panel, FlexRow, DataTable, Text, Badge, LinkButton, IconContainer, FlexCell, Accordion} from '@epam/promo';
-import {Step} from "./Step";
+import React from 'react';
+import { FlexRow, Text, Badge, FlexCell, Accordion} from '@epam/promo';
+import { Step } from './Step';
 
 const filterByStatus = (scenario: any, status: string) => scenario.steps.filter((step: any) => step.result.status === status);
 const scenarioTitle = (scenario: any) => () => {

@@ -1,5 +1,5 @@
-import * as React from "react";
-import { MainMenu, Text, LinkButton } from "@epam/promo";
+import * as React from 'react';
+import { MainMenu, FlexSpacer, LinkButton } from '@epam/promo';
 import css from './App.module.scss';
 
 export const AppHeader = () => {
@@ -10,6 +10,14 @@ export const AppHeader = () => {
                 link={ { pathname: '/' } }
                 size='48'
                 cx={css.title}
+                captionCX={css.caption}
+            />
+            <FlexSpacer/>
+            <LinkButton
+                caption='Failed Scenarios'
+                link={ { pathname: '/failed-scenarios' } }
+                size='48'
+                cx={css.failedTitle}
                 captionCX={css.caption}
             />
         </MainMenu>
