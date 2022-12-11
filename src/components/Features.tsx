@@ -25,7 +25,7 @@ const featureColumns: DataColumnProps<Feature>[] = [
     {
         key: 'name',
         caption: 'Name',
-        render: item => <LinkButton caption={item.name} link={ { pathname: `/feature/${item.id}` } } size='42' />,
+        render: item => <LinkButton caption={item.name} href={`#/feature/${item.id}`} size='42' />,
         isSortable: true,
         width: 400
     },

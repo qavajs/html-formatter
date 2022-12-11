@@ -7,7 +7,7 @@ export const AppHeader = () => {
         <MainMenu cx={css.header}>
             <LinkButton
                 caption='@qavajs/html-formatter'
-                link={ { pathname: '/' } }
+                href='#/'
                 size='48'
                 cx={css.title}
                 captionCX={css.caption}
@@ -15,7 +15,7 @@ export const AppHeader = () => {
             <FlexSpacer/>
             <LinkButton
                 caption='Failed Scenarios'
-                link={ { pathname: '/failed-scenarios' } }
+                href='#/failed-scenarios'
                 size='48'
                 cx={css.failedTitle}
                 captionCX={css.caption}

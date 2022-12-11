@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { ContextProvider } from '@epam/uui-core';
 import { Snackbar, Modals } from '@epam/uui-components';
@@ -9,7 +9,6 @@ import '@epam/uui-components/styles.css';
 import '@epam/promo/styles.css';
 import { App } from './App';
 import { svc } from './services';
-
 
 const history = createBrowserHistory();
 
@@ -29,9 +28,9 @@ const UuiEnhancedApp = () => (
 );
 
 const RoutedApp = () => (
-    <Router history={ history }>
+    <HashRouter>
         <UuiEnhancedApp />
-    </Router>
+    </HashRouter>
 );
 
 ReactDOM.render(<RoutedApp />, document.getElementById('root'));
