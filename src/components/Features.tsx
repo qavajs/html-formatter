@@ -80,7 +80,7 @@ const filterTable = (
 ) => {
     return tableData.filter((row: Feature) => {
         let result = true;
-        if (filterOptions.searchValue) result = result && row.name.toLowerCase().includes(filterOptions.searchValue)
+        if (filterOptions.searchValue) result = result && row.name.toLowerCase().includes(filterOptions.searchValue.toLowerCase())
         if (filterOptions.showOnlyFailed) result = result && row.failed > 0
         return result
     })

@@ -21,8 +21,8 @@ export const Scenario = ({scenario}: {scenario: any}) => {
     return <FlexRow margin='12' spacing='12' key={scenario.id}>
         <FlexCell width='100%'>
             <Accordion renderTitle={scenarioTitle(scenario)} mode='block'>
-                {scenario.steps.map((step: any) =>
-                    <Step step={step}/>
+                {scenario.steps.map((step: any, index: number) =>
+                    <Step key={index} step={step}/>
                 )}
             </Accordion>
         </FlexCell>
