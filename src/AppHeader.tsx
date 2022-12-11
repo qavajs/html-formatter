@@ -4,7 +4,7 @@ import css from './App.module.scss';
 
 export const AppHeader = () => {
     return (
-        <MainMenu>
+        <MainMenu cx={css.header}>
             <LinkButton
                 caption='@qavajs/html-formatter'
                 link={ { pathname: '/' } }

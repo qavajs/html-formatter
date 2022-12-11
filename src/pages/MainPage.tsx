@@ -52,7 +52,7 @@ export const MainPage = () => {
                         </FlexCell>
                     </FlexRow>
                 </Panel>
-                {/*<FlexSpacer/>*/}
+                <FlexSpacer/>
                 <Panel cx={css.statisticsPanel} background='white' shadow>
                     <span style={totalNumberStyle}>{scenariosTotal}</span>
                     <FlexRow padding='12'>
@@ -65,11 +65,6 @@ export const MainPage = () => {
                         <FlexCell minWidth={200}>
                             <Legend items={scenarioChartData} total={scenariosTotal}/>
                         </FlexCell>
-                    </FlexRow>
-                </Panel>
-                <Panel cx={css.statisticsPanel} background='white' shadow>
-                    <FlexRow padding='12'>
-                        <Text font='sans-semibold' size='48'>Metadata</Text>
                     </FlexRow>
                 </Panel>
             </FlexRow>
