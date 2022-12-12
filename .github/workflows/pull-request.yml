@@ -3,14 +3,12 @@ name: Test
 on:
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: browser-actions/setup-chrome@latest
-      - run: chrome --version
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
