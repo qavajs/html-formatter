@@ -9,6 +9,20 @@ import {
     ScrollBars
 } from '@epam/promo';
 
+const Attachment = (props: any) => {
+    if (props.embedding.mime_type === 'image/png') {
+        return <img
+            src={`data:${props.embedding.mime_type};base64,${props.embedding.data}`}
+            alt='attachment'
+            style={{width: '100vw'}}
+        />
+    }
+    if (props.embedding.mime_type === 'text/plain') {
+        return <pre style={{width: '100vw'}}>{props.embedding.data}</pre>
+    }
+    return <span style={{width: '100vw'}}>Cannot render {props.embedding.mime_type}</span>
+}
+
 export const AttachmentModal = (modalProps: any) => {
     return <>
         <ModalBlocker blockerShadow='dark' {...modalProps}>
@@ -17,11 +31,7 @@ export const AttachmentModal = (modalProps: any) => {
                     <ModalHeader title="Attachment" onClose={() => modalProps.success('close')}/>
                     <ScrollBars hasTopShadow hasBottomShadow>
                         <FlexRow padding='24'>
-                            <img
-                                src={`data:${modalProps.embeddings[0].mime_type};base64,${modalProps.embeddings[0].data}`}
-                                alt='attachment'
-                                style={{width: '100%'}}
-                            />
+                            <Attachment embedding={modalProps.embeddings[0]}/>
                         </FlexRow>
                     </ScrollBars>
                     <ModalFooter/>

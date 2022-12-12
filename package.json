@@ -1,8 +1,37 @@
 {
-  "name": "qavajs_html_reporter",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@qavajs/html-formatter",
+  "version": "0.0.1",
+  "main": "src/formatter.js",
   "dependencies": {
+  },
+  "scripts": {
+    "report:compile": "node test/compile_report.js",
+    "report:generate": "qavajs run --config test/test.js",
+    "start": "node scripts/start.js",
+    "build": "node scripts/build.js",
+    "postbuild": "cp build/index.html formatter/index.html",
+    "test": "node scripts/test.js",
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
     "@babel/core": "7.12.3",
     "@epam/assets": "^4.9.1",
     "@epam/promo": "^4.9.1",
@@ -73,33 +102,7 @@
     "webpack": "4.44.2",
     "webpack-dev-server": "3.11.1",
     "webpack-manifest-plugin": "2.2.0",
-    "workbox-webpack-plugin": "5.1.4"
-  },
-  "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js",
-    "analyze": "source-map-explorer 'build/static/js/*.js'"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
+    "workbox-webpack-plugin": "5.1.4",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
     "@types/history": "^4.7.9",
@@ -108,7 +111,9 @@
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
     "@types/react-router-dom": "^5.1.7",
-    "source-map-explorer": "^2.5.3"
+    "source-map-explorer": "^2.5.3",
+    "@cucumber/cucumber": "^8.9.0",
+    "@qavajs/cli": "^0.0.11"
   },
   "jest": {
     "roots": [

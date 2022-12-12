@@ -1,0 +1,7 @@
+node_modules/
+build/
+config/
+public/
+scripts/
+src/
+test/
