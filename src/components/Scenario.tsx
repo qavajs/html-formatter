@@ -13,7 +13,7 @@ const scenarioTitle = (scenario: any) => () => {
     const pending = filterByStatus(scenario, 'pending').length;
 
     return <FlexRow spacing='12' padding="6">
-        <Text fontSize='16' font='sans-semibold'>{scenario.name}</Text>
+        <Text fontSize='16' font='sans-semibold'>Scenario: {scenario.name}</Text>
         {passed > 0 && <Badge color='green' fill='semitransparent' caption={passed}/>}
         {failed > 0 && <Badge color='red' fill='semitransparent' caption={failed}/>}
         {skipped > 0 && <Badge color='blue' fill='semitransparent' caption={skipped}/>}

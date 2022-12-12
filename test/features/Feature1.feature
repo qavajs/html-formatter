@@ -9,6 +9,7 @@ Feature: Feature1
   Scenario: scenario failed
     When passed step
     And failed step
+    And passed step
 
   Scenario: scenario undefined
     When passed step

@@ -6,6 +6,8 @@ When('failed step', () => {throw new Error('failed step')});
 When('pending step', () => { return 'pending' });
 When('ambiguous step', () => {});
 When('ambiguous step', () => {});
+When('data table step', (dataTable) => {});
+When('multiline step', (multiline) => {});
 
 When('text attachment', function () {
     this.attach('multiline\ntext\ncontent', 'text/plain')

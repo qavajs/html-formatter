@@ -26,12 +26,40 @@ const icon = (status: string) => {
     }
 };
 
+const Table = (props: any) => {
+    const cellStyle = {
+        borderRight: 'solid gray 1px',
+        paddingLeft: '6px',
+        paddingRight: '6px'
+    }
+    const firstCellStyle = {
+        ...cellStyle,
+        borderLeft: 'solid gray 1px',
+    }
+    return <table>
+        <tbody>
+            {props.rows.map((row: any, index: number) => <tr key={index}>
+                {row.cells.map((cell: any, index: number) => <td style={index ? cellStyle : firstCellStyle} key={index}>
+                    <Text fontSize='14'>{cell}</Text>
+                </td>)}
+            </tr>)}
+        </tbody>
+    </table>
+}
+
+const Argument = (props: any) => {
+    let argument;
+    if (props.arg.rows) argument = <Table rows={props.arg.rows}/>
+    if (props.arg.content) argument = <pre>{`"""\n${props.arg.content}\n"""`}</pre>
+    return <div style={{marginLeft: '24px'}}>{argument}</div>
+}
+
 export const Step = ({step}: {step: any}) => {
     const svc = useUuiContext();
 
     return <div style={{display: 'block'}}>
         <div style={{display: 'inline-flex'}}>
-            { icon(step.result.status) }
+            {icon(step.result.status)}
             <Text fontSize='16'>{`${step.name ?? step.keyword}`}</Text>
             {step.result.status === 'failed' && step.result.error_message && <IconButton
                 icon={ ErrorIcon }
@@ -42,6 +70,9 @@ export const Step = ({step}: {step: any}) => {
                 icon={ AttachmentIcon }
                 onClick={ () => svc.uuiModals.show((props) => <AttachmentModal { ...props } embeddings={step.embeddings}/>) }
             />}
+        </div>
+        <div style={{display: 'flex'}}>
+            {step.arguments && step.arguments.map((arg: any, index: number) => <Argument key={index} arg={arg}/>)}
         </div>
     </div>
 };
