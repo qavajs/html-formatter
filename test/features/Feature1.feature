@@ -22,3 +22,9 @@ Feature: Feature1
   Scenario: scenario pending
     When passed step
     And pending step
+
+  @there @is @too @many @tags @first_tag @second_tag @third_tag
+  @fourth_tag @fifth_tag @and_so_on @etc
+  @more_words @that @not @fit @to @the @scenario @title @panel
+  Scenario: too many tags scenario that does not fit to the title
+    When passed step

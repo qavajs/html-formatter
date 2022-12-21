@@ -16,3 +16,7 @@ When('text attachment', function () {
 When('png base64 attachment', function () {
     this.attach(require('../attachments/pngBase64'), 'base64:image/png')
 });
+
+When('png full-size base64 attachment', function () {
+    this.attach(require('../attachments/pngFullSizeBase64'), 'base64:image/png')
+});
