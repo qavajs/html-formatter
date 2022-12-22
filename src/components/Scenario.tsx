@@ -1,7 +1,7 @@
 import React from 'react';
-import {FlexRow, Text, Badge, FlexCell, Accordion} from '@epam/promo';
-import {Step} from './Step';
-import css from "../App.module.scss";
+import { FlexRow, Text, Badge, FlexCell, Accordion } from '@epam/promo';
+import { Step } from './Step';
+import css from '../App.module.scss';
 
 const filterByStatus = (scenario: any, status: string) => scenario.steps.filter((step: any) => step.result.status === status);
 const scenarioTitle = (scenario: any) => () => {
@@ -12,7 +12,7 @@ const scenarioTitle = (scenario: any) => () => {
     const ambiguous = filterByStatus(scenario, 'ambiguous').length;
     const pending = filterByStatus(scenario, 'pending').length;
 
-    return <FlexRow spacing='12' padding="6">
+    return <FlexRow spacing='12' padding='6' vPadding='12' cx={css.scenarioTitle}>
         <Text fontSize='16' font='sans-semibold'>Scenario: {scenario.name}</Text>
         {passed > 0 && <Badge color='green' fill='semitransparent' caption={passed}/>}
         {failed > 0 && <Badge color='red' fill='semitransparent' caption={failed}/>}

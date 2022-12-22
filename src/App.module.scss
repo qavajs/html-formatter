@@ -51,6 +51,8 @@ footer {
 
 .tagBadge {
     margin-right: 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
 
 .searchInput {
@@ -87,3 +89,8 @@ footer {
     font-size: 28px;
 }
 
+.scenarioTitle {
+    display: flex;
+    flex-wrap: wrap;
+    width: 95%;
+}

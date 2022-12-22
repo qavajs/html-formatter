@@ -14,7 +14,7 @@ const Attachment = (props: any) => {
         return <img
             src={`data:${props.embedding.mime_type};base64,${props.embedding.data}`}
             alt='attachment'
-            style={{width: '100vw'}}
+            style={{width: '100%'}}
         />
     }
     if (props.embedding.mime_type === 'text/plain') {
