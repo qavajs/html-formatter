@@ -12,3 +12,6 @@ Feature: Attachments
 
   Scenario: png full-size base64
     When png full-size base64 attachment
+
+  Scenario: json
+    When json attachment
