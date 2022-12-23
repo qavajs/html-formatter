@@ -20,3 +20,17 @@ When('png base64 attachment', function () {
 When('png full-size base64 attachment', function () {
     this.attach(require('../attachments/pngFullSizeBase64'), 'base64:image/png')
 });
+
+When('json attachment', function () {
+    this.attach(JSON.stringify({
+        property: 'value',
+        nestedObject: {
+            nestedObjectProperty: 'value2'
+        },
+        arrayProperty: [
+            'val1',
+            'val2',
+            'val3'
+        ]
+    }), 'application/json')
+});

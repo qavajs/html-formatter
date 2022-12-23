@@ -20,6 +20,10 @@ const Attachment = (props: any) => {
     if (props.embedding.mime_type === 'text/plain') {
         return <pre style={{width: '100vw'}}>{props.embedding.data}</pre>
     }
+    if (props.embedding.mime_type === 'application/json') {
+        const pretty = JSON.stringify(JSON.parse(props.embedding.data), null, 2)
+        return <pre style={{width: '100vw'}}>{pretty}</pre>
+    }
     return <span style={{width: '100vw'}}>Cannot render {props.embedding.mime_type}</span>
 }
 
