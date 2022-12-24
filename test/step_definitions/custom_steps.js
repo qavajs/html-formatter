@@ -34,3 +34,7 @@ When('json attachment', function () {
         ]
     }), 'application/json')
 });
+
+When('html base64 attachment', function () {
+    this.attach(require('../attachments/htmlBase64'), 'base64:text/html')
+});

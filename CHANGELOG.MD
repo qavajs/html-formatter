@@ -1,5 +1,7 @@
 # current
 - added capability to write tag name to clipboard
+- added html attachments
+- added capability to open attachment in new tab
 
 # 0.0.4
 - added support application/json
