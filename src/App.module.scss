@@ -94,3 +94,7 @@ footer {
     flex-wrap: wrap;
     width: 95%;
 }
+
+.div[role=table] > div:first-child {
+    z-index: 0;
+}

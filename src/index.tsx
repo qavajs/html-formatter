@@ -12,6 +12,41 @@ import { svc } from './services';
 
 const history = createBrowserHistory();
 
+declare global {
+    interface Window {
+        data: any;
+        sourceData: Array<any>;
+        metadata: Array<{key: string, value: string, id: string}>;
+        metaSourceData: {
+            [prop: string]: string
+        };
+    }
+}
+
+window.metadata = Object.entries(window.metaSourceData ?? {})
+    .map(([key, value]: [key: string, value: string], index: number) => ({key, value, id: 'value' + index}));
+
+const data = window.sourceData
+    .map((feature: any) => ({
+        ...feature,
+        total: feature.elements.length,
+        elements: feature.elements.map((scenario: any) => ({
+            ...scenario,
+            isFailed: scenario.steps.some((step: any) => step.result.status === 'failed')
+        })),
+    }))
+    .map((feature: any) => ({
+        ...feature,
+        failed: feature.elements.filter((scenario: any) => scenario.isFailed).length,
+        passed: feature.elements.filter((scenario: any) => !scenario.isFailed).length,
+    }))
+    .map((feature: any) => ({
+        ...feature,
+        status: feature.failed > 0 ? 'failed' : 'passed'
+    }));
+
+window.data = data;
+
 const UuiEnhancedApp = () => (
     <ContextProvider
         onInitCompleted={ (context) => {
