@@ -27,5 +27,7 @@ module.exports = {
 
 or pass `--format @qavajs/html-formatter:report.html` in cli
 
+![](assets/qavajs_html_reporter.png)
+
 Kudos to https://github.com/epam/UUI for providing components
 
