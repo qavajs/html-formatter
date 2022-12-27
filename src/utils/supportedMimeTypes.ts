@@ -14,7 +14,7 @@ export const json = [
     'application/json'
 ]
 
-export default [
+export const supportedMimeTypes = [
     ...image,
     ...iframe,
     ...text,

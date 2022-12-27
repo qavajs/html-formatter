@@ -14,7 +14,7 @@ import { ReactComponent as AttachmentIcon } from '@epam/assets/icons/common/file
 import css from '../App.module.scss';
 import { useUuiContext } from '@epam/uui-core';
 import { AttachmentModal } from './AttachmentModal';
-import supportedMimeTypes from "../utils/supportedMimeTypes";
+import { supportedMimeTypes } from '../utils/supportedMimeTypes';
 import { openInNewTab } from "../utils/openInNewTab";
 
 const icon = (status: string) => {
