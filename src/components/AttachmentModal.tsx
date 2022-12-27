@@ -9,21 +9,18 @@ import {
     ScrollBars,
     LinkButton
 } from '@epam/promo';
+import { openInNewTab } from '../utils/openInNewTab';
+import { image, iframe, json, text } from '../utils/supportedMimeTypes';
 
 const OpenInNewTab = (props: any) => <LinkButton
-    caption='Open in new tab'
+    caption={props.title}
     size='30'
-    onClick={async () => {
-        const f = await fetch(`data:${props.embedding.mime_type};base64,${props.embedding.data}`);
-        const blob = await f.blob();
-        const blobUrl = URL.createObjectURL(blob);
-        window.open(blobUrl, '_blank');
-    }}
+    onClick={openInNewTab(props.embedding.data, props.embedding.mime_type)}
 />
 const Attachment = (props: any) => {
-    if (props.embedding.mime_type === 'image/png') {
+    if (image.includes(props.embedding.mime_type)) {
         return <div>
-            <OpenInNewTab embedding={props.embedding}/>
+            <OpenInNewTab embedding={props.embedding} title='Open in new tab'/>
             <img
                 src={`data:${props.embedding.mime_type};base64,${props.embedding.data}`}
                 alt='attachment'
@@ -31,16 +28,16 @@ const Attachment = (props: any) => {
             />
         </div>
     }
-    if (props.embedding.mime_type === 'text/plain') {
+    if (text.includes(props.embedding.mime_type)) {
         return <pre style={{width: '100vw'}}>{props.embedding.data}</pre>
     }
-    if (props.embedding.mime_type === 'application/json') {
+    if (json.includes(props.embedding.mime_type)) {
         const pretty = JSON.stringify(JSON.parse(props.embedding.data), null, 2)
         return <pre style={{width: '100vw'}}>{pretty}</pre>
     }
-    if (props.embedding.mime_type === 'text/html') {
+    if (iframe.includes(props.embedding.mime_type)) {
         return <div style={{width: '90vw', height: '60vh'}}>
-            <OpenInNewTab embedding={props.embedding}/>
+            <OpenInNewTab embedding={props.embedding} title='Open in new tab'/>
             <iframe
                 style={{width: '100%', height: '95%', border: '1px gray solid'}}
                 title='html attachment'
@@ -59,7 +56,7 @@ export const AttachmentModal = (modalProps: any) => {
                     <ModalHeader title="Attachment" onClose={() => modalProps.success('close')}/>
                     <ScrollBars hasTopShadow hasBottomShadow>
                         <FlexRow padding='24'>
-                            <Attachment embedding={modalProps.embeddings[0]}/>
+                            <Attachment embedding={modalProps.embedding}/>
                         </FlexRow>
                     </ScrollBars>
                     <ModalFooter/>

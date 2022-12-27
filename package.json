@@ -1,12 +1,12 @@
 {
   "name": "@qavajs/html-formatter",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "formatter/formatter.js",
   "dependencies": {
   },
   "scripts": {
     "report:compile": "node test/compile_report.js",
-    "report:generate": "qavajs run --config test/test.js",
+    "report:generate": "qavajs run --config report/test.js",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "postbuild": "cp build/index.html formatter/index.html",

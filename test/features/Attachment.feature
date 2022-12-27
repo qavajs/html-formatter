@@ -18,3 +18,9 @@ Feature: Attachments
 
   Scenario: html
     When html base64 attachment
+
+  Scenario: multiple attachments
+    When multiple attachments
+
+  Scenario: unsupported attachments
+    When unsupported base64 attachment
