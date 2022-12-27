@@ -15,3 +15,6 @@ Feature: Attachments
 
   Scenario: json
     When json attachment
+
+  Scenario: html
+    When html base64 attachment
