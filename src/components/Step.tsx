@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, IconContainer, IconButton } from '@epam/promo';
+import { Text, IconContainer, IconButton, LinkButton } from '@epam/promo';
 import { ErrorModal } from './ErrorModal';
 import { ReactComponent as PassedIcon } from '@epam/assets/icons/common/notification-done-24.svg';
 import { ReactComponent as FailedIcon } from '@epam/assets/icons/common/navigation-close-24.svg';
@@ -14,6 +14,8 @@ import { ReactComponent as AttachmentIcon } from '@epam/assets/icons/common/file
 import css from '../App.module.scss';
 import { useUuiContext } from '@epam/uui-core';
 import { AttachmentModal } from './AttachmentModal';
+import { supportedMimeTypes } from '../utils/supportedMimeTypes';
+import { openInNewTab } from "../utils/openInNewTab";
 
 const icon = (status: string) => {
     switch (status) {
@@ -54,6 +56,13 @@ const Argument = (props: any) => {
     return <div style={{marginLeft: '24px'}}>{argument}</div>
 }
 
+const handleAttachmentClick = (embedding: any, svc: any) => {
+    if (supportedMimeTypes.includes(embedding.mime_type)) {
+        return (e?: Event) => svc.uuiModals.show((props: any) => <AttachmentModal { ...props } embedding={embedding}/>)
+    }
+    return openInNewTab(embedding.data, embedding.mime_type)
+}
+
 export const Step = ({step}: {step: any}) => {
     const svc = useUuiContext();
 
@@ -66,10 +75,12 @@ export const Step = ({step}: {step: any}) => {
                 color='red'
                 onClick={ () => svc.uuiModals.show((props) => <ErrorModal { ...props } error={step.result.error_message}/>) }
             />}
-            {step.embeddings && <IconButton
+            {step.embeddings && step.embeddings.map((embedding: any, index: any) => <LinkButton
+                key={index}
                 icon={ AttachmentIcon }
-                onClick={ () => svc.uuiModals.show((props) => <AttachmentModal { ...props } embeddings={step.embeddings}/>) }
-            />}
+                caption={ embedding.mime_type }
+                onClick={ handleAttachmentClick(embedding, svc) }
+            />)}
         </div>
         <div style={{display: 'flex'}}>
             {step.arguments && step.arguments.map((arg: any, index: number) => <Argument key={index} arg={arg}/>)}

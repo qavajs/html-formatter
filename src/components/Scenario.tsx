@@ -22,6 +22,7 @@ const scenarioTitle = (scenario: any) => () => {
         {ambiguous > 0 && <Badge color='orange' fill='semitransparent' caption={ambiguous}/>}
         {pending > 0 && <Badge color='gray30' fill='semitransparent' caption={pending}/>}
         {scenario.tags.map((tag: any) => <Badge
+            key={tag.name}
             cx={css.tagBadge}
             size='18'
             color='blue'

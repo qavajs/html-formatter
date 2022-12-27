@@ -1,4 +1,9 @@
-# current
+# 0.0.6
+- added unsupported attachment handler
+- added multiple attachment support
+- added mime type display for attachments
+
+# 0.0.5
 - added capability to write tag name to clipboard
 - added html attachments
 - added capability to open attachment in new tab

@@ -1,4 +1,4 @@
-const { Given, When, Then } = require('@cucumber/cucumber');
+const { Given, When } = require('@cucumber/cucumber');
 
 Given('background', () => {});
 When('passed step', () => {});
@@ -10,15 +10,15 @@ When('data table step', (dataTable) => {});
 When('multiline step', (multiline) => {});
 
 When('text attachment', function () {
-    this.attach('multiline\ntext\ncontent', 'text/plain')
+    this.attach('multiline\ntext\ncontent', 'text/plain');
 });
 
 When('png base64 attachment', function () {
-    this.attach(require('../attachments/pngBase64'), 'base64:image/png')
+    this.attach(require('../attachments/pngBase64'), 'base64:image/png');
 });
 
 When('png full-size base64 attachment', function () {
-    this.attach(require('../attachments/pngFullSizeBase64'), 'base64:image/png')
+    this.attach(require('../attachments/pngFullSizeBase64'), 'base64:image/png');
 });
 
 When('json attachment', function () {
@@ -32,9 +32,19 @@ When('json attachment', function () {
             'val2',
             'val3'
         ]
-    }), 'application/json')
+    }), 'application/json');
 });
 
 When('html base64 attachment', function () {
-    this.attach(require('../attachments/htmlBase64'), 'base64:text/html')
+    this.attach(require('../attachments/htmlBase64'), 'base64:text/html');
 });
+
+When('multiple attachments', function () {
+    this.attach(require('../attachments/pngBase64'), 'base64:image/png');
+    this.attach(require('../attachments/pngFullSizeBase64'), 'base64:image/png');
+});
+
+When('unsupported base64 attachment', function () {
+    this.attach(require('../attachments/unsupportedBase64'), 'base64:application/zip');
+});
+
