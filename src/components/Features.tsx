@@ -10,6 +10,7 @@ import {
 } from '@epam/promo';
 import { DataColumnProps, useArrayDataSource } from '@epam/uui-core';
 import css from '../App.module.scss';
+import clipboard from '../utils/clipboard';
 
 type Feature = {
     id: string,
@@ -43,7 +44,15 @@ const featureColumns: DataColumnProps<Feature>[] = [
         key: 'tags',
         caption: 'Tags',
         render: item => (<FlexRow>
-            {item.tags.map((tag: any, index: number) => <Badge cx={css.tagBadge} size='18' color='blue' fill='semitransparent' caption={tag.name} key={index}/>)}
+            {item.tags.map((tag: any, index: number) => <Badge
+                cx={css.tagBadge}
+                size='18'
+                color='blue'
+                fill='semitransparent'
+                caption={tag.name}
+                key={index}
+                onClick={clipboard(tag.name)}
+            />)}
         </FlexRow>),
         grow: 1,
         width: 200,

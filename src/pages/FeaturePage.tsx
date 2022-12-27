@@ -3,6 +3,7 @@ import { FlexSpacer, FlexRow, TextInput, Switch, Text, Badge } from '@epam/promo
 import { useParams } from 'react-router-dom';
 import { Scenario } from '../components/Scenario';
 import css from "../App.module.scss";
+import clipboard from '../utils/clipboard';
 
 const filterScenarios = (
     tableData: Array<any>,
@@ -17,10 +18,16 @@ const filterScenarios = (
 }
 
 const FeatureTitle = (props: any) => <FlexRow padding='12' vPadding='12'>
-    {/*<Panel cx={css.featureTitle} background='white' shadow>*/}
-        <Text font='sans-semibold' cx={css.featureTitle}>Feature: {props.feature.name}</Text>
-        {props.feature.tags.map((tag: any, index: number) => <Badge cx={css.tagBadge} key={index} size='18' color='blue' fill='semitransparent' caption={tag.name} />)}
-    {/*</Panel>*/}
+    <Text font='sans-semibold' cx={css.featureTitle}>Feature: {props.feature.name}</Text>
+    {props.feature.tags.map((tag: any, index: number) => <Badge
+        cx={css.tagBadge}
+        key={index}
+        size='18'
+        color='blue'
+        fill='semitransparent'
+        caption={tag.name}
+        onClick={clipboard(tag.name)}
+    />)}
 </FlexRow>
 
 export const FeaturePage = () => {

@@ -1,3 +1,9 @@
+# current
+- added capability to write tag name to clipboard
+
+# 0.0.4
+- added support application/json
+
 # 0.0.3
 - fixed image fit
 - fixed tags fit in title

@@ -2,6 +2,7 @@ import React from 'react';
 import { FlexRow, Text, Badge, FlexCell, Accordion } from '@epam/promo';
 import { Step } from './Step';
 import css from '../App.module.scss';
+import clipboard from '../utils/clipboard';
 
 const filterByStatus = (scenario: any, status: string) => scenario.steps.filter((step: any) => step.result.status === status);
 const scenarioTitle = (scenario: any) => () => {
@@ -20,7 +21,14 @@ const scenarioTitle = (scenario: any) => () => {
         {undefinedSteps > 0 && <Badge color='amber' fill='semitransparent' caption={undefinedSteps}/>}
         {ambiguous > 0 && <Badge color='orange' fill='semitransparent' caption={ambiguous}/>}
         {pending > 0 && <Badge color='gray30' fill='semitransparent' caption={pending}/>}
-        {scenario.tags.map((tag: any) => <Badge cx={css.tagBadge} size='18' color='blue' fill='semitransparent' caption={tag.name} />)}
+        {scenario.tags.map((tag: any) => <Badge
+            cx={css.tagBadge}
+            size='18'
+            color='blue'
+            fill='semitransparent'
+            caption={tag.name}
+            onClick={clipboard(tag.name)}
+        />)}
     </FlexRow>
 }
 
