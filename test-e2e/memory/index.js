@@ -3,7 +3,7 @@ const { resolve } = require('path');
 const file = (path) => `file://${path}`
 
 class Memory {
-    reportPage = file(resolve('./test/report/report.html'));
+    reportPage = file(resolve('./test/report.html'));
     htmlBase64 = require('../../test/attachments/htmlBase64');
     pngBase64 = require('../../test/attachments/pngBase64');
     pngFullSizeBase64 = require('../../test/attachments/pngFullSizeBase64');
