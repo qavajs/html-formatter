@@ -6,3 +6,4 @@ scripts/
 src/
 test/
 assets/
+test-e2e/
