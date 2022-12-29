@@ -25,3 +25,4 @@ yarn-error.log*
 .idea
 
 test/report/
+test-e2e/report/
