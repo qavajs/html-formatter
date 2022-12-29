@@ -1,5 +1,5 @@
-const Memory = require('./memory');
-const App = require('./po');
+import Memory from './memory';
+import App from './po';
 
 const common = {
     paths: ['test-e2e/features/*.feature'],
@@ -24,21 +24,20 @@ const common = {
     publishQuiet: true
 };
 
-module.exports = {
-    default: common,
-    debug: {
-        ...common,
-        tags: '@debug',
-        browser: {
-            logLevel: 'warn',
-            timeout: {
-                page: 5000
-            },
-            capabilities: {
-                browserName: 'chromium',
-                headless: false
-            }
+export default common;
+
+export const debug = {
+    ...common,
+    tags: '@debug',
+    browser: {
+        logLevel: 'warn',
+        timeout: {
+            page: 5000
         },
-        format: ['@qavajs/console-formatter'],
-    }
-}
+        capabilities: {
+            browserName: 'chromium',
+            headless: false
+        }
+    },
+    format: ['@qavajs/console-formatter'],
+};
