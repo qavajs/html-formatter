@@ -30,25 +30,28 @@ const FeatureTitle = (props: any) => <FlexRow padding='12' vPadding='12'>
     />)}
 </FlexRow>
 
+function handleSwitchChange(setShowOnlyFailed: (value: boolean) => void) {
+    return function (value: boolean) {
+        window.sessionStorage.setItem('isFeatureShowOnlyFailed', value.toString())
+        setShowOnlyFailed(value);
+    };
+}
+
 export const FeaturePage = () => {
     const { id }: { id: string } = useParams();
-    const isSingleFeatureView = !!id;
-    const feature = isSingleFeatureView
-        ? window.data.find((feature: any) => feature.id === id)
-        : window.data.reduce((failedScenarios: any, feature: any) => {
-            failedScenarios.elements.push(...feature.elements.filter((scenario: any) => scenario.isFailed))
-            return failedScenarios
-        }, {elements: []});
+    const feature = window.data.find((feature: any) => feature.id === id)
     const [searchValue, setSearchValue] = useState('');
-    const [showOnlyFailed, setShowOnlyFailed] = useState(false);
+    const [showOnlyFailed, setShowOnlyFailed] = useState(
+        window.sessionStorage.getItem('isFeatureShowOnlyFailed') === 'true'
+    );
 
     return <>
-        {isSingleFeatureView && <FeatureTitle feature={feature}/>}
+        <FeatureTitle feature={feature}/>
         <FlexRow padding='12' vPadding='12'>
             {/*@ts-ignore*/}
             <TextInput cx={css.searchInput} value={ searchValue } onValueChange={ setSearchValue }  placeholder='Search'/>
             <FlexSpacer/>
-            <Switch label='Show Only Failed' value={ showOnlyFailed } onValueChange={ setShowOnlyFailed }/>
+            <Switch label='Show Only Failed' value={ showOnlyFailed } onValueChange={ handleSwitchChange(setShowOnlyFailed) }/>
         </FlexRow>
         {filterScenarios(feature.elements, {searchValue, showOnlyFailed}).map(
             (scenario: any, index: number) => <Scenario key={index} scenario={scenario}/>

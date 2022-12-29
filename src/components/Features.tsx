@@ -95,10 +95,19 @@ const filterTable = (
     })
 }
 
+function handleSwitchChange(setShowOnlyFailed: (value: boolean) => void) {
+    return function (value: boolean) {
+        window.sessionStorage.setItem('isMainShowOnlyFailed', value.toString())
+        setShowOnlyFailed(value);
+    };
+}
+
 export const Features = (props: any) => {
     const [table, setTable] = useState({});
     const [searchValue, setSearchValue] = useState('');
-    const [showOnlyFailed, setShowOnlyFailed] = useState(false);
+    const [showOnlyFailed, setShowOnlyFailed] = useState(
+        window.sessionStorage.getItem('isMainShowOnlyFailed') === 'true'
+    );
 
     const dataSource = useArrayDataSource<Feature, number, unknown>({
         items: filterTable(props.data, {searchValue, showOnlyFailed}),
@@ -113,7 +122,7 @@ export const Features = (props: any) => {
                     {/*@ts-ignore*/}
                     <TextInput cx={css.searchInput} value={ searchValue } onValueChange={ setSearchValue }  placeholder='Search'/>
                     <FlexSpacer/>
-                    <Switch label='Show Only Failed' value={ showOnlyFailed } onValueChange={ setShowOnlyFailed }/>
+                    <Switch label='Show Only Failed' value={ showOnlyFailed } onValueChange={ handleSwitchChange(setShowOnlyFailed) }/>
                 </FlexRow>
                 <FlexRow>
                     <DataTable

@@ -2,6 +2,8 @@
 - added unsupported attachment handler
 - added multiple attachment support
 - added mime type display for attachments
+- added feature names to failed page
+- added possibility to save state of "show only failed" switch
 
 # 0.0.5
 - added capability to write tag name to clipboard
