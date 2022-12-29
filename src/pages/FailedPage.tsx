@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import {FlexSpacer, FlexRow, TextInput, Switch, Text, Badge} from '@epam/promo';
-import {Scenario} from '../components/Scenario';
-import css from "../App.module.scss";
+import React, { useState } from 'react';
+import { FlexRow, TextInput, Text, Badge } from '@epam/promo';
+import { Scenario } from '../components/Scenario';
+import css from '../App.module.scss';
 import clipboard from '../utils/clipboard';
 
 const filterScenarios = (

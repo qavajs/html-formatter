@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FlexSpacer, FlexRow, TextInput, Switch, Text, Badge } from '@epam/promo';
 import { useParams } from 'react-router-dom';
 import { Scenario } from '../components/Scenario';
-import css from "../App.module.scss";
+import css from '../App.module.scss';
 import clipboard from '../utils/clipboard';
 
 const filterScenarios = (
