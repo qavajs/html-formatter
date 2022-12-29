@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { FlexSpacer, FlexRow, TextInput, Switch, Text, Badge } from '@epam/promo';
+import { FlexSpacer, FlexRow, TextInput, Switch } from '@epam/promo';
 import { useParams } from 'react-router-dom';
 import { Scenario } from '../components/Scenario';
 import css from '../App.module.scss';
-import clipboard from '../utils/clipboard';
+import { FeatureTitle } from '../components/FeatureTitle';
 
 const filterScenarios = (
     tableData: Array<any>,
@@ -16,19 +16,6 @@ const filterScenarios = (
         return result
     })
 }
-
-const FeatureTitle = (props: any) => <FlexRow padding='12' vPadding='12'>
-    <Text font='sans-semibold' cx={css.featureTitle}>Feature: {props.feature.name}</Text>
-    {props.feature.tags.map((tag: any, index: number) => <Badge
-        cx={css.tagBadge}
-        key={index}
-        size='18'
-        color='blue'
-        fill='semitransparent'
-        caption={tag.name}
-        onClick={clipboard(tag.name)}
-    />)}
-</FlexRow>
 
 function handleSwitchChange(setShowOnlyFailed: (value: boolean) => void) {
     return function (value: boolean) {
@@ -49,7 +36,7 @@ export const FeaturePage = () => {
         <FeatureTitle feature={feature}/>
         <FlexRow padding='12' vPadding='12'>
             {/*@ts-ignore*/}
-            <TextInput cx={css.searchInput} value={ searchValue } onValueChange={ setSearchValue }  placeholder='Search'/>
+            <TextInput cx={css.searchInput} value={ searchValue } onValueChange={ setSearchValue } placeholder='Search'/>
             <FlexSpacer/>
             <Switch label='Show Only Failed' value={ showOnlyFailed } onValueChange={ handleSwitchChange(setShowOnlyFailed) }/>
         </FlexRow>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { FlexRow, TextInput, Text, Badge } from '@epam/promo';
+import { FlexRow, TextInput } from '@epam/promo';
 import { Scenario } from '../components/Scenario';
 import css from '../App.module.scss';
-import clipboard from '../utils/clipboard';
+import { FeatureTitle } from '../components/FeatureTitle';
 
 const filterScenarios = (
     tableData: Array<any>,
@@ -14,19 +14,6 @@ const filterScenarios = (
             elements: feature.elements.filter((scenario: any) => scenario.name.toLowerCase().includes(filterOptions.searchValue.toLowerCase()))
         }))
 }
-
-const FeatureTitle = (props: any) => <FlexRow padding='12' vPadding='12'>
-    <Text font='sans-semibold' cx={css.featureTitle}>Feature: {props.feature.name}</Text>
-    {props.feature.tags.map((tag: any, index: number) => <Badge
-        cx={css.tagBadge}
-        key={index}
-        size='18'
-        color='blue'
-        fill='semitransparent'
-        caption={tag.name}
-        onClick={clipboard(tag.name)}
-    />)}
-</FlexRow>
 
 export const FailedPage = () => {
     const features = window.data
