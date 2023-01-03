@@ -5,9 +5,14 @@ Feature: Feature2
     Given background
 
   @scenario_tag
-  Scenario: scenario passed
+  Scenario: scenario passed in feature 2
     When passed step
 
-  Scenario: scenario failed
+  Scenario: scenario failed in feature 2
     When passed step
     And failed step
+
+  Scenario: second scenario failed in feature 2
+    When passed step
+    And failed step
+
