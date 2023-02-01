@@ -28,3 +28,9 @@ Feature: Feature1
   @more_words @that @not @fit @to @the @scenario @title @panel
   Scenario: too many tags scenario that does not fit to the title
     When passed step
+
+  Scenario: some name
+    When passed step
+
+  Scenario: some name
+    When failed step
