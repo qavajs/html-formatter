@@ -1,3 +1,6 @@
+# 0.0.7
+- fixed duplicated results in case of same feature name
+
 # 0.0.6
 - added unsupported attachment handler
 - added multiple attachment support

@@ -27,8 +27,9 @@ window.metadata = Object.entries(window.metaSourceData ?? {})
     .map(([key, value]: [key: string, value: string], index: number) => ({key, value, id: 'value' + index}));
 
 const data = window.sourceData
-    .map((feature: any) => ({
+    .map((feature: any, index: number) => ({
         ...feature,
+        id: feature.id + index,
         total: feature.elements.length,
         elements: feature.elements.map((scenario: any) => ({
             ...scenario,

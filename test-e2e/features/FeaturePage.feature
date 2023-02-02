@@ -12,13 +12,13 @@ Feature: Feature Page
 
   Scenario: verify that user can filter only failed on feature page
     When I click 'Feature > Show Only Failed'
-    Then I expect number of elements in 'Feature > Scenarios' collection to be equal '1'
+    Then I expect number of elements in 'Feature > Scenarios' collection to be equal '2'
     And I expect text of 'Feature > #1 of Scenarios > Title' to be equal 'Scenario: scenario failed'
 
   Scenario: verify that filter state is saved
     When I click 'Feature > Show Only Failed'
-    Then I expect number of elements in 'Feature > Scenarios' collection to be equal '1'
+    Then I expect number of elements in 'Feature > Scenarios' collection to be equal '2'
     And I expect text of 'Feature > #1 of Scenarios > Title' to be equal 'Scenario: scenario failed'
     When I refresh page
-    Then I expect number of elements in 'Feature > Scenarios' collection to be equal '1'
+    Then I expect number of elements in 'Feature > Scenarios' collection to be equal '2'
     And I expect text of 'Feature > #1 of Scenarios > Title' to be equal 'Scenario: scenario failed'
