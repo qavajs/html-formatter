@@ -1,7 +1,7 @@
 import { $, $$, Component } from '@qavajs/po-playwright';
 
 class Row extends Component {
-    Name = $('.mcDo6 .P755f .uui-caption');
+    Name = $('a[href*=feature]');
 }
 
 export default class FeaturesTable extends Component {
