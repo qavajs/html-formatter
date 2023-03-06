@@ -1,3 +1,6 @@
+# 0.0.8
+- added capability to attach cucumber logs
+
 # 0.0.7
 - fixed duplicated results in case of same feature name
 

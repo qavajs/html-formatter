@@ -48,3 +48,15 @@ When('unsupported base64 attachment', function () {
     this.attach(require('../attachments/unsupportedBase64').default, 'base64:application/zip');
 });
 
+When('passed step with log', function () {
+    this.log('some information in passed step');
+    this.log('one more log line')
+
+});
+When('failed step with log', function () {
+    this.log('some information in failed step');
+    this.log('ER: expected result');
+    this.log('AR: actual result');
+    throw new Error('failed step');
+});
+

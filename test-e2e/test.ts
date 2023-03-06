@@ -21,6 +21,7 @@ const common = {
     },
     memory: new Memory(),
     pageObject: new App(),
+    retry: 1,
     publishQuiet: true
 };
 

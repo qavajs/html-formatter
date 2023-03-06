@@ -5,6 +5,6 @@ class Step extends Component {
 }
 
 export default class Scenario extends Component {
-    Title = $('.uui-accordion-toggler .t2Air._2NWkE._16JVi._2LUBH._30qZ_._1YeLH._2khSS');
+    Title = $('.uui-accordion-toggle-container > div > div');
     Steps = $$(new Step('.uui-accordion-body > div'));
 }

@@ -10,12 +10,14 @@ import { ReactComponent as PendingIcon } from '@epam/assets/icons/common/navigat
 
 import { ReactComponent as ErrorIcon } from '@epam/assets/icons/common/notification-info-fill-24.svg';
 import { ReactComponent as AttachmentIcon } from '@epam/assets/icons/common/file-attachment-24.svg';
+import { ReactComponent as LogsIcon } from '@epam/assets/icons/common/content-code-24.svg';
 
 import css from '../App.module.scss';
 import { useUuiContext } from '@epam/uui-core';
 import { AttachmentModal } from './AttachmentModal';
 import { supportedMimeTypes } from '../utils/supportedMimeTypes';
-import { openInNewTab } from "../utils/openInNewTab";
+import { openInNewTab } from '../utils/openInNewTab';
+import { LogsModal } from './LogsModal';
 
 const icon = (status: string) => {
     switch (status) {
@@ -63,8 +65,15 @@ const handleAttachmentClick = (embedding: any, svc: any) => {
     return openInNewTab(embedding.data, embedding.mime_type)
 }
 
+const handleLogsClick = (logs: any[], svc: any) => {
+    return (e?: Event) => svc.uuiModals.show((props: any) => <LogsModal { ...props } logs={logs}/>)
+}
+
 export const Step = ({step}: {step: any}) => {
     const svc = useUuiContext();
+    const logs = step.embeddings
+        ? step.embeddings.filter((embedding: any) => embedding.mime_type === 'text/x.cucumber.log+plain')
+        : [];
 
     return <div style={{display: 'block'}}>
         <div style={{display: 'inline-flex'}}>
@@ -75,12 +84,20 @@ export const Step = ({step}: {step: any}) => {
                 color='red'
                 onClick={ () => svc.uuiModals.show((props) => <ErrorModal { ...props } error={step.result.error_message}/>) }
             />}
-            {step.embeddings && step.embeddings.map((embedding: any, index: any) => <LinkButton
-                key={index}
-                icon={ AttachmentIcon }
-                caption={ embedding.mime_type }
-                onClick={ handleAttachmentClick(embedding, svc) }
-            />)}
+            {logs.length > 0 && <LinkButton
+                icon={ LogsIcon }
+                caption='Logs'
+                onClick={ handleLogsClick(logs, svc) }
+            />}
+            {step.embeddings && step.embeddings
+                .filter((embedding: any) => embedding.mime_type !== 'text/x.cucumber.log+plain')
+                .map((embedding: any, index: any) => <LinkButton
+                    key={index}
+                    icon={ AttachmentIcon }
+                    caption={ embedding.mime_type }
+                    onClick={ handleAttachmentClick(embedding, svc) }
+                />)
+            }
         </div>
         <div style={{display: 'flex'}}>
             {step.arguments && step.arguments.map((arg: any, index: number) => <Argument key={index} arg={arg}/>)}
