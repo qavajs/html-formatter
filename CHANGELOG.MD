@@ -1,3 +1,6 @@
+# 0.0.9
+- fixed issue of not opening features with /%# in names
+
 # 0.0.8
 - added capability to attach cucumber logs
 

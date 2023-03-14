@@ -29,7 +29,7 @@ window.metadata = Object.entries(window.metaSourceData ?? {})
 const data = window.sourceData
     .map((feature: any, index: number) => ({
         ...feature,
-        id: feature.id + index,
+        id: feature.id.replace(/[/#%]/g, 'x') + index,
         total: feature.elements.length,
         elements: feature.elements.map((scenario: any) => ({
             ...scenario,
