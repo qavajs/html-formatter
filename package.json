@@ -1,6 +1,6 @@
 {
   "name": "@qavajs/html-formatter",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "main": "formatter/formatter.js",
   "scripts": {
     "report:compile": "node test/compile_report.js",
