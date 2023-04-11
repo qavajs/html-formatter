@@ -1,3 +1,6 @@
+# 0.0.10
+- fixed issue of not escaped chars in logs
+
 # 0.0.9
 - fixed issue of not opening features with /%# in names
 
