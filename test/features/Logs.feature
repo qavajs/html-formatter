@@ -5,3 +5,6 @@ Feature: Logs
 
   Scenario: scenario failed with logs
     And failed step with log
+
+  Scenario: scenario dollar replace
+    And I expect 'some string' to match '^120$'

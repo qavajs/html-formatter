@@ -9,9 +9,10 @@ class HTMLFormatter extends JsonFormatter {
         const log = this.log.bind(this);
         this.log = function(json) {
             const htmlTemplate = fs.readFileSync(path.resolve(__dirname, './index.html'), 'utf-8');
+            console.log(JSON.stringify(JSON.parse(json)))
             log(htmlTemplate
-                .replace('METADATA', JSON.stringify(this.metadata, null, 0))
-                .replace('SOURCE_DATA', JSON.stringify(JSON.parse(json), null, 0)));
+                .replace('METADATA', () => JSON.stringify(this.metadata, null, 0))
+                .replace('SOURCE_DATA', () => JSON.stringify(JSON.parse(json.replace(/\$/g, '$$')), null, 0)));
         }
     }
 
