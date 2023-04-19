@@ -1,3 +1,6 @@
+# 0.0.11
+- fixed $' replace issue
+
 # 0.0.10
 - fixed issue of not escaped chars in logs
 

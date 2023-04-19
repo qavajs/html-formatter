@@ -60,3 +60,5 @@ When('failed step with log', function () {
     throw new Error('failed step');
 });
 
+When(`I expect {string} to match {string}`, async function (one, two) {});
+
