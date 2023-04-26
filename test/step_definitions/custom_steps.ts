@@ -35,6 +35,10 @@ When('json attachment', function () {
     }), 'application/json');
 });
 
+When('text base64 attachment', function () {
+    this.attach('I\'m base 64 encoded text', 'base64:text/plain');
+});
+
 When('html base64 attachment', function () {
     this.attach(require('../attachments/htmlBase64.ts').default, 'base64:text/html');
 });
