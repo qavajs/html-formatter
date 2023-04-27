@@ -37,9 +37,10 @@ Feature: Attachment
     And I expect text of 'Attachment Overlay > Text' to be equal '<data>'
 
     Examples:
-      | mimeType         | scenario | data                     |
-      | text/plain       | text     | multiline\ntext\ncontent |
-      | application/json | json     | $jsonText                |
+      | mimeType         | scenario      | data                     |
+      | text/plain       | text          | multiline\ntext\ncontent |
+      | text/plain       | string base64 | I\'m base 64 encoded text |
+      | application/json | json          | $jsonText                |
 
   Scenario: verify that user can open any of multiple attachments
     When I click 'Main > Features Table > #ATTACHMENT in Rows > Name'

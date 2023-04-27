@@ -7,6 +7,9 @@ Feature: Attachments
   Scenario: text
     When text attachment
 
+  Scenario: string base64
+    When text base64 attachment
+
   Scenario: png base64
     When png base64 attachment
 

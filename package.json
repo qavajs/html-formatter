@@ -1,13 +1,13 @@
 {
   "name": "@qavajs/html-formatter",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "main": "formatter/formatter.js",
   "scripts": {
     "report:compile": "node test/compile_report.js",
     "report:compile:dev": "node test/compile_dev.js",
     "report:generate": "ts-node --esm node_modules/.bin/qavajs run --config test/report.ts",
-    "test:e2e": "ts-node --esm node_modules/.bin/qavajs run --config test-e2e/test.ts",
-    "debug:e2e": "ts-node --esm node_modules/.bin/qavajs run --config test-e2e/test.ts --profile debug",
+    "test:e2e": "ts-node --esm --project test-e2e/tsconfig.json node_modules/.bin/qavajs run --config test-e2e/test.ts",
+    "debug:e2e": "ts-node --esm --project test-e2e/tsconfig.json node_modules/.bin/qavajs run --config test-e2e/test.ts --profile debug",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "postbuild": "cp build/index.html formatter/index.html",
@@ -32,6 +32,11 @@
       "last 1 safari version"
     ]
   },
+  "keywords": [
+    "QA",
+    "Test Automation",
+    "Cucumber"
+  ],
   "devDependencies": {
     "@babel/core": "^7.21.0",
     "@cucumber/cucumber": "^9.1.0",
@@ -42,9 +47,9 @@
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.3",
     "@qavajs/cli": "^0.0.21",
     "@qavajs/console-formatter": "^0.2.1",
-    "@qavajs/memory": "^1.2.1",
-    "@qavajs/po-playwright": "^0.0.8",
-    "@qavajs/steps-playwright": "^0.0.18",
+    "@qavajs/memory": "^1.3.0",
+    "@qavajs/po-playwright": "^0.0.9",
+    "@qavajs/steps-playwright": "^0.0.19",
     "@qavajs/xunit-formatter": "^0.0.4",
     "@svgr/webpack": "5.5.0",
     "@testing-library/jest-dom": "^5.16.5",
