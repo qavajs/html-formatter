@@ -6,6 +6,7 @@ const common = {
     format: [
         'json:test/report.json',
         './formatter/formatter:test/report.html',
+        './formatter/json_formatter:test/report_new.json'
     ],
     formatOptions: {
         htmlConfig: {
@@ -15,7 +16,8 @@ const common = {
             }
         }
     },
-    publishQuiet: true
+    publishQuiet: true,
+    memory: {}
 }
 
 export default common;

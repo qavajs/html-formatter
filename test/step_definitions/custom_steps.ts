@@ -1,4 +1,4 @@
-import { DataTable, Given, When } from '@cucumber/cucumber';
+import { DataTable, Given, When, Before, After } from '@cucumber/cucumber';
 
 Given('background', () => {});
 When('passed step', () => {});
@@ -65,4 +65,9 @@ When('failed step with log', function () {
 });
 
 When(`I expect {string} to match {string}`, async function (one, two) {});
+
+Before(async function () {});
+After(async function () {});
+Before({name: 'named before hook'}, async function () {});
+After({name: 'named after hook'}, async function () {});
 

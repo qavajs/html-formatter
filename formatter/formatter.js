@@ -1,4 +1,4 @@
-const { JsonFormatter } = require('@cucumber/cucumber');
+const JsonFormatter = require('./json_formatter');
 const fs = require('fs');
 const path = require('path');
 class HTMLFormatter extends JsonFormatter {
