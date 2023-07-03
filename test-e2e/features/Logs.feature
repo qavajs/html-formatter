@@ -14,4 +14,4 @@ Feature: Logs
     Examples:
       | scenario                  | step                 | btn | data                                                                    |
       | scenario passed with logs | passed step with log | 1   | some information in passed step\none more log line                      |
-      | scenario failed with logs | failed step with log | 2   | some information in failed step\nER: expected result\nAR: actual result |
+      | scenario failed with logs | failed step with log | 1   | some information in failed step\nER: expected result\nAR: actual result |

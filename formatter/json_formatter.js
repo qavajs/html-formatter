@@ -21,8 +21,7 @@ class JsonFormatter extends Formatter {
 
     finishTest(envelope) {
         const testCase = this.eventDataCollector.getTestCaseAttempt(envelope.testCaseFinished.testCaseStartedId);
-
-        let feature = this.json.find(feature => feature.uri === testCase.gherkinDocument.uri);
+        let feature = this.json.find(feature => feature.name === testCase.gherkinDocument.feature.name);
         if (!feature) {
             feature = {
                 description: testCase.gherkinDocument.feature.description,
@@ -32,21 +31,14 @@ class JsonFormatter extends Formatter {
                 name: testCase.gherkinDocument.feature.name,
                 uri: testCase.gherkinDocument.uri,
                 elements: [],
-                tags: this.formatTags(testCase.gherkinDocument.feature.tags) // todo add tags
+                tags: this.formatTags(testCase.gherkinDocument.feature.tags)
             };
             this.json.push(feature);
         }
         const steps = testCase.testCase.testSteps;
         for (const step of steps) {
-            // console.log(step)
-            step.keyword = 'Undefined' //todo implement logic to define keyword
             const pickle = testCase.pickle.steps.find(pickle => step.pickleStepId === pickle.id);
-            if (pickle) {
-                step.name = pickle.text;
-            } else {
-                const hook = this.hooks[step.hookId];
-                step.name = hook.name;
-            }
+            step.name = pickle ? pickle.text : this.hookText(steps, step);
             const result= testCase.stepResults[step.id];
             step.result = {
                 status: result.status.toLowerCase(),
@@ -75,6 +67,13 @@ class JsonFormatter extends Formatter {
 
     formatTags(tags) {
         return tags.map(tag => ({ name: tag.name, line: tag.location?.line }))
+    }
+
+    hookText(steps, step) {
+        const hook = this.hooks[step.hookId];
+        if (hook?.name) return hook.name;
+        const stepsBefore = steps.slice(0, steps.findIndex((element) => element === step));
+        return stepsBefore.every(element => element.pickleStepId === undefined) ? 'Before' : 'After'
     }
 }
 
