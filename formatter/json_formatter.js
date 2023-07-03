@@ -42,7 +42,7 @@ class JsonFormatter extends Formatter {
             const result= testCase.stepResults[step.id];
             step.result = {
                 status: result.status.toLowerCase(),
-                duration: result.duration.seconds * 1_000_000 + result.duration.nanos // todo verify correctness
+                duration: result.duration.seconds * 1_000_000 + result.duration.nanos
             };
             step.embeddings = testCase.stepAttachments[step.id]?.map(attachment => ({
                 ...attachment,
