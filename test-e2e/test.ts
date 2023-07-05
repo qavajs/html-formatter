@@ -4,7 +4,7 @@ import App from './po';
 const common = {
     paths: ['test-e2e/features/*.feature'],
     require: [
-        'node_modules/@qavajs/steps-playwright'
+        'node_modules/@qavajs/steps-playwright/index.js'
     ],
     format: [
         '@qavajs/xunit-formatter:test-e2e/report.xml',
