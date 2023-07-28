@@ -1,3 +1,6 @@
+# 0.14.0
+- added support of named attachments
+
 # 0.13.0
 - replaced legacy json formatter with custom one based on cucumber messages
 - added support of named hooks

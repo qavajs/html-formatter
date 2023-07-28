@@ -4,9 +4,8 @@ const common = {
         'test/step_definitions/custom_steps.ts'
     ],
     format: [
-        'json:test/report.json',
         './formatter/formatter:test/report.html',
-        './formatter/json_formatter:test/report_new.json'
+        './formatter/json_formatter:test/report.json'
     ],
     formatOptions: {
         htmlConfig: {

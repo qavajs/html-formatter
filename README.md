@@ -31,3 +31,13 @@ or pass `--format @qavajs/html-formatter:report.html` in cli
 
 Kudos to https://github.com/epam/UUI for providing components
 
+## Development
+
+`npm install`
+
+`npm run report:generate`
+
+`npm run report:compile:dev`
+
+`npm start`
+
