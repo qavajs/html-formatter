@@ -35,6 +35,13 @@ When('json attachment', function () {
     }), 'application/json');
 });
 
+When('named attachment', function () {
+    this.attach('I\'m base 64 encoded text', {
+        mediaType: 'base64:text/plain',
+        fileName: 'Named Attachment'
+    });
+});
+
 When('text base64 attachment', function () {
     this.attach('I\'m base 64 encoded text', 'base64:text/plain');
 });

@@ -27,3 +27,6 @@ Feature: Attachments
 
   Scenario: unsupported attachments
     When unsupported base64 attachment
+
+  Scenario: named attachment
+    When named attachment

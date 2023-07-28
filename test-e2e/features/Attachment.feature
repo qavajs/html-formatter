@@ -52,3 +52,8 @@ Feature: Attachment
     And I click 'Feature > #multiple attachments in Scenarios > #multiple attachments in Steps > #2 of Attachments'
     And I expect text of 'Attachment Overlay > Title' to be equal 'Attachment'
     And I expect 'src' attribute of 'Attachment Overlay > Image' to be equal 'data:image/png;base64,{$pngFullSizeBase64}'
+
+  Scenario: verify named attachment
+    When I click 'Main > Features Table > #ATTACHMENT in Rows > Name'
+    And I click 'Feature > #named attachment in Scenarios > Title'
+    And I expect text of 'Feature > #named attachment in Scenarios > #Attachment in Steps > #1 of Attachments' to be equal 'Named Attachment'

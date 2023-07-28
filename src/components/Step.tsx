@@ -74,11 +74,10 @@ export const Step = ({step}: {step: any}) => {
     const logs = step.embeddings
         ? step.embeddings.filter((embedding: any) => embedding.mime_type === 'text/x.cucumber.log+plain')
         : [];
-
     return <div style={{display: 'block'}}>
         <div style={{display: 'inline-flex'}}>
             {icon(step.result.status)}
-            <Text fontSize='16'>{`${step.name ?? step.keyword}`}</Text>
+            <Text fontSize='16' cx={css.stepText}>{`${step.name ?? step.keyword}`}</Text>
             {step.result.status === 'failed' && step.result.error_message && <IconButton
                 icon={ ErrorIcon }
                 color='red'
@@ -94,7 +93,7 @@ export const Step = ({step}: {step: any}) => {
                 .map((embedding: any, index: any) => <LinkButton
                     key={index}
                     icon={ AttachmentIcon }
-                    caption={ embedding.mime_type }
+                    caption={ embedding.fileName ?? embedding.mime_type }
                     onClick={ handleAttachmentClick(embedding, svc) }
                 />)
             }
