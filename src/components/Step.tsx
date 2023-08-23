@@ -44,7 +44,7 @@ const Table = (props: any) => {
         <tbody>
             {props.rows.map((row: any, index: number) => <tr key={index}>
                 {row.cells.map((cell: any, index: number) => <td style={index ? cellStyle : firstCellStyle} key={index}>
-                    <Text fontSize='14'>{cell}</Text>
+                    <Text fontSize='14'>{cell.value}</Text>
                 </td>)}
             </tr>)}
         </tbody>

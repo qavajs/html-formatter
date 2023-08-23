@@ -15,7 +15,6 @@ const common = {
             }
         }
     },
-    publishQuiet: true,
     memory: {}
 }
 
