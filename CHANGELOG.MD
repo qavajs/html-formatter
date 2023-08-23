@@ -1,3 +1,7 @@
+# 0.14.1
+- fixed stacktrace overlay
+- fixed multiline and data table displaying
+
 # 0.14.0
 - added support of named attachments
 
