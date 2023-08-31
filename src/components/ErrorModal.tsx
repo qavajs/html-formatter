@@ -5,23 +5,20 @@ import {
     ModalHeader,
     ModalWindow,
     FlexRow,
-    Panel,
-    ScrollBars
+    Panel
 } from '@epam/promo';
 
 export const ErrorModal = (modalProps: any) => {
     return <>
         <ModalBlocker blockerShadow='dark' {...modalProps}>
-            <ModalWindow style={{width: '100%', margin: 'auto'}}>
+            <ModalWindow style={{width: '90vw', margin: 'auto', height: '60vh'}}>
                 <Panel background="white">
                     <ModalHeader title="Error" onClose={() => modalProps.success('close')}/>
-                    <ScrollBars hasTopShadow hasBottomShadow>
                         <FlexRow padding='24'>
-                            <pre style={{width: '100%'}}>
+                            <pre style={{width: '100%', overflow: 'auto'}}>
                                 {modalProps.error}
                             </pre>
                         </FlexRow>
-                    </ScrollBars>
                     <ModalFooter/>
                 </Panel>
             </ModalWindow>

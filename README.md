@@ -31,7 +31,7 @@ or pass `--format @qavajs/html-formatter:report.html` in cli
 
 Kudos to https://github.com/epam/UUI for providing components
 
-## Development
+## Development (use nodejs 16)
 
 `npm install`
 
