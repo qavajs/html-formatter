@@ -1,3 +1,6 @@
+# 0.14.2
+- fixed width and height of error and logs overlay
+
 # 0.14.1
 - fixed stacktrace overlay
 - fixed multiline and data table displaying
