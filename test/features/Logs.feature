@@ -8,3 +8,6 @@ Feature: Logs
 
   Scenario: scenario dollar replace
     And I expect 'some string' to match '^120$'
+
+  Scenario: scenario passed with huge log
+    When passed step with huge log

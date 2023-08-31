@@ -61,9 +61,15 @@ When('unsupported base64 attachment', function () {
 
 When('passed step with log', function () {
     this.log('some information in passed step');
-    this.log('one more log line')
-
+    this.log('one more log line');
 });
+
+When('passed step with huge log', function () {
+    for (let i = 0; i < 100; i++) {
+        this.log('one more log line '.repeat(100));
+    }
+});
+
 When('failed step with log', function () {
     this.log('some information in failed step');
     this.log('ER: expected result');

@@ -1,4 +1,4 @@
-# 0.14.2
+# 0.14.3
 - fixed width and height of error and logs overlay
 
 # 0.14.1
