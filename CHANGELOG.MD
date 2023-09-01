@@ -1,3 +1,6 @@
+# 0.14.4
+- fixed [Feature that contains only undefined/skipped scenarios is displayed as passed](https://github.com/qavajs/html-formatter/issues/36)
+
 # 0.14.3
 - fixed width and height of error and logs overlay
 
