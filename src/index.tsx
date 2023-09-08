@@ -33,7 +33,7 @@ const data = window.sourceData
         total: feature.elements.length,
         elements: feature.elements.map((scenario: any) => ({
             ...scenario,
-            isFailed: scenario.steps.some((step: any) => step.result.status === 'failed')
+            isFailed: scenario.steps.some((step: any) => step.result.status !== 'passed')
         })),
     }))
     .map((feature: any) => ({
