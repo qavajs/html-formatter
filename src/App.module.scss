@@ -1,4 +1,4 @@
-@use '~@epam/promo/assets/styles/index' as *;
+//@use '~@epam/uui/assets/styles/index' as *;
 
 html, body {
     height: 100%;
@@ -15,12 +15,10 @@ body {
 main {
     flex: 1 1 auto;
     box-sizing: border-box;
-    background: $gray10;
 }
 
 footer {
     height: 30px;
-    background: $gray70;
 }
 
 .app {

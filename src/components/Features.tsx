@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
     Panel,
     FlexRow,
@@ -6,7 +6,9 @@ import {
     Text,
     Badge,
     LinkButton,
-    TextInput, Switch, FlexSpacer
+    TextInput,
+    Switch,
+    FlexSpacer
 } from '@epam/promo';
 import { DataColumnProps, useArrayDataSource } from '@epam/uui-core';
 import css from '../App.module.scss';
@@ -117,7 +119,7 @@ export const Features = (props: any) => {
 
     return (
         <FlexRow margin='12'>
-            <Panel cx={css.features} background='white' shadow>
+            <Panel cx={css.features} shadow>
                 <FlexRow padding='12' vPadding='12'>
                     {/*@ts-ignore*/}
                     <TextInput cx={css.searchInput} value={ searchValue } onValueChange={ setSearchValue }  placeholder='Search'/>

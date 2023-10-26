@@ -1,4 +1,3 @@
-import React from 'react';
 import { Text, IconContainer, IconButton, LinkButton } from '@epam/promo';
 import { ErrorModal } from './ErrorModal';
 import { ReactComponent as PassedIcon } from '@epam/assets/icons/common/notification-done-24.svg';
@@ -21,12 +20,12 @@ import { LogsModal } from './LogsModal';
 
 const icon = (status: string) => {
     switch (status) {
-        case 'passed': return <IconContainer icon={ PassedIcon } color='green' cx={css.icon} onClick={() => null}/>
-        case 'failed': return <IconContainer icon={ FailedIcon } color='red' cx={css.icon} onClick={() => null}/>
-        case 'skipped': return <IconContainer icon={ SkippedIcon } color='blue' cx={css.icon} onClick={() => null}/>
-        case 'undefined': return <IconContainer icon={ UndefinedIcon } color='amber' cx={css.icon} onClick={() => null}/>
-        case 'ambiguous': return <IconContainer icon={ AmbiguousIcon } color='orange' cx={css.icon} onClick={() => null}/>
-        case 'pending': return <IconContainer icon={ PendingIcon } color='gray30' cx={css.icon} onClick={() => null}/>
+        case 'passed': return <IconContainer icon={ PassedIcon } style={{fill: 'green'}} cx={css.icon} onClick={() => null}/>
+        case 'failed': return <IconContainer icon={ FailedIcon } style={{fill: 'red'}} cx={css.icon} onClick={() => null}/>
+        case 'skipped': return <IconContainer icon={ SkippedIcon } style={{fill: 'lightblue'}} cx={css.icon} onClick={() => null}/>
+        case 'undefined': return <IconContainer icon={ UndefinedIcon } style={{fill: 'yellow'}} cx={css.icon} onClick={() => null}/>
+        case 'ambiguous': return <IconContainer icon={ AmbiguousIcon } style={{fill: 'orange'}} cx={css.icon} onClick={() => null}/>
+        case 'pending': return <IconContainer icon={ PendingIcon } style={{fill: 'lightgrey'}} cx={css.icon} onClick={() => null}/>
     }
 };
 
@@ -60,13 +59,13 @@ const Argument = (props: any) => {
 
 const handleAttachmentClick = (embedding: any, svc: any) => {
     if (supportedMimeTypes.includes(embedding.mime_type)) {
-        return (e?: Event) => svc.uuiModals.show((props: any) => <AttachmentModal { ...props } embedding={embedding}/>)
+        return () => svc.uuiModals.show((props: any) => <AttachmentModal { ...props } embedding={embedding}/>)
     }
     return openInNewTab(embedding.data, embedding.mime_type)
 }
 
 const handleLogsClick = (logs: any[], svc: any) => {
-    return (e?: Event) => svc.uuiModals.show((props: any) => <LogsModal { ...props } logs={logs}/>)
+    return () => svc.uuiModals.show((props: any) => <LogsModal { ...props } logs={logs}/>)
 }
 
 export const Step = ({step}: {step: any}) => {

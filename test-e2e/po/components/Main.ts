@@ -1,8 +1,8 @@
-import { $, $$, Component } from '@qavajs/po-playwright';
+import { $, Component } from '@qavajs/po-playwright';
 import FeaturesTable from './FeaturesTable';
 
 export default class Main extends Component {
-    FeaturesTable = $(new FeaturesTable('.App_features__1Nyen'));
+    FeaturesTable = $(new FeaturesTable('.uui-panel[class*=features]'));
     Search = $('[placeholder="Search"]');
-    ShowOnlyFailed = $('[class*=Switch_container]');
+    ShowOnlyFailed = $('.uui-switch-body');
 }

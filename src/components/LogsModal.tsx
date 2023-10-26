@@ -1,4 +1,3 @@
-import React from 'react';
 import {
     ModalBlocker,
     ModalFooter,
@@ -12,7 +11,7 @@ export const LogsModal = (modalProps: any) => {
     return <>
         <ModalBlocker blockerShadow='dark' {...modalProps}>
             <ModalWindow style={{width: '90vw', margin: 'auto'}}>
-                <Panel background="white">
+                <Panel>
                     <ModalHeader title="Logs" onClose={() => modalProps.success('close')}/>
                         <FlexRow padding='24'>
                             <pre style={{width: '100%', overflow: 'auto', height: '60vh'}}>

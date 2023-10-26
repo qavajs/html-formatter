@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FlexRow, TextInput } from '@epam/promo';
 import { Scenario } from '../components/Scenario';
 import css from '../App.module.scss';

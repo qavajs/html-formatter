@@ -12,7 +12,7 @@ export default class App {
     Main = $(new Main('main'));
     Feature = $(new Feature('main'));
     Failed = $(new Failed('main'));
-    Header = $(new Header('[class*=MainMenu_root]'));
+    Header = $(new Header('nav'));
     MetadataOverlay = $(new MetadataOverlay('.uui-modal-window'));
     AttachmentOverlay = $(new AttachmentOverlay('.uui-modal-window'));
     LogsOverlay = $(new LogsOverlay('.uui-modal-window'));

@@ -1,3 +1,6 @@
+# [Unreleased]
+- migrated to react 18 and vite dev server
+
 # 0.14.4
 - fixed [Feature that contains only undefined/skipped scenarios is displayed as passed](https://github.com/qavajs/html-formatter/issues/36)
 

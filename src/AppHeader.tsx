@@ -1,5 +1,5 @@
 import React from 'react';
-import { MainMenu, FlexSpacer, LinkButton } from '@epam/promo';
+import { MainMenu, FlexSpacer, LinkButton } from '@epam/uui';
 import css from './App.module.scss';
 import { useUuiContext } from '@epam/uui-core';
 import { MetadataModal } from './components/MetadataModal';

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {
     ModalBlocker,
     ModalFooter,
@@ -21,13 +21,13 @@ const metadataColumns: DataColumnProps<Metadata>[] = [
     {
         key: 'key',
         caption: 'Key',
-        render: item => <Text fontSize='16' lineHeight='30' color='gray90'>{item.key}</Text>,
+        render: item => <Text fontSize='16' lineHeight='30'>{item.key}</Text>,
         width: 400
     },
     {
         key: 'value',
         caption: 'Value',
-        render: item => <Text fontSize='16' lineHeight='30' color='gray90'>{item.value}</Text>,
+        render: item => <Text fontSize='16' lineHeight='30'>{item.value}</Text>,
         width: 400,
     }];
 
@@ -42,8 +42,8 @@ export const MetadataModal = (modalProps: any) => {
 
     return <>
         <ModalBlocker blockerShadow='dark' {...modalProps}>
-            <ModalWindow style={{width: '100%', margin: 'auto'}}>
-                <Panel background="white">
+            <ModalWindow width={900} style={{ margin: 'auto'}}>
+                <Panel>
                     <ModalHeader title="Metadata" onClose={() => modalProps.success('close')}/>
                     <ScrollBars hasTopShadow hasBottomShadow>
                         <DataTable

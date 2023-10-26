@@ -1,4 +1,3 @@
-import React from 'react';
 import {
     ModalBlocker,
     ModalFooter,
@@ -51,8 +50,8 @@ const Attachment = (props: any) => {
 export const AttachmentModal = (modalProps: any) => {
     return <>
         <ModalBlocker blockerShadow='dark' {...modalProps}>
-            <ModalWindow style={{width: '90%', margin: 'auto'}}>
-                <Panel background="white">
+            <ModalWindow width={1200} style={{margin: 'auto'}}>
+                <Panel>
                     <ModalHeader title="Attachment" onClose={() => modalProps.success('close')}/>
                     <ScrollBars hasTopShadow hasBottomShadow>
                         <FlexRow padding='24'>

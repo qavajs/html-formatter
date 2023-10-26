@@ -1,14 +1,10 @@
-import React from 'react';
-import {
-    Badge,
-    EpamAdditionalColor
-} from '@epam/promo';
+import {Badge} from '@epam/promo';
 
-const color = (status: string): EpamAdditionalColor => {
+const color = (status: string): any => {
     return {
         Passed: 'green',
         Failed: 'red'
-    }[status] as EpamAdditionalColor
+    }[status] as any
 }
 export const Legend = ({items, total}: { items: any[], total: number }) => {
     return <>
