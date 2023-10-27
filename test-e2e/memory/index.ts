@@ -3,7 +3,7 @@ import { resolve } from 'path';
 const file = (path: string) => `file://${path}`
 
 export default class Memory {
-    reportPage: string = file(resolve('./test/report.html'));
+    reportPage: string = file(resolve('./test/report/report.html'));
     htmlBase64: string = require('../../test/attachments/htmlBase64').default;
     pngBase64: string = require('../../test/attachments/pngBase64').default;
     pngFullSizeBase64: string = require('../../test/attachments/pngFullSizeBase64').default;

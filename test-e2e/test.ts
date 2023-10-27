@@ -7,7 +7,7 @@ const common = {
         'node_modules/@qavajs/steps-playwright/index.js'
     ],
     format: [
-        ['junit', 'test-e2e/report.xml'],
+        ['junit', 'test-e2e/report/report.xml'],
         '@qavajs/console-formatter'
     ],
     browser: {

@@ -25,10 +25,10 @@ declare global {
   }
 }
 
-// @ts-ignore
+//@ts-ignore
 if (import.meta.env.MODE === 'development') {
   // @ts-ignore
-    window.sourceData = (await import('../test/report.json')).default as any;
+    window.sourceData = (await import('../test/report/report.json')).default as any;
     window.metaSourceData = {
         'OS': 'macos',
         'OS Version': '13.1'

@@ -7,10 +7,11 @@
     "Alexandr Legchilov"
   ],
   "scripts": {
+    "prebuild": "qavajs run --config test/report.ts --profile json",
     "report:generate": "qavajs run --config test/report.ts",
     "test:e2e": "qavajs run --config test-e2e/test.ts",
     "debug:e2e": "qavajs run --config test-e2e/test.ts --profile debug",
-    "start": "vite --port 3000 --open",
+    "start": "vite --port 3000",
     "build": "vite build --mode production",
     "postbuild": "cp dist/index.html formatter/index.html",
     "serve": "vite preview",
