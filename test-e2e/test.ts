@@ -7,7 +7,7 @@ const common = {
         'node_modules/@qavajs/steps-playwright/index.js'
     ],
     format: [
-        '@qavajs/xunit-formatter:test-e2e/report.xml',
+        ['junit', 'test-e2e/report/report.xml'],
         '@qavajs/console-formatter'
     ],
     browser: {
@@ -22,7 +22,8 @@ const common = {
     memory: new Memory(),
     pageObject: new App(),
     retry: 1,
-    parallel: 4
+    parallel: 4,
+    defaultTimeout: 10000
 };
 
 export default common;

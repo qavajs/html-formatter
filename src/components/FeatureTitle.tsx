@@ -1,4 +1,3 @@
-import React from 'react';
 import {Badge, FlexRow, Text} from '@epam/promo';
 import css from '../App.module.scss';
 import clipboard from '../utils/clipboard';

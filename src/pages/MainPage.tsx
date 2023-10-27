@@ -1,4 +1,4 @@
-import React from 'react';
+import { CSSProperties } from 'react';
 import { Panel, FlexSpacer, FlexRow, Text, FlexCell } from '@epam/promo';
 import { Features } from '../components/Features';
 import { StatisticsPieChart } from '../components/StatisticsPieChart';
@@ -33,7 +33,7 @@ export const MainPage = () => {
         width: '200px',
         fontFamily: `Arial, "Sans Semibold", sans-serif,"Museo Sans"`,
         color: '#303240'
-    } as React.CSSProperties;
+    } as CSSProperties;
 
     return (
         <>

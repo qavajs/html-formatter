@@ -12,7 +12,9 @@ and add to formatter section in config file
 ```javascript
 module.exports = {
     default: {
-        format: ['@qavajs/html-formatter:report.html']
+        format: [
+            ['@qavajs/html-formatter', 'report.html']
+        ]
     },
     formatOptions: {
         htmlConfig: {
@@ -31,13 +33,11 @@ or pass `--format @qavajs/html-formatter:report.html` in cli
 
 Kudos to https://github.com/epam/UUI for providing components
 
-## Development (use nodejs 16)
+## Development
 
 `npm install`
 
-`npm run report:generate`
-
-`npm run report:compile:dev`
+`npm run build`
 
 `npm start`
 

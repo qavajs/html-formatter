@@ -4,8 +4,8 @@ const common = {
         'test/step_definitions/custom_steps.ts'
     ],
     format: [
-        './formatter/formatter:test/report.html',
-        './formatter/json_formatter:test/report.json'
+        ['./formatter/formatter.js', 'test/report/report.html'],
+        ['./formatter/json_formatter.js', 'test/report/report.json']
     ],
     formatOptions: {
         htmlConfig: {
@@ -19,3 +19,10 @@ const common = {
 }
 
 export default common;
+
+export const json = {
+    ...common,
+    format: [
+        ['./formatter/json_formatter.js', 'test/report/report.json']
+    ],
+}

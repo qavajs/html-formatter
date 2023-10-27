@@ -7,5 +7,5 @@ class Row extends Component {
 }
 
 export default class MetadataOverlay extends Overlay {
-    Rows = $$(new Row('[class*=DataTable_listContainer] div[role="row"]'));
+    Rows = $$(new Row('.uui-table-row'));
 }

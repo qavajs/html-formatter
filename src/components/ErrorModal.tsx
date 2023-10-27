@@ -1,4 +1,3 @@
-import React from 'react';
 import {
     ModalBlocker,
     ModalFooter,
@@ -11,8 +10,8 @@ import {
 export const ErrorModal = (modalProps: any) => {
     return <>
         <ModalBlocker blockerShadow='dark' {...modalProps}>
-            <ModalWindow style={{width: '90vw', margin: 'auto'}}>
-                <Panel background="white">
+            <ModalWindow width={900} style={{margin: 'auto'}}>
+                <Panel>
                     <ModalHeader title="Error" onClose={() => modalProps.success('close')}/>
                         <FlexRow padding='24'>
                             <pre style={{width: '100%', overflow: 'auto', height: '60vh'}}>

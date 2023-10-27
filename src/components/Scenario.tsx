@@ -1,17 +1,16 @@
-import React from 'react';
-import { FlexRow, Text, Badge, FlexCell, Accordion } from '@epam/promo';
-import { Step } from './Step';
-import css from '../App.module.scss';
-import clipboard from '../utils/clipboard';
+import { FlexRow, Text, Badge, FlexCell, Accordion } from "@epam/promo";
+import { Step } from "./Step";
+import css from "../App.module.scss";
+import clipboard from "../utils/clipboard";
 
 const filterByStatus = (scenario: any, status: string) => scenario.steps.filter((step: any) => step.result.status === status);
-const scenarioTitle = (scenario: any) => () => {
-    const passed = filterByStatus(scenario, 'passed').length;
-    const failed = filterByStatus(scenario, 'failed').length;
-    const skipped = filterByStatus(scenario, 'skipped').length;
-    const undefinedSteps = filterByStatus(scenario, 'undefined').length;
-    const ambiguous = filterByStatus(scenario, 'ambiguous').length;
-    const pending = filterByStatus(scenario, 'pending').length;
+const scenarioTitle = (scenario: any) => function ScenarioTitle() {
+  const passed = filterByStatus(scenario, "passed").length;
+  const failed = filterByStatus(scenario, "failed").length;
+  const skipped = filterByStatus(scenario, "skipped").length;
+  const undefinedSteps = filterByStatus(scenario, "undefined").length;
+  const ambiguous = filterByStatus(scenario, "ambiguous").length;
+  const pending = filterByStatus(scenario, "pending").length;
 
     return <FlexRow spacing='12' padding='6' vPadding='12' cx={css.scenarioTitle}>
         <Text fontSize='16' font='sans-semibold'>Scenario: {scenario.name}</Text>
@@ -33,14 +32,16 @@ const scenarioTitle = (scenario: any) => () => {
     </FlexRow>
 }
 
-export const Scenario = ({scenario}: { scenario: any }) => {
-    return <FlexRow margin='12' spacing='12' key={scenario.id}>
-        <FlexCell width='100%'>
-            <Accordion renderTitle={scenarioTitle(scenario)} mode='block'>
-                {scenario.steps.map((step: any, index: number) =>
-                    <Step key={index} step={step}/>
-                )}
-            </Accordion>
-        </FlexCell>
-    </FlexRow>
+export const Scenario = ({ scenario }: {
+  scenario: any
+}) => {
+  return <FlexRow margin="12" spacing="12" key={scenario.id}>
+    <FlexCell width="100%">
+      <Accordion renderTitle={scenarioTitle(scenario)} mode="block">
+        {scenario.steps.map((step: any, index: number) =>
+          <Step key={index} step={step} />
+        )}
+      </Accordion>
+    </FlexCell>
+  </FlexRow>;
 };
