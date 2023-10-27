@@ -1,9 +1,14 @@
-import { FlexRow, Text, Badge, FlexCell, Accordion } from "@epam/promo";
+import {FlexRow, Text, Badge, FlexCell, Accordion} from "@epam/promo";
 import { Step } from "./Step";
 import css from "../App.module.scss";
 import clipboard from "../utils/clipboard";
+import {FlexSpacer} from "@epam/uui";
+import {TimeLabel} from "./TimeLabel";
 
 const filterByStatus = (scenario: any, status: string) => scenario.steps.filter((step: any) => step.result.status === status);
+const getScenarioDuration = (scenario: any) => {
+  return `${(scenario.steps.reduce((duration: number, step: any) => duration + (step?.result.duration ?? 0), 0) / 1_000_000).toFixed(2)}s`
+}
 const scenarioTitle = (scenario: any) => function ScenarioTitle() {
   const passed = filterByStatus(scenario, "passed").length;
   const failed = filterByStatus(scenario, "failed").length;
@@ -29,6 +34,8 @@ const scenarioTitle = (scenario: any) => function ScenarioTitle() {
             caption={tag.name}
             onClick={clipboard(tag.name)}
         />)}
+        <FlexSpacer/>
+        <TimeLabel time={getScenarioDuration(scenario)}/>
     </FlexRow>
 }
 

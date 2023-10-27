@@ -1,4 +1,4 @@
-import { Text, IconContainer, IconButton, LinkButton } from '@epam/promo';
+import {Text, IconContainer, IconButton, LinkButton, FlexRow} from '@epam/promo';
 import { ErrorModal } from './ErrorModal';
 import { ReactComponent as PassedIcon } from '@epam/assets/icons/common/notification-done-24.svg';
 import { ReactComponent as FailedIcon } from '@epam/assets/icons/common/navigation-close-24.svg';
@@ -17,6 +17,8 @@ import { AttachmentModal } from './AttachmentModal';
 import { supportedMimeTypes } from '../utils/supportedMimeTypes';
 import { openInNewTab } from '../utils/openInNewTab';
 import { LogsModal } from './LogsModal';
+import {TimeLabel} from "./TimeLabel";
+import {FlexSpacer} from '@epam/uui';
 
 const icon = (status: string) => {
     switch (status) {
@@ -73,8 +75,8 @@ export const Step = ({step}: {step: any}) => {
     const logs = step.embeddings
         ? step.embeddings.filter((embedding: any) => embedding.mime_type === 'text/x.cucumber.log+plain')
         : [];
-    return <div style={{display: 'block'}}>
-        <div style={{display: 'inline-flex'}}>
+    return <div>
+        <FlexRow>
             {icon(step.result.status)}
             <Text fontSize='16' cx={css.stepText}>{`${step.name ?? step.keyword}`}</Text>
             {step.result.status === 'failed' && step.result.error_message && <IconButton
@@ -96,7 +98,9 @@ export const Step = ({step}: {step: any}) => {
                     onClick={ handleAttachmentClick(embedding, svc) }
                 />)
             }
-        </div>
+            <FlexSpacer/>
+            <TimeLabel time={`${(step.result.duration / 1_000_000).toFixed(2)}s`}/>
+        </FlexRow>
         <div style={{display: 'flex'}}>
             {step.arguments && step.arguments.map((arg: any, index: number) => <Argument key={index} arg={arg}/>)}
         </div>
