@@ -14,6 +14,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
+      - run: npx playwright install
       - run: npm run build
       - run: npm run report:generate
       - run: npm run test:e2e
@@ -21,5 +22,5 @@ jobs:
         uses: mikepenz/action-junit-report@v3
         if: always()
         with:
-         report_paths: './test-e2e/report.xml'
+         report_paths: './test-e2e/report/report.xml'
          fail_on_failure: true
