@@ -1,6 +1,6 @@
 {
   "name": "@qavajs/html-formatter",
-  "version": "0.15.0",
+  "version": "0.15.1",
   "main": "formatter/formatter.js",
   "authors": [
     "Alexandr Galichenko",

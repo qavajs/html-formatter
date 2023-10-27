@@ -99,7 +99,7 @@ export const Step = ({step}: {step: any}) => {
                 />)
             }
             <FlexSpacer/>
-            <TimeLabel time={`${(step.result.duration / 1_000_000).toFixed(2)}s`}/>
+            <TimeLabel time={`${(step.result.duration / 1_000_000_000).toFixed(2)}s`}/>
         </FlexRow>
         <div style={{display: 'flex'}}>
             {step.arguments && step.arguments.map((arg: any, index: number) => <Argument key={index} arg={arg}/>)}

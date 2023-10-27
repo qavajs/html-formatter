@@ -1,3 +1,6 @@
+# 0.15.1
+- fixed nano seconds conversion
+
 # 0.15.0
 - migrated to react 18 and vite dev server
 - added displaying of execution time for steps and scenarios
