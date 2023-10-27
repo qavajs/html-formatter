@@ -7,7 +7,7 @@ import {TimeLabel} from "./TimeLabel";
 
 const filterByStatus = (scenario: any, status: string) => scenario.steps.filter((step: any) => step.result.status === status);
 const getScenarioDuration = (scenario: any) => {
-  return `${(scenario.steps.reduce((duration: number, step: any) => duration + (step?.result.duration ?? 0), 0) / 1_000_000).toFixed(2)}s`
+  return `${(scenario.steps.reduce((duration: number, step: any) => duration + (step?.result.duration ?? 0), 0) / 1_000_000_000).toFixed(2)}s`
 }
 const scenarioTitle = (scenario: any) => function ScenarioTitle() {
   const passed = filterByStatus(scenario, "passed").length;
