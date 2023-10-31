@@ -8,10 +8,11 @@ class HTMLFormatter extends JsonFormatter {
         this.metadata = options.parsedArgvOptions.htmlConfig?.metadata ?? {};
         const log = this.log.bind(this);
         this.log = function(json) {
+            console.log(json)
             const htmlTemplate = fs.readFileSync(path.resolve(__dirname, './index.html'), 'utf-8');
             log(htmlTemplate
-                .replace('METADATA', () => JSON.stringify(this.metadata, null, 0))
-                .replace('SOURCE_DATA', () => JSON.stringify(JSON.parse(json), null, 0)));
+                .replace('METADATA', () => JSON.stringify(this.metadata))
+                .replace('SOURCE_DATA', () => JSON.stringify(JSON.parse(json))));
         }
     }
 
