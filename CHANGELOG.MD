@@ -1,3 +1,6 @@
+# 0.15.2
+- fixed duplicated scenarios in case of retries
+
 # 0.15.1
 - fixed nano seconds conversion
 

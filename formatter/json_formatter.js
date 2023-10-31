@@ -20,6 +20,7 @@ class JsonFormatter extends Formatter {
     }
 
     finishTest(envelope) {
+        if (envelope.testCaseFinished.willBeRetried) return;
         const testCase = this.eventDataCollector.getTestCaseAttempt(envelope.testCaseFinished.testCaseStartedId);
         let feature = this.json.find(feature => feature.name === testCase.gherkinDocument.feature.name);
         if (!feature) {

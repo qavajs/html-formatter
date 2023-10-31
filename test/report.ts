@@ -15,7 +15,8 @@ const common = {
             }
         }
     },
-    memory: {}
+    memory: {},
+    retry: 1
 }
 
 export default common;
