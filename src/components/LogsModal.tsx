@@ -10,7 +10,7 @@ import {
 export const LogsModal = (modalProps: any) => {
     return <>
         <ModalBlocker blockerShadow='dark' {...modalProps}>
-            <ModalWindow style={{width: '90vw', margin: 'auto'}}>
+            <ModalWindow width={900} style={{ margin: 'auto'}}>
                 <Panel>
                     <ModalHeader title="Logs" onClose={() => modalProps.success('close')}/>
                         <FlexRow padding='24'>

@@ -1,3 +1,6 @@
+# 0.15.3
+- fixed logs overlay width
+
 # 0.15.2
 - fixed duplicated scenarios in case of retries
 
