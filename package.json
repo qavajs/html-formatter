@@ -1,13 +1,13 @@
 {
   "name": "@qavajs/html-formatter",
-  "version": "0.15.3",
+  "version": "0.15.4",
   "main": "formatter/formatter.js",
   "authors": [
     "Alexandr Galichenko",
     "Alexandr Legchilov"
   ],
   "scripts": {
-    "prebuild": "qavajs run --config test/report.ts --profile json",
+    "prebuild": "qavajs run --config test/report.ts --profile json --no-error-exit",
     "report:generate": "qavajs run --config test/report.ts",
     "test:e2e": "qavajs run --config test-e2e/test.ts",
     "debug:e2e": "qavajs run --config test-e2e/test.ts --profile debug",
@@ -44,18 +44,18 @@
     "Cucumber"
   ],
   "devDependencies": {
-    "@cucumber/cucumber": "^10.0.1",
+    "@cucumber/cucumber": "^10.3.1",
     "@epam/assets": "5.2.0",
     "@epam/promo": "5.2.0",
     "@epam/uui": "5.2.0",
     "@epam/uui-components": "5.2.0",
     "@epam/uui-core": "5.2.0",
     "@epam/uui-test-utils": "5.2.0",
-    "@qavajs/cli": "^0.32.1",
+    "@qavajs/cli": "^0.34.1",
     "@qavajs/console-formatter": "^0.6.0",
-    "@qavajs/memory": "^1.6.2",
-    "@qavajs/po-playwright": "^0.12.0",
-    "@qavajs/steps-playwright": "^0.41.3",
+    "@qavajs/memory": "^1.7.0",
+    "@qavajs/po-playwright": "^0.13.0",
+    "@qavajs/steps-playwright": "^0.42.0",
     "@types/react": "18.2.43",
     "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/parser": "^5.59.7",
@@ -75,12 +75,12 @@
     "react-router-dom": "^5.3.4",
     "recharts": "^2.9.0",
     "sass": "^1.62.1",
-    "ts-node": "^10.9.1",
-    "typescript": "4.9.3",
-    "vite": "^4.4.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "vite": "^4.5.1",
     "vite-plugin-singlefile": "^0.13.5",
     "vite-plugin-svgr": "^3.2.0",
-    "vitest": "^0.34.6",
+    "vitest": "^1.2.0",
     "vitest-dom": "^0.1.1"
   },
   "resolutions": {

@@ -1,3 +1,6 @@
+# 0.15.4
+- fixed multiple tags displaying
+
 # 0.15.3
 - fixed logs overlay width
 
