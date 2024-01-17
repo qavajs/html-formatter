@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "prebuild": "qavajs run --config test/report.ts --profile json --no-error-exit",
-    "report:generate": "qavajs run --config test/report.ts",
+    "report:generate": "qavajs run --config test/report.ts --no-error-exit",
     "test:e2e": "qavajs run --config test-e2e/test.ts",
     "debug:e2e": "qavajs run --config test-e2e/test.ts --profile debug",
     "start": "vite --port 3000",
