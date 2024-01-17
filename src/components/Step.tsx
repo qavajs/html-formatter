@@ -6,7 +6,6 @@ import { ReactComponent as SkippedIcon } from '@epam/assets/icons/common/navigat
 import { ReactComponent as UndefinedIcon } from '@epam/assets/icons/common/notification-help-outline-24.svg';
 import { ReactComponent as AmbiguousIcon } from '@epam/assets/icons/common/empty-24.svg';
 import { ReactComponent as PendingIcon } from '@epam/assets/icons/common/navigation-more_horiz-24.svg';
-
 import { ReactComponent as ErrorIcon } from '@epam/assets/icons/common/notification-info-fill-24.svg';
 import { ReactComponent as AttachmentIcon } from '@epam/assets/icons/common/file-attachment-24.svg';
 import { ReactComponent as LogsIcon } from '@epam/assets/icons/common/content-code-24.svg';
@@ -17,8 +16,8 @@ import { AttachmentModal } from './AttachmentModal';
 import { supportedMimeTypes } from '../utils/supportedMimeTypes';
 import { openInNewTab } from '../utils/openInNewTab';
 import { LogsModal } from './LogsModal';
-import {TimeLabel} from "./TimeLabel";
-import {FlexSpacer} from '@epam/uui';
+import { TimeLabel } from './TimeLabel';
+import { FlexSpacer } from '@epam/uui';
 
 const icon = (status: string) => {
     switch (status) {

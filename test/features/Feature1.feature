@@ -1,8 +1,11 @@
+@tag @tag @tag @tag @tag @tag @tag @tag @tag @tag @tag @tag @tag @tag @tag @tag @tag @tag @tag @tag
 Feature: Feature1
 
   Background:
     Given background
 
+  @scenarioTag @scenarioTag @scenarioTag @scenarioTag @scenarioTag @scenarioTag @scenarioTag @scenarioTag
+  @scenarioTag @scenarioTag @scenarioTag @scenarioTag @scenarioTag @scenarioTag @scenarioTag @scenarioTag
   Scenario: scenario passed
     When passed step
 

@@ -1,9 +1,9 @@
 import {FlexRow, Text, Badge, FlexCell, Accordion} from "@epam/promo";
 import { Step } from "./Step";
 import css from "../App.module.scss";
-import clipboard from "../utils/clipboard";
 import {FlexSpacer} from "@epam/uui";
 import {TimeLabel} from "./TimeLabel";
+import {TagList} from './TagList';
 
 const filterByStatus = (scenario: any, status: string) => scenario.steps.filter((step: any) => step.result.status === status);
 const getScenarioDuration = (scenario: any) => {
@@ -25,15 +25,7 @@ const scenarioTitle = (scenario: any) => function ScenarioTitle() {
         {undefinedSteps > 0 && <Badge color='amber' fill='semitransparent' caption={undefinedSteps}/>}
         {ambiguous > 0 && <Badge color='orange' fill='semitransparent' caption={ambiguous}/>}
         {pending > 0 && <Badge color='gray30' fill='semitransparent' caption={pending}/>}
-        {scenario.tags.map((tag: any) => <Badge
-            key={tag.name}
-            cx={css.tagBadge}
-            size='18'
-            color='blue'
-            fill='semitransparent'
-            caption={tag.name}
-            onClick={clipboard(tag.name)}
-        />)}
+        {<TagList tags={scenario.tags} itemsToRender={10}/>}
         <FlexSpacer/>
         <TimeLabel time={getScenarioDuration(scenario)}/>
     </FlexRow>
