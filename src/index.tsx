@@ -4,7 +4,8 @@ import { ContextProvider } from "@epam/uui-core";
 import { Snackbar, Modals } from "@epam/uui-components";
 import '@epam/uui-components/styles.css';
 import '@epam/uui/styles.css';
-import '@epam/promo/styles.css';
+import '@epam/loveship/styles.css';
+import '@epam/assets/theme/theme_loveship_dark.scss';
 import './App.module.scss';
 
 import { App } from "./App";

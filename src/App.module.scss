@@ -2,6 +2,8 @@
 
 html, body {
     height: 100%;
+    background-color: #383b4a;
+    color: whitesmoke;
 }
 
 body {
@@ -36,7 +38,7 @@ footer {
 }
 
 .caption {
-    color: aliceblue;
+    //color: aliceblue;
 }
 
 .header {
@@ -73,7 +75,6 @@ footer {
     margin-top: 80px;
     font-size: 120px;
     line-height: 120px;
-    color: white;
     font-family: 'Sans Semibold', Arial, sans-serif;
 }
 

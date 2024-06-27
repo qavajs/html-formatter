@@ -9,7 +9,7 @@ import {
     TextInput,
     Switch,
     FlexSpacer
-} from '@epam/promo';
+} from '@epam/loveship';
 import { DataColumnProps, useArrayDataSource } from '@epam/uui-core';
 import css from '../App.module.scss';
 import {TagList} from './TagList';
@@ -36,7 +36,7 @@ const featureColumns: DataColumnProps<Feature>[] = [
         key: 'status',
         caption: 'Status',
         render: item => <FlexRow>
-            <Badge cx={css.tagBadge} size='24' color={item.status === 'failed' ? 'red' : 'green'} fill='transparent' caption={item.status} />
+            <Badge cx={css.tagBadge} size='24' color={item.status === 'failed' ? 'fire' : 'success'} fill='outline' caption={item.status} />
         </FlexRow>,
         isSortable: true,
         width: 100,
@@ -52,7 +52,7 @@ const featureColumns: DataColumnProps<Feature>[] = [
     {
         key: 'total',
         caption: 'Total',
-        render: item => <Text color='gray80'>{ item.total }</Text>,
+        render: item => <Text>{ item.total }</Text>,
         isSortable: true,
         grow: 1,
         width: 100,
@@ -60,7 +60,7 @@ const featureColumns: DataColumnProps<Feature>[] = [
     {
         key: 'passed',
         caption: 'passed',
-        render: item => <Text color='gray80'>{ item.passed }</Text>,
+        render: item => <Text>{ item.passed }</Text>,
         isSortable: true,
         grow: 1,
         width: 100,
@@ -68,7 +68,7 @@ const featureColumns: DataColumnProps<Feature>[] = [
     {
         key: 'failed',
         caption: 'Failed',
-        render: item => <Text color='gray80'>{ item.failed }</Text>,
+        render: item => <Text>{ item.failed }</Text>,
         isSortable: true,
         grow: 1,
         width: 100,

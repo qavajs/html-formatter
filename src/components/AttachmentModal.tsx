@@ -7,7 +7,7 @@ import {
     Panel,
     ScrollBars,
     LinkButton
-} from '@epam/promo';
+} from '@epam/loveship';
 import { openInNewTab } from '../utils/openInNewTab';
 import { image, iframe, json, text } from '../utils/supportedMimeTypes';
 

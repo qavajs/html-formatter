@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FlexSpacer, FlexRow, TextInput, Switch } from '@epam/promo';
+import { FlexSpacer, FlexRow, TextInput, Switch } from '@epam/loveship';
 import { useParams } from 'react-router-dom';
 import { Scenario } from '../components/Scenario';
 import css from '../App.module.scss';

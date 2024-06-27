@@ -5,7 +5,7 @@ import {
     ModalWindow,
     FlexRow,
     Panel
-} from '@epam/promo';
+} from '@epam/loveship';
 
 export const LogsModal = (modalProps: any) => {
     return <>

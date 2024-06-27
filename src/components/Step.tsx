@@ -1,4 +1,4 @@
-import {Text, IconContainer, IconButton, LinkButton, FlexRow} from '@epam/promo';
+import {Text, IconContainer, IconButton, LinkButton, FlexRow} from '@epam/loveship';
 import { ErrorModal } from './ErrorModal';
 import { ReactComponent as PassedIcon } from '@epam/assets/icons/common/notification-done-24.svg';
 import { ReactComponent as FailedIcon } from '@epam/assets/icons/common/navigation-close-24.svg';
@@ -21,10 +21,10 @@ import { FlexSpacer } from '@epam/uui';
 
 const icon = (status: string) => {
     switch (status) {
-        case 'passed': return <IconContainer icon={ PassedIcon } style={{fill: 'green'}} cx={css.icon} onClick={() => null}/>
-        case 'failed': return <IconContainer icon={ FailedIcon } style={{fill: 'red'}} cx={css.icon} onClick={() => null}/>
+        case 'passed': return <IconContainer icon={ PassedIcon } style={{fill: 'lightgreen'}} cx={css.icon} onClick={() => null}/>
+        case 'failed': return <IconContainer icon={ FailedIcon } style={{fill: 'coral'}} cx={css.icon} onClick={() => null}/>
         case 'skipped': return <IconContainer icon={ SkippedIcon } style={{fill: 'lightblue'}} cx={css.icon} onClick={() => null}/>
-        case 'undefined': return <IconContainer icon={ UndefinedIcon } style={{fill: 'yellow'}} cx={css.icon} onClick={() => null}/>
+        case 'undefined': return <IconContainer icon={ UndefinedIcon } style={{fill: 'khaki'}} cx={css.icon} onClick={() => null}/>
         case 'ambiguous': return <IconContainer icon={ AmbiguousIcon } style={{fill: 'orange'}} cx={css.icon} onClick={() => null}/>
         case 'pending': return <IconContainer icon={ PendingIcon } style={{fill: 'lightgrey'}} cx={css.icon} onClick={() => null}/>
     }
@@ -80,7 +80,7 @@ export const Step = ({step}: {step: any}) => {
             <Text fontSize='16' cx={css.stepText}>{`${step.name ?? step.keyword}`}</Text>
             {step.result.status === 'failed' && step.result.error_message && <IconButton
                 icon={ ErrorIcon }
-                color='red'
+                color='fire'
                 onClick={ () => svc.uuiModals.show((props) => <ErrorModal { ...props } error={step.result.error_message}/>) }
             />}
             {logs.length > 0 && <LinkButton
