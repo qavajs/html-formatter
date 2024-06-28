@@ -1,3 +1,6 @@
+# 0.16.0
+- added dark theme
+
 # 0.15.4
 - fixed multiple tags displaying
 
