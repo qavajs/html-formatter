@@ -8,7 +8,7 @@ import {
     ScrollBars,
     Text,
     DataTable
-} from '@epam/promo';
+} from '@epam/loveship';
 import { DataColumnProps, useArrayDataSource } from '@epam/uui-core';
 
 type Metadata = {

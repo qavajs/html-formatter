@@ -1,4 +1,4 @@
-import {FlexRow, Text, Badge, FlexCell, Accordion} from "@epam/promo";
+import {FlexRow, Text, Badge, FlexCell, Accordion} from "@epam/loveship";
 import { Step } from "./Step";
 import css from "../App.module.scss";
 import {FlexSpacer} from "@epam/uui";
@@ -18,13 +18,13 @@ const scenarioTitle = (scenario: any) => function ScenarioTitle() {
   const pending = filterByStatus(scenario, "pending").length;
 
     return <FlexRow spacing='12' padding='6' vPadding='12' cx={css.scenarioTitle}>
-        <Text fontSize='16' font='sans-semibold'>Scenario: {scenario.name}</Text>
-        {passed > 0 && <Badge color='green' fill='semitransparent' caption={passed}/>}
-        {failed > 0 && <Badge color='red' fill='semitransparent' caption={failed}/>}
-        {skipped > 0 && <Badge color='blue' fill='semitransparent' caption={skipped}/>}
-        {undefinedSteps > 0 && <Badge color='amber' fill='semitransparent' caption={undefinedSteps}/>}
-        {ambiguous > 0 && <Badge color='orange' fill='semitransparent' caption={ambiguous}/>}
-        {pending > 0 && <Badge color='gray30' fill='semitransparent' caption={pending}/>}
+        <Text fontSize='16'>Scenario: {scenario.name}</Text>
+        {passed > 0 && <Badge size='24' color='success' fill='outline' caption={passed}/>}
+        {failed > 0 && <Badge size='24' color='fire' fill='outline' caption={failed}/>}
+        {skipped > 0 && <Badge size='24' color='cobalt' fill='outline' caption={skipped}/>}
+        {undefinedSteps > 0 && <Badge size='24' color='yellow' fill='outline' caption={undefinedSteps}/>}
+        {ambiguous > 0 && <Badge size='24' color='orange' fill='outline' caption={ambiguous}/>}
+        {pending > 0 && <Badge size='24' color='night300' fill='outline' caption={pending}/>}
         {<TagList tags={scenario.tags} itemsToRender={10}/>}
         <FlexSpacer/>
         <TimeLabel time={getScenarioDuration(scenario)}/>

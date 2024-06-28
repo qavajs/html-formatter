@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react';
-import { Panel, FlexSpacer, FlexRow, Text, FlexCell } from '@epam/promo';
+import { Panel, FlexSpacer, FlexRow, Text, FlexCell } from '@epam/loveship';
 import { Features } from '../components/Features';
 import { StatisticsPieChart } from '../components/StatisticsPieChart';
 import css from '../App.module.scss';
@@ -32,16 +32,16 @@ export const MainPage = () => {
         textAlign: 'center',
         width: '200px',
         fontFamily: `Arial, "Sans Semibold", sans-serif,"Museo Sans"`,
-        color: '#303240'
+        color: 'whitesmoke'
     } as CSSProperties;
 
     return (
         <>
             <FlexRow margin='12' spacing='12'>
-                <Panel cx={css.statisticsPanel} background='white' shadow>
+                <Panel cx={css.statisticsPanel} shadow>
                     <span style={totalNumberStyle}>{featuresTotal}</span>
                     <FlexRow padding='12'>
-                        <Text font='sans-semibold' size='48'>Feature Statistics</Text>
+                        <Text size='48'>Feature Statistics</Text>
                     </FlexRow>
                     <FlexRow padding='12'>
                         <FlexCell minWidth={300}>
@@ -53,10 +53,10 @@ export const MainPage = () => {
                     </FlexRow>
                 </Panel>
                 <FlexSpacer/>
-                <Panel cx={css.statisticsPanel} background='white' shadow>
+                <Panel cx={css.statisticsPanel} shadow>
                     <span style={totalNumberStyle}>{scenariosTotal}</span>
                     <FlexRow padding='12'>
-                        <Text font='sans-semibold' size='48'>Scenario Statistics</Text>
+                        <Text size='48'>Scenario Statistics</Text>
                     </FlexRow>
                     <FlexRow padding='12'>
                         <FlexCell minWidth={300}>

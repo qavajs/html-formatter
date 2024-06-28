@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FlexRow, TextInput } from '@epam/promo';
+import { FlexRow, TextInput } from '@epam/loveship';
 import { Scenario } from '../components/Scenario';
 import css from '../App.module.scss';
 import { FeatureTitle } from '../components/FeatureTitle';

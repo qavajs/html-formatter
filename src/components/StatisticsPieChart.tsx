@@ -1,7 +1,6 @@
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 
 const COLORS = ['#88CC00', '#E54322', '#0088FE', '#FFBB28'];
-
 export const StatisticsPieChart = ({data}: {data: any}) => {
     return (
         <div style={{width: '100%'}}>
@@ -13,7 +12,8 @@ export const StatisticsPieChart = ({data}: {data: any}) => {
                     cy={120}
                     innerRadius={60}
                     outerRadius={100}
-                    fill="#8884d8"
+                    fill="#383b4a"
+                    stroke="#383b4a"
                     paddingAngle={0}
                     dataKey="value"
                 >
