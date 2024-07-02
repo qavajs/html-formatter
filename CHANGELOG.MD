@@ -1,3 +1,6 @@
+# 0.17.0
+- implemented runtime streaming
+
 # 0.16.0
 - added dark theme
 
