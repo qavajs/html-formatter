@@ -77,6 +77,29 @@ When('failed step with log', function () {
     throw new Error('failed step');
 });
 
+When('step with response', function () {
+    const response = {
+        request: {
+            method: 'POST',
+            url: 'http://localhost:3000/#/feature/featurefc7c2610-bd2a-450d-b311-d5fafa543ef66',
+            body: 'cXdlcnR5MTIz',
+            headers: {
+                header1: 'value',
+                otherHeader1: 'value2',
+                anotherHeader1: 'value3',
+            }
+        },
+        response: {
+            status: 200,
+            body: 'cXdlcnR5MTIzcmVzcG9uc2U=',
+            headers: {
+                headerresponse: 'value1'
+            }
+        }
+    }
+    this.attach(JSON.stringify(response), 'text/x.response.json')
+});
+
 When(`I expect {string} to match {string}`, async function (one, two) {});
 
 Before(async function () {});

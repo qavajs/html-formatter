@@ -1,3 +1,6 @@
+# 0.18.0
+- added capability to display http request and response
+
 # 0.17.0
 - implemented runtime streaming
 
