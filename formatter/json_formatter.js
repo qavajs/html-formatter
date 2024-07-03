@@ -1,4 +1,5 @@
 const { Formatter } = require('@cucumber/cucumber');
+
 class JsonFormatter extends Formatter {
 
     constructor(options) {
@@ -22,26 +23,22 @@ class JsonFormatter extends Formatter {
     finishTest(envelope) {
         if (envelope.testCaseFinished.willBeRetried) return;
         const testCase = this.eventDataCollector.getTestCaseAttempt(envelope.testCaseFinished.testCaseStartedId);
-        let feature = this.json.find(feature => feature.name === testCase.gherkinDocument.feature.name);
-        if (!feature) {
-            feature = {
-                description: testCase.gherkinDocument.feature.description,
-                id: 'feature' + testCase.pickle.id,
-                line: testCase.gherkinDocument.feature.location.line,
-                keyword: testCase.gherkinDocument.feature.keyword,
-                name: testCase.gherkinDocument.feature.name,
-                uri: testCase.gherkinDocument.uri,
-                elements: [],
-                tags: this.formatTags(testCase.gherkinDocument.feature.tags)
-            };
-            this.json.push(feature);
-        }
+        const feature = {
+            description: testCase.gherkinDocument.feature.description,
+            id: 'feature' + testCase.pickle.id,
+            line: testCase.gherkinDocument.feature.location.line,
+            keyword: testCase.gherkinDocument.feature.keyword,
+            name: testCase.gherkinDocument.feature.name,
+            uri: testCase.gherkinDocument.uri,
+            elements: [],
+            tags: this.formatTags(testCase.gherkinDocument.feature.tags)
+        };
         const steps = testCase.testCase.testSteps;
         for (const step of steps) {
             const pickle = testCase.pickle.steps.find(pickle => step.pickleStepId === pickle.id);
             step.name = pickle ? pickle.text : this.hookText(steps, step);
             step.arguments = pickle ? [{ ...(pickle.argument?.dataTable ?? pickle.argument?.docString) }] : undefined;
-            const result= testCase.stepResults[step.id];
+            const result = testCase.stepResults[step.id];
             step.result = {
                 status: result.status.toLowerCase(),
                 duration: result.duration.seconds * 1_000_000_000 + result.duration.nanos,
@@ -55,28 +52,29 @@ class JsonFormatter extends Formatter {
         }
         const scenario = {
             steps,
+            feature,
             name: testCase.pickle.name,
             id: testCase.pickle.id,
             keyword: 'Scenario',
             tags: this.formatTags(testCase.pickle.tags),
             type: 'scenario'
-        }
-        feature.elements.push(scenario);
+        };
+        this.json.push(scenario);
     }
 
     finishLaunch() {
-        this.log(JSON.stringify(this.json, null, 2))
+        this.log(JSON.stringify(this.json, null, 2));
     }
 
     formatTags(tags) {
-        return tags.map(tag => ({ name: tag.name, line: tag.location?.line }))
+        return tags.map(tag => ({ name: tag.name, line: tag.location?.line }));
     }
 
     hookText(steps, step) {
         const hook = this.hooks[step.hookId];
         if (hook?.name) return hook.name;
         const stepsBefore = steps.slice(0, steps.findIndex((element) => element === step));
-        return stepsBefore.every(element => element.pickleStepId === undefined) ? 'Before' : 'After'
+        return stepsBefore.every(element => element.pickleStepId === undefined) ? 'Before' : 'After';
     }
 }
 
