@@ -1,3 +1,6 @@
+# 0.18.1
+- fixed home navigation
+
 # 0.18.0
 - added capability to display http request and response
 - updated main menu implementation

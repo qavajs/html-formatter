@@ -12,7 +12,7 @@ export const AppHeader = () => {
             {
                 id: 'main',
                 priority: 1,
-                render: (p) => <MainMenuButton key={p.id} href="/" caption="@qavajs/html-formatter" />,
+                render: (p) => <MainMenuButton key={p.id} href="#" caption="@qavajs/html-formatter" />,
                 caption: '@qavajs/html-formatter'
             },
             { id: 'flexSpacer', priority: 2, render: (p) => <FlexSpacer key={p.id} /> },
