@@ -1,5 +1,11 @@
-import {Text, IconContainer, IconButton, LinkButton, FlexRow} from '@epam/loveship';
+import { Text, IconContainer, IconButton, LinkButton, FlexRow } from '@epam/loveship';
 import { ErrorModal } from './ErrorModal';
+import { AttachmentModal } from './AttachmentModal';
+import { ResponseModal } from './ResponseModal';
+import { LogsModal } from './LogsModal';
+import { TimeLabel } from './TimeLabel';
+import { FlexSpacer } from '@epam/uui';
+
 import { ReactComponent as PassedIcon } from '@epam/assets/icons/common/notification-done-24.svg';
 import { ReactComponent as FailedIcon } from '@epam/assets/icons/common/navigation-close-24.svg';
 import { ReactComponent as SkippedIcon } from '@epam/assets/icons/common/navigation-chevron-right_right-24.svg';
@@ -9,15 +15,15 @@ import { ReactComponent as PendingIcon } from '@epam/assets/icons/common/navigat
 import { ReactComponent as ErrorIcon } from '@epam/assets/icons/common/notification-info-fill-24.svg';
 import { ReactComponent as AttachmentIcon } from '@epam/assets/icons/common/file-attachment-24.svg';
 import { ReactComponent as LogsIcon } from '@epam/assets/icons/common/content-code-24.svg';
+import { ReactComponent as ResponseIcon } from '@epam/assets/icons/common/content-code_braces-24.svg';
 
 import css from '../App.module.scss';
 import { useUuiContext } from '@epam/uui-core';
-import { AttachmentModal } from './AttachmentModal';
 import { supportedMimeTypes } from '../utils/supportedMimeTypes';
 import { openInNewTab } from '../utils/openInNewTab';
-import { LogsModal } from './LogsModal';
-import { TimeLabel } from './TimeLabel';
-import { FlexSpacer } from '@epam/uui';
+
+const logPlainMimeType = 'text/x.cucumber.log+plain';
+const responseMimeType = 'text/x.response.json';
 
 const icon = (status: string) => {
     switch (status) {
@@ -69,11 +75,15 @@ const handleLogsClick = (logs: any[], svc: any) => {
     return () => svc.uuiModals.show((props: any) => <LogsModal { ...props } logs={logs}/>)
 }
 
+const handleResponseClick = (response: any, svc: any) => {
+    return () => svc.uuiModals.show((props: any) => <ResponseModal { ...props } response={response}/>)
+}
+
 export const Step = ({step}: {step: any}) => {
     const svc = useUuiContext();
-    const logs = step.embeddings
-        ? step.embeddings.filter((embedding: any) => embedding.mime_type === 'text/x.cucumber.log+plain')
-        : [];
+    const logs = step.embeddings?.filter((embedding: any) => embedding.mime_type === logPlainMimeType) ?? [];
+    const responses = step.embeddings?.filter((embedding: any) => embedding.mime_type === responseMimeType) ?? [];
+    const attachments = step.embeddings?.filter((embedding: any) => ![logPlainMimeType, responseMimeType].includes(embedding.mime_type)) ?? [];
     return <div>
         <FlexRow>
             {icon(step.result.status)}
@@ -88,10 +98,17 @@ export const Step = ({step}: {step: any}) => {
                 caption='Logs'
                 onClick={ handleLogsClick(logs, svc) }
             />}
-            {step.embeddings && step.embeddings
-                .filter((embedding: any) => embedding.mime_type !== 'text/x.cucumber.log+plain')
+            {responses
                 .map((embedding: any, index: any) => <LinkButton
-                    key={index}
+                    key={ `response-${index}` }
+                    icon={ ResponseIcon }
+                    caption='Response'
+                    onClick={ handleResponseClick(embedding, svc) }
+                />)
+            }
+            {attachments
+                .map((embedding: any, index: any) => <LinkButton
+                    key={ `attachment-${index}` }
                     icon={ AttachmentIcon }
                     caption={ embedding.fileName ?? embedding.mime_type }
                     onClick={ handleAttachmentClick(embedding, svc) }

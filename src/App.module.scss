@@ -37,10 +37,6 @@ footer {
     margin-right: 15px;
 }
 
-.caption {
-    //color: aliceblue;
-}
-
 .header {
     z-index: 100;
 }
@@ -100,4 +96,17 @@ footer {
 
 .stepText {
     margin-right: 10px;
+}
+
+.responseTextArea {
+    width: 100%;
+}
+
+.responseModal {
+    overflow-y: scroll;
+}
+
+.responseUrlInput {
+    width: 600px;
+    margin-left: 25px;
 }
