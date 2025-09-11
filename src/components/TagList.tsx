@@ -3,7 +3,7 @@ import css from '../App.module.scss';
 import clipboard from '../utils/clipboard';
 import { DropdownBodyProps } from '@epam/uui-core';
 import { DropdownContainer } from '@epam/uui';
-import { ReactComponent as NavigationDownIcon } from '@epam/assets/icons/common/navigation-chevron-down-18.svg';
+import NavigationDownIcon from '@epam/assets/icons/common/navigation-chevron-down-18.svg?react';
 
 const renderDropdownBody = (tags: Array<{ name: string }>) => {
     return (props: DropdownBodyProps) => (
@@ -42,7 +42,6 @@ function renderTags(tags: Array<{ name: string }>, itemsToRender: number) {
                     caption='Other'
                 />
             ) }
-            placement='auto'
             openOnHover={true}
             openOnClick={false}
             closeOnMouseLeave='boundary'

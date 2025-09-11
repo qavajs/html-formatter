@@ -1,0 +1,33 @@
+html, body {
+    height: 100%;
+    background-color: #383b4a;
+}
+
+body {
+    margin: 0;
+
+    > div {
+        height: 100%;
+    }
+}
+
+main {
+    flex: 1 1 auto;
+    box-sizing: border-box;
+}
+
+footer {
+    height: 30px;
+}
+
+* {
+    --uui-text: whitesmoke !important;
+}
+
+.errorModalPre {
+    color: var(--uui-text);
+    width: 100%;
+    overflow: auto;
+    height: 60vh;
+    white-space: pre-wrap;
+}

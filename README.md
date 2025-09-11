@@ -5,17 +5,17 @@ Single file HTML formatter for cucumber framework
 ### Installation
 To install formatter run
 
-`npm install @qavajs/html-formatter`
+```
+npm install @qavajs/html-formatter
+```
 
 and add to formatter section in config file
 
-```javascript
-module.exports = {
-    default: {
-        format: [
-            ['@qavajs/html-formatter', 'report.html']
-        ]
-    },
+```typescript
+export default {
+    format: [
+        ['@qavajs/html-formatter', 'report.html']
+    ],
     formatOptions: {
         htmlConfig: {
             metadata: {
@@ -35,9 +35,15 @@ Kudos to https://github.com/epam/UUI for providing components
 
 ## Development
 
-`npm install`
+```
+npm install
+```
 
-`npm run build`
+```
+npm run build
+```
 
-`npm start`
+```
+npm start
+```
 

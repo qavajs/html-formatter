@@ -1,5 +1,5 @@
-import {ReactComponent as ClockIcon} from "@epam/assets/icons/common/action-schedule-outline-18.svg";
-import {IconContainer, Text} from "@epam/loveship";
+import ClockIcon from "@epam/assets/icons/common/action-schedule-outline-18.svg?react";
+import { IconContainer, Text } from "@epam/loveship";
 
 export const TimeLabel = (props: { time: string }) => {
     return <>
