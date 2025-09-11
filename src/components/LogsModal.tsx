@@ -14,7 +14,7 @@ export const LogsModal = (modalProps: any) => {
                 <Panel>
                     <ModalHeader title="Logs" onClose={() => modalProps.success('close')}/>
                         <FlexRow padding='24'>
-                            <pre style={{width: '100%', overflow: 'auto', height: '60vh'}}>
+                            <pre className='errorModalPre'>
                                 {modalProps.logs.map((log: any, index: number) => <div key={index}>{log.data}</div>)}
                             </pre>
                         </FlexRow>

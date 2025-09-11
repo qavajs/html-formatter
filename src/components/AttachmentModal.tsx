@@ -28,7 +28,7 @@ const Attachment = (props: any) => {
         </div>
     }
     if (text.includes(props.embedding.mime_type)) {
-        return <pre style={{width: '100vw'}}>{props.embedding.data}</pre>
+        return <pre className='errorModalPre'>{props.embedding.data}</pre>
     }
     if (json.includes(props.embedding.mime_type)) {
         const pretty = JSON.stringify(JSON.parse(props.embedding.data), null, 2)

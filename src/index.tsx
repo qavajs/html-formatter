@@ -5,7 +5,8 @@ import '@epam/uui-components/styles.css';
 import '@epam/uui/styles.css';
 import '@epam/loveship/styles.css';
 import '@epam/assets/theme/theme_loveship_dark.scss';
-import './App.module.scss';
+// import './App.module.scss';
+import './index.css';
 
 import { App } from './App';
 import { svc } from './services';

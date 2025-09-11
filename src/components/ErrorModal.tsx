@@ -14,7 +14,7 @@ export const ErrorModal = (modalProps: any) => {
                 <Panel>
                     <ModalHeader title="Error" onClose={() => modalProps.success('close')}/>
                         <FlexRow padding='24'>
-                            <pre style={{width: '100%', overflow: 'auto', height: '60vh'}}>
+                            <pre className='errorModalPre'>
                                 {modalProps.error}
                             </pre>
                         </FlexRow>
