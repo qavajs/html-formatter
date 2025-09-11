@@ -5,7 +5,7 @@ import { viteSingleFile } from "vite-plugin-singlefile"
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [svgr(), react(), viteSingleFile()],
+    plugins: [svgr({ include: "**/*.svg?react" }), react(), viteSingleFile()],
     optimizeDeps: {},
     test: {
         include: ['**/*.test.tsx'],

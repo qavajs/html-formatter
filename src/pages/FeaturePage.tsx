@@ -25,7 +25,7 @@ function handleSwitchChange(setShowOnlyFailed: (value: boolean) => void) {
 }
 
 export const FeaturePage = () => {
-    const { id }: { id: string } = useParams();
+    const { id } = useParams();
     const feature = window.data.find((feature: any) => feature.id === id)
     const [searchValue, setSearchValue] = useState('');
     const [showOnlyFailed, setShowOnlyFailed] = useState(

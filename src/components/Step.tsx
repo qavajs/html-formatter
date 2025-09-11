@@ -6,16 +6,16 @@ import { LogsModal } from './LogsModal';
 import { TimeLabel } from './TimeLabel';
 import { FlexSpacer } from '@epam/uui';
 
-import { ReactComponent as PassedIcon } from '@epam/assets/icons/common/notification-done-24.svg';
-import { ReactComponent as FailedIcon } from '@epam/assets/icons/common/navigation-close-24.svg';
-import { ReactComponent as SkippedIcon } from '@epam/assets/icons/common/navigation-chevron-right_right-24.svg';
-import { ReactComponent as UndefinedIcon } from '@epam/assets/icons/common/notification-help-outline-24.svg';
-import { ReactComponent as AmbiguousIcon } from '@epam/assets/icons/common/empty-24.svg';
-import { ReactComponent as PendingIcon } from '@epam/assets/icons/common/navigation-more_horiz-24.svg';
-import { ReactComponent as ErrorIcon } from '@epam/assets/icons/common/notification-info-fill-24.svg';
-import { ReactComponent as AttachmentIcon } from '@epam/assets/icons/common/file-attachment-24.svg';
-import { ReactComponent as LogsIcon } from '@epam/assets/icons/common/content-code-24.svg';
-import { ReactComponent as ResponseIcon } from '@epam/assets/icons/common/content-code_braces-24.svg';
+import PassedIcon from '@epam/assets/icons/common/notification-done-24.svg?react';
+import FailedIcon from '@epam/assets/icons/common/navigation-close-24.svg?react';
+import SkippedIcon from '@epam/assets/icons/common/navigation-chevron-right_right-24.svg?react';
+import UndefinedIcon from '@epam/assets/icons/common/notification-help-outline-24.svg?react';
+import AmbiguousIcon from '@epam/assets/icons/common/empty-24.svg?react';
+import PendingIcon from '@epam/assets/icons/common/navigation-more_horiz-24.svg?react';
+import ErrorIcon from '@epam/assets/icons/common/notification-info-fill-24.svg?react';
+import AttachmentIcon from '@epam/assets/icons/common/file-attachment-24.svg?react';
+import LogsIcon from '@epam/assets/icons/common/content-code-24.svg?react';
+import ResponseIcon from '@epam/assets/icons/common/content-code_braces-24.svg?react';
 
 import css from '../App.module.scss';
 import { useUuiContext } from '@epam/uui-core';

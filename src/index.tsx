@@ -1,5 +1,4 @@
 import { HashRouter } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
 import { ContextProvider } from '@epam/uui-core';
 import { Snackbar, Modals } from '@epam/uui-components';
 import '@epam/uui-components/styles.css';
@@ -11,8 +10,6 @@ import './App.module.scss';
 import { App } from './App';
 import { svc } from './services';
 import { createRoot } from 'react-dom/client';
-
-const history = createBrowserHistory();
 
 declare global {
     // eslint-disable-next-line no-unused-vars
@@ -78,7 +75,6 @@ const UuiEnhancedApp = () => (
         onInitCompleted={(context) => {
             Object.assign(svc, context);
         }}
-        history={history}
     >
         <App />
         <Snackbar />
