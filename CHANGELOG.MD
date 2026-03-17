@@ -1,3 +1,6 @@
+# 1.1.1
+- fixed issue with required `showLogs`
+
 # 1.1.0
 - added `showLogs` flag to enable/disable `text/x.cucumber.log+plain` logs
 

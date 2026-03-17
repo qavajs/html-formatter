@@ -1,6 +1,6 @@
 {
   "name": "@qavajs/html-formatter",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "formatter/formatter.js",
   "repository": {
     "type": "git",

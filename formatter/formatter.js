@@ -28,7 +28,7 @@ class HTMLFormatter extends Formatter {
     constructor(options) {
         super(options);
         const metadata = JSON.stringify(options.parsedArgvOptions.htmlConfig?.metadata ?? {});
-        this.options.showLogs = options.parsedArgvOptions.htmlConfig.showLogs ?? true;
+        this.options.showLogs = options.parsedArgvOptions.htmlConfig?.showLogs ?? true;
         const htmlTemplate = readFileSync(path.resolve(__dirname, './index.html'), 'utf-8')
             .replace('METADATA', metadata);
         const [left, right] = htmlTemplate.split('SOURCE_DATA');
