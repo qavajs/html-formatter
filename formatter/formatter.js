@@ -13,7 +13,8 @@ class HTMLStream {
     write(data) {
         const dataBuffer = Buffer.from(data);
         const buffer = Buffer.concat([dataBuffer, this.ender]);
-        write(this.fd, buffer, 0, buffer.length, this.position, () => {});
+        write(this.fd, buffer, 0, buffer.length, this.position, () => {
+        });
         this.position += dataBuffer.length;
     }
 
@@ -22,10 +23,12 @@ class HTMLStream {
 class HTMLFormatter extends Formatter {
 
     hooks = {};
+    options = {};
 
     constructor(options) {
         super(options);
         const metadata = JSON.stringify(options.parsedArgvOptions.htmlConfig?.metadata ?? {});
+        this.options.showLogs = options.parsedArgvOptions.htmlConfig.showLogs ?? true;
         const htmlTemplate = readFileSync(path.resolve(__dirname, './index.html'), 'utf-8')
             .replace('METADATA', metadata);
         const [left, right] = htmlTemplate.split('SOURCE_DATA');
@@ -67,11 +70,16 @@ class HTMLFormatter extends Formatter {
                 duration: result.duration.seconds * 1_000_000_000 + result.duration.nanos,
                 error_message: result.message
             };
-            step.embeddings = testCase.stepAttachments[step.id]?.map(attachment => ({
-                ...attachment,
-                data: attachment.body,
-                mime_type: attachment.mediaType
-            }));
+            step.embeddings = testCase.stepAttachments[step.id]
+                ?.filter(attachment => {
+                    const isAttachment = attachment.mediaType !== 'text/x.cucumber.log+plain';
+                    return this.options.showLogs || isAttachment
+                })
+                .map(attachment => ({
+                    ...attachment,
+                    data: attachment.body,
+                    mime_type: attachment.mediaType
+                }));
         }
         const scenario = {
             feature,

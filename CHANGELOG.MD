@@ -1,3 +1,6 @@
+# 1.1.0
+- added `showLogs` flag to enable/disable `text/x.cucumber.log+plain` logs
+
 # 0.18.1
 - fixed home navigation
 

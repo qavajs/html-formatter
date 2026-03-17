@@ -14,7 +14,8 @@
         "rootDir": ".",
         "types": [
             "vitest/globals",
-            "vitest-dom/extend-expect"
+            "vitest-dom/extend-expect",
+            "node"
         ]
     }
 }

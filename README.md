@@ -18,6 +18,7 @@ export default {
     ],
     formatOptions: {
         htmlConfig: {
+            showLogs: true, // enable/disable text/x.cucumber.log+plain
             metadata: {
                 'OS': 'macos',
                 'OS Version': '13.1'
