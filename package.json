@@ -2,10 +2,19 @@
   "name": "@qavajs/html-formatter",
   "version": "1.1.0",
   "main": "formatter/formatter.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qavajs/html-formatter.git"
+  },
   "authors": [
     "Alexandr Galichenko",
     "Alexandr Legchilov"
   ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/qavajs/html-formatter/issues"
+  },
+  "homepage": "https://github.com/qavajs/html-formatter#readme",
   "scripts": {
     "prebuild": "qavajs run --config test/report.ts --profile json --no-error-exit",
     "report:generate": "qavajs run --config test/report.ts --no-error-exit",
