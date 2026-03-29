@@ -19,8 +19,9 @@ import ResponseIcon from '@epam/assets/icons/common/content-code_braces-24.svg?r
 
 import css from '../App.module.scss';
 import { useUuiContext } from '@epam/uui-core';
-import { supportedMimeTypes } from '../utils/supportedMimeTypes';
+import { supportedMimeTypes, image } from '../utils/supportedMimeTypes';
 import { openInNewTab } from '../utils/openInNewTab';
+import { SlideshowModal } from './SlideshowModal';
 
 const logPlainMimeType = 'text/x.cucumber.log+plain';
 const responseMimeType = 'text/x.response.json';
@@ -71,6 +72,10 @@ const handleAttachmentClick = (embedding: any, svc: any) => {
     return openInNewTab(embedding.data, embedding.mime_type)
 }
 
+const handleSlideshowClick = (embeddings: any[], svc: any) => {
+    return () => svc.uuiModals.show((props: any) => <SlideshowModal { ...props } embeddings={embeddings}/>)
+}
+
 const handleLogsClick = (logs: any[], svc: any) => {
     return () => svc.uuiModals.show((props: any) => <LogsModal { ...props } logs={logs}/>)
 }
@@ -83,7 +88,9 @@ export const Step = ({step}: {step: any}) => {
     const svc = useUuiContext();
     const logs = step.embeddings?.filter((embedding: any) => embedding.mime_type === logPlainMimeType) ?? [];
     const responses = step.embeddings?.filter((embedding: any) => embedding.mime_type === responseMimeType) ?? [];
-    const attachments = step.embeddings?.filter((embedding: any) => ![logPlainMimeType, responseMimeType].includes(embedding.mime_type)) ?? [];
+    const allAttachments = step.embeddings?.filter((embedding: any) => ![logPlainMimeType, responseMimeType].includes(embedding.mime_type)) ?? [];
+    const screenshots = allAttachments.filter((embedding: any) => image.includes(embedding.mime_type));
+    const attachments = allAttachments.filter((embedding: any) => !image.includes(embedding.mime_type));
     return <div>
         <FlexRow>
             {icon(step.result.status)}
@@ -106,6 +113,11 @@ export const Step = ({step}: {step: any}) => {
                     onClick={ handleResponseClick(embedding, svc) }
                 />)
             }
+            {screenshots.length > 0 && <LinkButton
+                icon={ AttachmentIcon }
+                caption={ screenshots.length > 1 ? `Screenshots (${screenshots.length})` : (screenshots[0].fileName ?? 'Screenshot') }
+                onClick={ handleSlideshowClick(screenshots, svc) }
+            />}
             {attachments
                 .map((embedding: any, index: any) => <LinkButton
                     key={ `attachment-${index}` }
