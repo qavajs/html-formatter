@@ -32,7 +32,7 @@ const Attachment = (props: any) => {
     }
     if (json.includes(props.embedding.mime_type)) {
         const pretty = JSON.stringify(JSON.parse(props.embedding.data), null, 2)
-        return <pre style={{width: '100vw'}}>{pretty}</pre>
+        return <pre style={{width: '100vw', color: 'whitesmoke'}}>{pretty}</pre>
     }
     if (iframe.includes(props.embedding.mime_type)) {
         return <div style={{width: '90vw', height: '60vh'}}>
@@ -53,7 +53,7 @@ export const AttachmentModal = (modalProps: any) => {
             <ModalWindow width={1200} style={{margin: 'auto'}}>
                 <Panel>
                     <ModalHeader title="Attachment" onClose={() => modalProps.success('close')}/>
-                    <ScrollBars hasTopShadow hasBottomShadow>
+                    <ScrollBars>
                         <FlexRow padding='24'>
                             <Attachment embedding={modalProps.embedding}/>
                         </FlexRow>
