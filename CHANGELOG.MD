@@ -10,6 +10,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 :pencil: - chore  
 :microscope: - experimental
 
+# [1.3.0]
+- :rocket: added support of cucumber 13
+- :pencil: updated dependencies to latest versions
+
 # [1.2.0]
 - :rocket: added slideshow for screenshot attachments
 
