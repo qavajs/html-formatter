@@ -1,29 +1,12 @@
 const { Formatter } = require('@cucumber/cucumber');
-const { write, readFileSync } = require('node:fs');
+const { readFileSync } = require('node:fs');
 const path = require('node:path');
-
-class HTMLStream {
-
-    constructor(fd, ender) {
-        this.fd = fd;
-        this.position = 0;
-        this.ender = Buffer.from(ender);
-    }
-
-    write(data) {
-        const dataBuffer = Buffer.from(data);
-        const buffer = Buffer.concat([dataBuffer, this.ender]);
-        write(this.fd, buffer, 0, buffer.length, this.position, () => {
-        });
-        this.position += dataBuffer.length;
-    }
-
-}
 
 class HTMLFormatter extends Formatter {
 
     hooks = {};
     options = {};
+    _scenarios = [];
 
     constructor(options) {
         super(options);
@@ -32,8 +15,8 @@ class HTMLFormatter extends Formatter {
         const htmlTemplate = readFileSync(path.resolve(__dirname, './index.html'), 'utf-8')
             .replace('METADATA', metadata);
         const [left, right] = htmlTemplate.split('SOURCE_DATA');
-        this.htmlStream = new HTMLStream(this.stream.fd, right);
-        this.htmlStream.write(left);
+        this._left = left;
+        this._right = right;
         options.eventBroadcaster.on('envelope', this.processEnvelope.bind(this));
     }
 
@@ -90,7 +73,12 @@ class HTMLFormatter extends Formatter {
             tags: this.formatTags(testCase.pickle.tags),
             type: 'scenario'
         };
-        this.htmlStream.write(JSON.stringify(scenario) + ',');
+        this._scenarios.push(JSON.stringify(scenario) + ',');
+    }
+
+    async finished() {
+        this.log(this._left + this._scenarios.join('') + this._right);
+        await super.finished();
     }
 
     formatTags(tags) {

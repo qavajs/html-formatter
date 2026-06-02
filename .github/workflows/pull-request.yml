@@ -8,12 +8,16 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        cucumber-version: [12, 13]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 22
+          node-version: 24
       - run: npm ci
+      - run: npm install @cucumber/cucumber@${{ matrix.cucumber-version }}
 #      - run: npx playwright install
       - run: npm run build
       - run: npm run report:generate
