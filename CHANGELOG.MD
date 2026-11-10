@@ -29,26 +29,26 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - :rocket: light theme (header toggle, remembered), print stylesheet (always light, without navigation and filters)
 - :rocket: `htmlConfig.attachments: 'external'` writes binary attachments next to the report (`htmlConfig.attachmentsDir`) instead of inlining them
 - :rocket: error dialog uses the text attachment viewer (wrap, copy, download), error previews have a "Copy" button; errors are copied without ansi colors
-- :beetle: fixed attachments being embedded twice (report size roughly halved for attachment-heavy reports)
-- :beetle: fixed tags and copy link inside scenario header not working from keyboard (Enter toggled the scenario)
-- :pencil: report data is embedded as json (`<script type="application/json">`) instead of a js literal
-- :pencil: documented options, report features and url parameters in README
-
-# [1.3.0]
-- :rocket: added support of cucumber 13
 - :rocket: skipped/pending scenarios are reported separately from failed ones
 - :rocket: added scenario/feature durations, total duration and duration sorting
 - :rocket: search and "show only failed" filters are kept in url
 - :rocket: jpeg/gif/webp/bmp/svg screenshots are shown in slideshow
+- :beetle: fixed attachments being embedded twice (report size roughly halved for attachment-heavy reports)
+- :beetle: fixed tags and copy link inside scenario header not working from keyboard (Enter toggled the scenario)
 - :beetle: fixed report breaking when test data contains `</script>`
 - :beetle: fixed metadata values containing `$` being corrupted
 - :beetle: fixed features with the same name from different files being merged
 - :beetle: fixed crash on invalid json attachment/response and on unknown feature url
 - :beetle: fixed attachment encoding handling and non-ASCII response body decoding
 - :beetle: fixed response status badge color for error statuses
+- :pencil: report data is embedded as json (`<script type="application/json">`) instead of a js literal
+- :pencil: documented options, report features and url parameters in README
 - :pencil: removed recharts (report template is ~25% smaller)
 - :pencil: replaced eslint with oxlint, added unit tests, fixed CI
 - :pencil: build no longer runs sample tests; dev server injects sample data like the real formatter and live-reloads on `npm run report:data`
+
+# [1.3.0]
+- :rocket: added support of cucumber 13
 - :pencil: updated dependencies to latest versions
 
 # [1.2.0]
