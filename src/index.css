@@ -1,10 +1,63 @@
+:root {
+    --report-background: #383b4a;
+    --report-text: whitesmoke;
+    --report-border: gray;
+    --report-status-passed: #88cc00;
+    --report-status-failed: #e54322;
+    --report-status-skipped: #0088fe;
+    --report-status-undefined: khaki;
+    --report-status-ambiguous: orange;
+    --report-status-pending: lightgrey;
+    --report-muted: #acafbf;
+    --report-keyword: #8fa3c7;
+    --report-surface: #303240;
+    --report-surface-sunken: #272833;
+    --report-divider: #474a59;
+    --report-radius: 8px;
+    --report-mono: 'Roboto Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --report-surface-deep: #1f2029;
+    --report-hover-weak: rgb(255 255 255 / 3%);
+    --report-hover: rgb(255 255 255 / 4%);
+    --report-chip: rgb(255 255 255 / 7%);
+    --report-chip-hover: rgb(255 255 255 / 12%);
+    --report-error-text: #ffb3a3;
+    color-scheme: dark;
+}
+
+/* light theme, toggled from the header (html[data-theme]) */
+html[data-theme='light'] {
+    --report-background: #f5f6fa;
+    --report-text: #1d1e26;
+    --report-border: #c4c7d1;
+    --report-status-passed: #4f8a00;
+    --report-status-failed: #d1361a;
+    --report-status-skipped: #0071d6;
+    --report-status-undefined: #a07c00;
+    --report-status-ambiguous: #c76a00;
+    --report-status-pending: #7a7d8c;
+    --report-muted: #5f6272;
+    --report-keyword: #4f6a9a;
+    --report-surface: #ffffff;
+    --report-surface-sunken: #eef0f5;
+    --report-surface-deep: #e4e7ee;
+    --report-divider: #dde0e8;
+    --report-hover-weak: rgb(0 0 0 / 2%);
+    --report-hover: rgb(0 0 0 / 3%);
+    --report-chip: rgb(0 0 0 / 6%);
+    --report-chip-hover: rgb(0 0 0 / 10%);
+    --report-error-text: #a8260d;
+    color-scheme: light;
+}
+
 html, body {
     height: 100%;
-    background-color: #383b4a;
+    background-color: var(--report-background);
 }
 
 body {
     margin: 0;
+    font-family: var(--uui-font, 'Source Sans Pro', sans-serif);
+    color: var(--report-text);
 
     > div {
         height: 100%;
@@ -21,13 +74,56 @@ footer {
 }
 
 * {
-    --uui-text: whitesmoke !important;
+    --uui-text: var(--report-text) !important;
 }
 
 .errorModalPre {
-    color: var(--uui-text);
+    box-sizing: border-box;
     width: 100%;
+    max-height: 60vh;
+    margin: 0;
+    padding: 12px 16px;
     overflow: auto;
-    height: 60vh;
+    border: 1px solid var(--report-divider);
+    border-radius: 6px;
+    background: var(--report-surface-sunken);
+    color: var(--uui-text);
+    font-family: var(--report-mono);
+    font-size: 13px;
+    line-height: 1.5;
     white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.statisticsTotal {
+    font-size: 40px;
+    font-weight: 600;
+    fill: var(--report-text);
+}
+
+.statisticsLabel {
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    fill: var(--report-muted);
+}
+
+/* ---------- print: light theme is applied on beforeprint (see theme.ts) ---------- */
+@media print {
+    html, body {
+        height: auto;
+        background: #fff;
+    }
+
+    .reportHeader,
+    footer,
+    .uui-accordion-toggle-container > .uui-icon:last-child,
+    [data-print='hide'] {
+        display: none !important;
+    }
+
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
 }

@@ -1,28 +1,51 @@
-import { PieChart, Pie, Cell, Tooltip } from 'recharts';
+import type { ChartItem } from './Legend';
+import { percent } from '../utils/format';
 
-const COLORS = ['#88CC00', '#E54322', '#0088FE', '#FFBB28'];
-export const StatisticsPieChart = ({data}: {data: any}) => {
+export const STATUS_COLORS: Record<ChartItem['name'], string> = {
+    Passed: 'var(--report-status-passed)',
+    Failed: 'var(--report-status-failed)',
+    Undefined: 'var(--report-status-undefined)',
+    Ambiguous: 'var(--report-status-ambiguous)',
+    Pending: 'var(--report-status-pending)',
+    Skipped: 'var(--report-status-skipped)'
+};
+
+const SIZE = 200;
+const RADIUS = 80;
+const STROKE = 22;
+const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+
+/** Lightweight donut chart (plain svg, no charting library) */
+export const StatisticsPieChart = ({ data, total, label }: { data: ChartItem[], total: number, label?: string }) => {
+    const segments = data
+        .filter(item => item.value > 0)
+        .reduce<Array<ChartItem & { length: number, offset: number }>>((acc, item) => {
+            const previous = acc.at(-1);
+            const offset = previous ? previous.offset + previous.length : 0;
+            const length = total > 0 ? item.value / total * CIRCUMFERENCE : 0;
+            return [...acc, { ...item, length, offset }];
+        }, []);
+
     return (
-        <div style={{width: '100%'}}>
-            <PieChart width={400} height={250} onMouseEnter={() => {
-            }}>
-                <Pie
-                    data={data}
-                    cx={120}
-                    cy={120}
-                    innerRadius={60}
-                    outerRadius={100}
-                    fill="#383b4a"
-                    stroke="#383b4a"
-                    paddingAngle={0}
-                    dataKey="value"
+        <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} role='img' aria-label={`Total ${total}`}>
+            <circle cx={SIZE / 2} cy={SIZE / 2} r={RADIUS} fill='none' stroke='var(--report-border)' strokeWidth={STROKE} opacity={0.25}/>
+            <g transform={`rotate(-90 ${SIZE / 2} ${SIZE / 2})`}>
+                {segments.map(segment => <circle
+                    key={segment.name}
+                    cx={SIZE / 2}
+                    cy={SIZE / 2}
+                    r={RADIUS}
+                    fill='none'
+                    stroke={STATUS_COLORS[segment.name]}
+                    strokeWidth={STROKE}
+                    strokeDasharray={`${segment.length} ${CIRCUMFERENCE - segment.length}`}
+                    strokeDashoffset={-segment.offset}
                 >
-                    {data.map((entry: string, index: number) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]}/>
-                    ))}
-                </Pie>
-                <Tooltip />
-            </PieChart>
-        </div>
+                    <title>{`${segment.name}: ${segment.value} (${percent(segment.value, total)}%)`}</title>
+                </circle>)}
+            </g>
+            <text x='50%' y={label ? '46%' : '50%'} textAnchor='middle' dominantBaseline='central' className='statisticsTotal'>{total}</text>
+            {label && <text x='50%' y='62%' textAnchor='middle' dominantBaseline='central' className='statisticsLabel'>{label}</text>}
+        </svg>
     );
-}
+};

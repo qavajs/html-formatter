@@ -1,9 +1,8 @@
-import ClockIcon from "@epam/assets/icons/common/action-schedule-outline-18.svg?react";
-import { IconContainer, Text } from "@epam/loveship";
+import ClockIcon from '@epam/assets/icons/common/action-schedule-outline-18.svg?react';
+import { IconContainer } from '@epam/loveship';
+import css from '../App.module.scss';
 
-export const TimeLabel = (props: { time: string }) => {
-    return <>
-        <IconContainer style={{fill: 'whitesmoke'}} icon={ClockIcon}/>
-        <Text fontSize='16'>{props.time}</Text>
-    </>
-}
+export const TimeLabel = ({ time }: { time: string }) => <span className={css.timeLabel}>
+    <IconContainer cx={css.timeIcon} icon={ClockIcon}/>
+    <span>{time}</span>
+</span>;

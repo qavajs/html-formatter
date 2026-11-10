@@ -1,23 +1,10 @@
-import {useState} from 'react';
-import {
-    ModalBlocker,
-    ModalFooter,
-    ModalHeader,
-    ModalWindow,
-    Panel,
-    ScrollBars,
-    Text,
-    DataTable
-} from '@epam/loveship';
-import { DataColumnProps, useArrayDataSource } from '@epam/uui-core';
+import { useState } from 'react';
+import { Text, DataTable } from '@epam/loveship';
+import { DataColumnProps, DataTableState, useArrayDataSource } from '@epam/uui-core';
+import { BaseModal, ModalProps } from './BaseModal';
+import type { MetadataItem } from '../types';
 
-type Metadata = {
-    key: string,
-    value: string,
-    id: string
-}
-
-const metadataColumns: DataColumnProps<Metadata>[] = [
+const metadataColumns: DataColumnProps<MetadataItem>[] = [
     {
         key: 'key',
         caption: 'Key',
@@ -31,33 +18,25 @@ const metadataColumns: DataColumnProps<Metadata>[] = [
         width: 400,
     }];
 
-export const MetadataModal = (modalProps: any) => {
-    const [table, setTable] = useState({});
+export const MetadataModal = ({ metadata, ...modal }: ModalProps & { metadata: MetadataItem[] }) => {
+    const [table, setTable] = useState<DataTableState>({});
 
-    const dataSource = useArrayDataSource<Metadata, number, unknown>({
-        items: window.metadata
-    }, []);
+    const dataSource = useArrayDataSource<MetadataItem, string, unknown>({
+        items: metadata
+    }, [metadata]);
 
+    // useView is UUI data source API hook, it is stable for a given data source
+    // oxlint-disable-next-line react/hooks
     const view = dataSource.useView(table, setTable, {});
 
-    return <>
-        <ModalBlocker blockerShadow='dark' {...modalProps}>
-            <ModalWindow width={900} style={{ margin: 'auto'}}>
-                <Panel>
-                    <ModalHeader title="Metadata" onClose={() => modalProps.success('close')}/>
-                    <ScrollBars hasTopShadow hasBottomShadow>
-                        <DataTable
-                            { ...view.getListProps() }
-                            getRows={ view.getVisibleRows }
-                            value={ table }
-                            onValueChange={ setTable }
-                            columns={ metadataColumns }
-                            headerTextCase='upper'
-                        />
-                    </ScrollBars>
-                    <ModalFooter/>
-                </Panel>
-            </ModalWindow>
-        </ModalBlocker>
-    </>
-}
+    return <BaseModal modal={modal} title='Metadata'>
+        <DataTable
+            {...view.getListProps()}
+            getRows={view.getVisibleRows}
+            value={table}
+            onValueChange={setTable}
+            columns={metadataColumns}
+            headerTextCase='upper'
+        />
+    </BaseModal>;
+};

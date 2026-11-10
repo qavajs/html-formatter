@@ -1,26 +1,16 @@
-import {
-    ModalBlocker,
-    ModalFooter,
-    ModalHeader,
-    ModalWindow,
-    FlexRow,
-    Panel
-} from '@epam/loveship';
+import { useMemo } from 'react';
+import { ModalProps } from './BaseModal';
+import { AttachmentModal } from './AttachmentModal';
+import type { Embedding } from '../types';
+import { embeddingAsText } from '../utils/encoding';
 
-export const LogsModal = (modalProps: any) => {
-    return <>
-        <ModalBlocker blockerShadow='dark' {...modalProps}>
-            <ModalWindow width={900} style={{ margin: 'auto'}}>
-                <Panel>
-                    <ModalHeader title="Logs" onClose={() => modalProps.success('close')}/>
-                        <FlexRow padding='24'>
-                            <pre className='errorModalPre'>
-                                {modalProps.logs.map((log: any, index: number) => <div key={index}>{log.data}</div>)}
-                            </pre>
-                        </FlexRow>
-                    <ModalFooter/>
-                </Panel>
-            </ModalWindow>
-        </ModalBlocker>
-    </>
-}
+/** All log attachments of a step joined into one text file, shown with the same toolbar (copy, wrap, download) as text attachments */
+export const LogsModal = ({ logs, ...modal }: ModalProps & { logs: Embedding[] }) => {
+    const embedding = useMemo<Embedding>(() => ({
+        data: logs.map(embeddingAsText).join('\n'),
+        mime_type: 'text/plain',
+        contentEncoding: 'IDENTITY',
+        fileName: 'logs.txt'
+    }), [logs]);
+    return <AttachmentModal {...modal} embedding={embedding} title='Logs'/>;
+};

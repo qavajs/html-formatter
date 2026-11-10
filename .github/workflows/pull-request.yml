@@ -12,19 +12,20 @@ jobs:
       matrix:
         cucumber-version: [12, 13]
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version-file: .nvmrc
+          cache: npm
       - run: npm ci
       - run: npm install @cucumber/cucumber@${{ matrix.cucumber-version }}
-#      - run: npx playwright install
-      - run: npm run build
-      - run: npm run report:generate
-#      - run: npm run test:e2e
-      - name: junit report
-        uses: mikepenz/action-junit-report@v3
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run test:ci
+      - run: npm run report:generate # builds template first (prereport:generate)
+      - name: upload report
         if: always()
+        uses: actions/upload-artifact@v4
         with:
-         report_paths: './test-e2e/report/report.xml'
-         fail_on_failure: true
+          name: report-cucumber-${{ matrix.cucumber-version }}
+          path: test/report/report.html
