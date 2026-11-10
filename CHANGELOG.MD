@@ -12,6 +12,19 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 # [1.3.0]
 - :rocket: added support of cucumber 13
+- :rocket: skipped/pending scenarios are reported separately from failed ones
+- :rocket: added scenario/feature durations, total duration and duration sorting
+- :rocket: search and "show only failed" filters are kept in url
+- :rocket: jpeg/gif/webp/bmp/svg screenshots are shown in slideshow
+- :beetle: fixed report breaking when test data contains `</script>`
+- :beetle: fixed metadata values containing `$` being corrupted
+- :beetle: fixed features with the same name from different files being merged
+- :beetle: fixed crash on invalid json attachment/response and on unknown feature url
+- :beetle: fixed attachment encoding handling and non-ASCII response body decoding
+- :beetle: fixed response status badge color for error statuses
+- :pencil: removed recharts (report template is ~25% smaller)
+- :pencil: replaced eslint with oxlint, added unit tests, fixed CI
+- :pencil: build no longer runs sample tests; dev server injects sample data like the real formatter and live-reloads on `npm run report:data`
 - :pencil: updated dependencies to latest versions
 
 # [1.2.0]

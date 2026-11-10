@@ -1,74 +1,69 @@
-import { CSSProperties } from 'react';
-import { Panel, FlexSpacer, FlexRow, Text, FlexCell } from '@epam/loveship';
 import { Features } from '../components/Features';
 import { StatisticsPieChart } from '../components/StatisticsPieChart';
+import { ChartItem, Legend } from '../components/Legend';
+import { useReport } from '../ReportContext';
+import { formatDuration, percent } from '../utils/format';
+import type { Feature } from '../types';
 import css from '../App.module.scss';
-import { Legend } from '../components/Legend';
+
+function chartData(passed: number, failed: number, skipped: number): ChartItem[] {
+    const items: ChartItem[] = [
+        { name: 'Passed', value: passed },
+        { name: 'Failed', value: failed }
+    ];
+    if (skipped > 0) items.push({ name: 'Skipped', value: skipped });
+    return items;
+}
+
+const sum = (features: Feature[], selector: (feature: Feature) => number) =>
+    features.reduce((total, feature) => total + selector(feature), 0);
+
+const StatisticsPanel = ({ title, unit, data, total }: { title: string, unit: string, data: ChartItem[], total: number }) =>
+    <section className={css.card}>
+        <h2 className={css.cardTitle}>{title}</h2>
+        <div className={css.statisticsBody}>
+            <StatisticsPieChart data={data} total={total} label={unit}/>
+            <Legend items={data} total={total}/>
+        </div>
+    </section>;
+
+const Kpi = ({ label, value, tone }: { label: string, value: string | number, tone?: 'passed' | 'failed' }) =>
+    <div className={css.kpi}>
+        <span className={css.kpiLabel}>{label}</span>
+        <span className={[css.kpiValue, tone && css[`text-${tone}`]].filter(Boolean).join(' ')}>{value}</span>
+    </div>;
 
 export const MainPage = () => {
-    const featuresTotal = window.data.length;
-    const scenariosTotal = window.data.reduce(
-        (total:number, feature: any) => total + feature.elements.length, 0
-    )
-    const featureChartData = [
-        { name: 'Passed', value: window.data.reduce(
-            (passed: number, feature: any) => passed + +!(feature.failed > 0), 0)
-        },
-        { name: 'Failed', value: window.data.reduce(
-            (failed: number, feature: any) => failed + +(feature.failed > 0), 0)
-        }
-    ];
-    const scenarioChartData = [
-        { name: 'Passed', value: window.data.reduce((passed: number, feature: any) => passed + feature.passed, 0) },
-        { name: 'Failed', value: window.data.reduce((failed: number, feature: any) => failed + feature.failed, 0) }
-    ];
-
-    const totalNumberStyle = {
-        fontSize: '64px',
-        position: 'relative',
-        top: '135px',
-        left: '35px',
-        height: '0px',
-        textAlign: 'center',
-        width: '200px',
-        fontFamily: `Arial, "Sans Semibold", sans-serif,"Museo Sans"`,
-        color: 'whitesmoke'
-    } as CSSProperties;
+    const { features } = useReport();
+    const featureData = chartData(
+        features.filter(feature => feature.status === 'passed').length,
+        features.filter(feature => feature.status === 'failed').length,
+        features.filter(feature => feature.status === 'skipped').length
+    );
+    const totalScenarios = sum(features, feature => feature.total);
+    const passedScenarios = sum(features, feature => feature.passed);
+    const failedScenarios = sum(features, feature => feature.failed);
+    const scenarioData = chartData(
+        passedScenarios,
+        failedScenarios,
+        sum(features, feature => feature.skipped)
+    );
+    const totalDuration = sum(features, feature => feature.duration);
 
     return (
-        <>
-            <FlexRow margin='12' spacing='12'>
-                <Panel cx={css.statisticsPanel} shadow>
-                    <span style={totalNumberStyle}>{featuresTotal}</span>
-                    <FlexRow padding='12'>
-                        <Text size='48'>Feature Statistics</Text>
-                    </FlexRow>
-                    <FlexRow padding='12'>
-                        <FlexCell minWidth={300}>
-                            <StatisticsPieChart data={featureChartData}/>
-                        </FlexCell>
-                        <FlexCell minWidth={200}>
-                            <Legend items={featureChartData} total={featuresTotal}/>
-                        </FlexCell>
-                    </FlexRow>
-                </Panel>
-                <FlexSpacer/>
-                <Panel cx={css.statisticsPanel} shadow>
-                    <span style={totalNumberStyle}>{scenariosTotal}</span>
-                    <FlexRow padding='12'>
-                        <Text size='48'>Scenario Statistics</Text>
-                    </FlexRow>
-                    <FlexRow padding='12'>
-                        <FlexCell minWidth={300}>
-                            <StatisticsPieChart data={scenarioChartData}/>
-                        </FlexCell>
-                        <FlexCell minWidth={200}>
-                            <Legend items={scenarioChartData} total={scenariosTotal}/>
-                        </FlexCell>
-                    </FlexRow>
-                </Panel>
-            </FlexRow>
-            <Features data={window.data}/>
-        </>
+        <div className={css.page}>
+            <div className={css.kpiRow}>
+                <Kpi label='Features' value={features.length}/>
+                <Kpi label='Scenarios' value={totalScenarios}/>
+                <Kpi label='Pass rate' value={`${percent(passedScenarios, totalScenarios)}%`}/>
+                <Kpi label='Failed scenarios' value={failedScenarios} tone={failedScenarios > 0 ? 'failed' : 'passed'}/>
+                <Kpi label='Duration' value={formatDuration(totalDuration)}/>
+            </div>
+            <div className={css.statisticsRow}>
+                <StatisticsPanel title='Features' unit='features' data={featureData} total={features.length}/>
+                <StatisticsPanel title='Scenarios' unit='scenarios' data={scenarioData} total={totalScenarios}/>
+            </div>
+            <Features data={features}/>
+        </div>
     );
 };

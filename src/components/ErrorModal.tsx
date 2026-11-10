@@ -1,26 +1,9 @@
-import {
-    ModalBlocker,
-    ModalFooter,
-    ModalHeader,
-    ModalWindow,
-    FlexRow,
-    Panel
-} from '@epam/loveship';
+import { FlexRow } from '@epam/loveship';
+import { BaseModal, ModalProps } from './BaseModal';
 
-export const ErrorModal = (modalProps: any) => {
-    return <>
-        <ModalBlocker blockerShadow='dark' {...modalProps}>
-            <ModalWindow width={900} style={{margin: 'auto'}}>
-                <Panel>
-                    <ModalHeader title="Error" onClose={() => modalProps.success('close')}/>
-                        <FlexRow padding='24'>
-                            <pre className='errorModalPre'>
-                                {modalProps.error}
-                            </pre>
-                        </FlexRow>
-                    <ModalFooter/>
-                </Panel>
-            </ModalWindow>
-        </ModalBlocker>
-    </>
-}
+export const ErrorModal = ({ error, ...modal }: ModalProps & { error: string }) =>
+    <BaseModal modal={modal} title='Error'>
+        <FlexRow padding='24'>
+            <pre className='errorModalPre'>{error}</pre>
+        </FlexRow>
+    </BaseModal>;

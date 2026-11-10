@@ -1,17 +1,16 @@
-import {Badge, FlexRow} from '@epam/loveship';
+import { percent } from '../utils/format';
+import css from '../App.module.scss';
 
-const color = (status: string): any => {
-    return {
-        Passed: 'success',
-        Failed: 'error'
-    }[status] as any
+export interface ChartItem {
+    name: 'Passed' | 'Failed' | 'Skipped';
+    value: number;
 }
-export const Legend = ({items, total}: { items: any[], total: number }) => {
-    return <>
-        {items.map((item: any, index: number) => <FlexRow columnGap="18" key={index}>
-                <Badge key={index} color={color(item.name)} fill='outline' size='24'
-                       caption={`${item.name} ${Math.round(item.value * 100 / total)}%`}/>
-            </FlexRow>
-        )}
-    </>
-};
+
+export const Legend = ({ items, total }: { items: ChartItem[], total: number }) => <ul className={css.legend}>
+    {items.map(item => <li key={item.name} className={css.legendItem}>
+        <span className={[css.legendSwatch, css[`swatch-${item.name.toLowerCase()}`]].join(' ')}/>
+        <span className={css.legendName}>{item.name}</span>
+        <span className={css.legendValue}>{item.value}</span>
+        <span className={css.legendPercent}>{percent(item.value, total)}%</span>
+    </li>)}
+</ul>;

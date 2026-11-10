@@ -40,11 +40,14 @@ Kudos to https://github.com/epam/UUI for providing components
 npm install
 ```
 
-```
-npm run build
-```
+| Command                   | Description                                                                                                                                                       |
+|---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `npm start`               | Dev server with sample report data on http://localhost:3000. Data is generated on first start; run `npm run report:data` in another terminal to refresh it - the page reloads automatically. |
+| `npm run report:data`     | Runs sample features (`test/features`) and writes report data to `test/report/report.json`                                                                        |
+| `npm run report:generate` | Builds formatter template and generates sample report `test/report/report.html` with the real formatter                                                            |
+| `npm run build`           | Builds formatter template `formatter/index.html`                                                                                                                  |
+| `npm test`                | Unit tests                                                                                                                                                        |
+| `npm run lint`            | Lint                                                                                                                                                              |
+| `npm run typecheck`       | Type check                                                                                                                                                        |
 
-```
-npm start
-```
-
+Sample report config (metadata, `showLogs`) lives in `test/report.ts` and is used both by the dev server and by `report:generate`.

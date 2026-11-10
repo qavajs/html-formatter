@@ -1,40 +1,30 @@
-import { useState } from 'react';
-import { FlexRow, TextInput } from '@epam/loveship';
+import { FlexRow, Text } from '@epam/loveship';
 import { Scenario } from '../components/Scenario';
-import css from '../App.module.scss';
 import { FeatureTitle } from '../components/FeatureTitle';
-
-const filterScenarios = (
-    tableData: Array<any>,
-    filterOptions: { searchValue: string }
-) => {
-    return tableData
-        .map((feature: any) => ({
-            ...feature,
-            elements: feature.elements.filter((scenario: any) => scenario.name.toLowerCase().includes(filterOptions.searchValue.toLowerCase()))
-        }))
-}
+import { ScenarioFilters } from '../components/ScenarioFilters';
+import { useReport } from '../ReportContext';
+import { useFilterParams } from '../hooks/useFilterParams';
+import { matchesSearch } from '../utils/format';
 
 export const FailedPage = () => {
-    const features = window.data
-        .map((feature: any) => ({
-            ...feature,
-            elements: feature.elements.filter((scenario: any) => scenario.isFailed)
-        }));
-    const [searchValue, setSearchValue] = useState('');
+    const { features } = useReport();
+    const { search, setSearch } = useFilterParams('isFailedShowOnlyFailed');
+
+    const failedFeatures = features
+        .map(feature => ({
+            feature,
+            scenarios: feature.elements.filter(scenario => scenario.isFailed && matchesSearch(scenario.name, search))
+        }))
+        .filter(({ scenarios }) => scenarios.length > 0);
 
     return <>
-        <FlexRow padding='12' vPadding='12'>
-            {/*@ts-ignore*/}
-            <TextInput cx={css.searchInput} value={searchValue} onValueChange={setSearchValue} placeholder='Search'/>
-        </FlexRow>
-        {filterScenarios(features, {searchValue})
-            .filter((feature: any) => feature.elements.length > 0)
-            .map((feature: any) => <div key={feature.id} data-testid='feature'>
+        <ScenarioFilters search={search} onSearchChange={setSearch}/>
+        {failedFeatures.length === 0 && <FlexRow padding='24'>
+            <Text fontSize='16'>{search ? 'No failed scenarios match the search.' : 'No failed scenarios.'}</Text>
+        </FlexRow>}
+        {failedFeatures.map(({ feature, scenarios }) => <div key={feature.id} data-testid='feature'>
             <FeatureTitle feature={feature}/>
-            {feature.elements.map(
-                (scenario: any, index: number) => <Scenario key={index} scenario={scenario}/>
-            )}
+            {scenarios.map(scenario => <Scenario key={scenario.id} scenario={scenario}/>)}
         </div>)}
-    </>
+    </>;
 };

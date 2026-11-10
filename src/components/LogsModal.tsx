@@ -1,26 +1,13 @@
-import {
-    ModalBlocker,
-    ModalFooter,
-    ModalHeader,
-    ModalWindow,
-    FlexRow,
-    Panel
-} from '@epam/loveship';
+import { FlexRow } from '@epam/loveship';
+import { BaseModal, ModalProps } from './BaseModal';
+import type { Embedding } from '../types';
+import { embeddingAsText } from '../utils/encoding';
 
-export const LogsModal = (modalProps: any) => {
-    return <>
-        <ModalBlocker blockerShadow='dark' {...modalProps}>
-            <ModalWindow width={900} style={{ margin: 'auto'}}>
-                <Panel>
-                    <ModalHeader title="Logs" onClose={() => modalProps.success('close')}/>
-                        <FlexRow padding='24'>
-                            <pre className='errorModalPre'>
-                                {modalProps.logs.map((log: any, index: number) => <div key={index}>{log.data}</div>)}
-                            </pre>
-                        </FlexRow>
-                    <ModalFooter/>
-                </Panel>
-            </ModalWindow>
-        </ModalBlocker>
-    </>
-}
+export const LogsModal = ({ logs, ...modal }: ModalProps & { logs: Embedding[] }) =>
+    <BaseModal modal={modal} title='Logs'>
+        <FlexRow padding='24'>
+            <pre className='errorModalPre'>
+                {logs.map((log, index) => <div key={index}>{embeddingAsText(log)}</div>)}
+            </pre>
+        </FlexRow>
+    </BaseModal>;

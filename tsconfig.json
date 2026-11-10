@@ -3,19 +3,20 @@
         "esModuleInterop": true,
         "isolatedModules": true,
         "jsx": "react-jsx",
-        "module": "node16",
-        "moduleResolution": "node16",
+        "module": "esnext",
+        "moduleResolution": "bundler",
         "noEmit": true,
         "resolveJsonModule": true,
         "strict": true,
-        "strictNullChecks": false,
         "skipLibCheck": true,
-        "target": "ES2017",
-        "rootDir": ".",
+        "target": "ES2022",
+        "lib": ["ES2022", "DOM", "DOM.Iterable"],
         "types": [
+            "vite/client",
             "vitest/globals",
             "vitest-dom/extend-expect",
             "node"
         ]
-    }
+    },
+    "include": ["src", "app.d.ts", "vite-env-override.d.ts"]
 }

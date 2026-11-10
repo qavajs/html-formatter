@@ -1,10 +1,30 @@
+:root {
+    --report-background: #383b4a;
+    --report-text: whitesmoke;
+    --report-border: gray;
+    --report-status-passed: #88cc00;
+    --report-status-failed: #e54322;
+    --report-status-skipped: #0088fe;
+    --report-status-undefined: khaki;
+    --report-status-ambiguous: orange;
+    --report-status-pending: lightgrey;
+    --report-muted: #acafbf;
+    --report-surface: #303240;
+    --report-surface-sunken: #272833;
+    --report-divider: #474a59;
+    --report-radius: 8px;
+    --report-mono: 'Roboto Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
 html, body {
     height: 100%;
-    background-color: #383b4a;
+    background-color: var(--report-background);
 }
 
 body {
     margin: 0;
+    font-family: var(--uui-font, 'Source Sans Pro', sans-serif);
+    color: var(--report-text);
 
     > div {
         height: 100%;
@@ -21,13 +41,36 @@ footer {
 }
 
 * {
-    --uui-text: whitesmoke !important;
+    --uui-text: var(--report-text) !important;
 }
 
 .errorModalPre {
-    color: var(--uui-text);
+    box-sizing: border-box;
     width: 100%;
+    max-height: 60vh;
+    margin: 0;
+    padding: 12px 16px;
     overflow: auto;
-    height: 60vh;
+    border: 1px solid var(--report-divider);
+    border-radius: 6px;
+    background: var(--report-surface-sunken);
+    color: var(--uui-text);
+    font-family: var(--report-mono);
+    font-size: 13px;
+    line-height: 1.5;
     white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.statisticsTotal {
+    font-size: 40px;
+    font-weight: 600;
+    fill: var(--report-text);
+}
+
+.statisticsLabel {
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    fill: var(--report-muted);
 }

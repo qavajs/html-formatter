@@ -1,132 +1,128 @@
 import { useState } from 'react';
-import {
-    Panel,
-    FlexRow,
-    DataTable,
-    Text,
-    Badge,
-    LinkButton,
-    TextInput,
-    Switch,
-    FlexSpacer
-} from '@epam/loveship';
-import { DataColumnProps, useArrayDataSource } from '@epam/uui-core';
+import { Panel, FlexRow, DataTable, Text, Badge, LinkButton, TextInput, Switch, FlexSpacer } from '@epam/loveship';
+import { DataColumnProps, DataTableState, useArrayDataSource } from '@epam/uui-core';
+import { TagList } from './TagList';
+import { StatusBar } from './StatusBar';
+import type { Feature } from '../types';
+import { formatDuration, matchesSearch, percent } from '../utils/format';
+import { useFilterParams } from '../hooks/useFilterParams';
 import css from '../App.module.scss';
-import {TagList} from './TagList';
 
-type Feature = {
-    id: string,
-    name: string,
-    status: string,
-    tags: { name: string }[],
-    total: number,
-    passed: number,
-    failed: number
-}
+const statusColors = {
+    passed: 'success',
+    failed: 'fire',
+    skipped: 'cobalt'
+} as const;
+
+const Count = ({ value, status }: { value: number, status?: 'passed' | 'failed' | 'skipped' }) =>
+    <span className={value === 0 ? css.muted : status ? css[`text-${status}`] : undefined}>{value}</span>;
 
 const featureColumns: DataColumnProps<Feature>[] = [
     {
         key: 'name',
         caption: 'Name',
-        render: item => <LinkButton caption={item.name} href={`#/feature/${item.id}`} size='42' />,
+        render: item => <LinkButton caption={item.name} href={`#/feature/${item.id}`} size='36'/>,
         isSortable: true,
-        width: 400
+        width: 280
     },
     {
         key: 'status',
         caption: 'Status',
         render: item => <FlexRow>
-            <Badge cx={css.tagBadge} size='24' color={item.status === 'failed' ? 'fire' : 'success'} fill='outline' caption={item.status} />
+            <Badge size='24' color={statusColors[item.status]} fill='outline' caption={item.status}/>
         </FlexRow>,
         isSortable: true,
-        width: 100,
-        isFilterActive: f => !!f.status,
+        width: 100
+    },
+    {
+        key: 'progress',
+        caption: 'Progress',
+        render: item => <div className={css.progressCell}>
+            <StatusBar passed={item.passed} failed={item.failed} skipped={item.skipped} total={item.total}/>
+            <span className={css.progressPercent}>{percent(item.passed, item.total)}%</span>
+        </div>,
+        width: 160,
+        grow: 1
     },
     {
         key: 'tags',
         caption: 'Tags',
-        render: item => <TagList tags={item.tags} itemsToRender={4}/>,
-        grow: 1,
-        width: 200,
+        render: item => <div className={css.tableCell}><TagList tags={item.tags} itemsToRender={3}/></div>,
+        grow: 2,
+        width: 260,
     },
     {
         key: 'total',
         caption: 'Total',
-        render: item => <Text>{ item.total }</Text>,
+        render: item => <Text><Count value={item.total}/></Text>,
         isSortable: true,
         grow: 1,
-        width: 100,
+        width: 80,
     },
     {
         key: 'passed',
-        caption: 'passed',
-        render: item => <Text>{ item.passed }</Text>,
+        caption: 'Passed',
+        render: item => <Text><Count value={item.passed} status='passed'/></Text>,
         isSortable: true,
         grow: 1,
-        width: 100,
+        width: 80,
     },
     {
         key: 'failed',
         caption: 'Failed',
-        render: item => <Text>{ item.failed }</Text>,
+        render: item => <Text><Count value={item.failed} status='failed'/></Text>,
+        isSortable: true,
+        grow: 1,
+        width: 80,
+    },
+    {
+        key: 'skipped',
+        caption: 'Skipped',
+        render: item => <Text><Count value={item.skipped} status='skipped'/></Text>,
+        isSortable: true,
+        grow: 1,
+        width: 80,
+    },
+    {
+        key: 'duration',
+        caption: 'Duration',
+        render: item => <Text><span className={css.muted}>{formatDuration(item.duration)}</span></Text>,
         isSortable: true,
         grow: 1,
         width: 100,
     },
 ];
 
-const filterTable = (
-    tableData: Array<any>,
-    filterOptions: { searchValue: string, showOnlyFailed: boolean }
-) => {
-    return tableData.filter((row: Feature) => {
-        let result = true;
-        if (filterOptions.searchValue) result = result && row.name.toLowerCase().includes(filterOptions.searchValue.toLowerCase())
-        if (filterOptions.showOnlyFailed) result = result && row.failed > 0
-        return result
-    })
-}
+export const Features = ({ data }: { data: Feature[] }) => {
+    const [table, setTable] = useState<DataTableState>({});
+    const { search, setSearch, showOnlyFailed, setShowOnlyFailed } = useFilterParams('isMainShowOnlyFailed');
 
-function handleSwitchChange(setShowOnlyFailed: (value: boolean) => void) {
-    return function (value: boolean) {
-        window.sessionStorage.setItem('isMainShowOnlyFailed', value.toString())
-        setShowOnlyFailed(value);
-    };
-}
-
-export const Features = (props: any) => {
-    const [table, setTable] = useState({});
-    const [searchValue, setSearchValue] = useState('');
-    const [showOnlyFailed, setShowOnlyFailed] = useState(
-        window.sessionStorage.getItem('isMainShowOnlyFailed') === 'true'
-    );
-
-    const dataSource = useArrayDataSource<Feature, number, unknown>({
-        items: filterTable(props.data, {searchValue, showOnlyFailed}),
-    }, []);
-
+    const items = data.filter(feature => matchesSearch(feature.name, search) && (!showOnlyFailed || feature.failed > 0));
+    const dataSource = useArrayDataSource<Feature, string, unknown>({ items }, [data, search, showOnlyFailed]);
+    // useView is UUI data source API hook, it is stable for a given data source
+    // oxlint-disable-next-line react/hooks
     const view = dataSource.useView(table, setTable, {});
 
     return (
-        <FlexRow margin='12'>
-            <Panel cx={css.features} shadow>
-                <FlexRow padding='12' vPadding='12'>
-                    {/*@ts-ignore*/}
-                    <TextInput cx={css.searchInput} value={ searchValue } onValueChange={ setSearchValue }  placeholder='Search'/>
+        <section className={css.card}>
+            <h2 className={css.cardTitle}>All features</h2>
+            <Panel cx={css.features}>
+                <FlexRow vPadding='12'>
+                    <TextInput cx={css.searchInput} value={search} onValueChange={setSearch} placeholder='Search'/>
                     <FlexSpacer/>
-                    <Switch label='Show Only Failed' value={ showOnlyFailed } onValueChange={ handleSwitchChange(setShowOnlyFailed) }/>
+                    <Switch label='Show Only Failed' value={showOnlyFailed} onValueChange={setShowOnlyFailed}/>
                 </FlexRow>
                 <FlexRow>
                     <DataTable
-                        getRows={ view.getVisibleRows }
-                        value={ table }
-                        onValueChange={ setTable }
-                        columns={ featureColumns }
+                        getRows={view.getVisibleRows}
+                        value={table}
+                        onValueChange={setTable}
+                        columns={featureColumns}
                         headerTextCase='upper'
-                        { ...view.getListProps() }
+                        {...view.getListProps()}
                     />
                 </FlexRow>
             </Panel>
-        </FlexRow>
+        </section>
     );
 };
