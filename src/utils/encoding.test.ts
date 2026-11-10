@@ -3,6 +3,7 @@ import {
     embeddingAsBase64,
     embeddingAsText,
     embeddingDataUrl,
+    embeddingSize,
     encodeBase64,
     tryParseJson
 } from './encoding';
@@ -51,5 +52,15 @@ describe('tryParseJson', () => {
     test('returns error for invalid json', () => {
         const result = tryParseJson('{invalid');
         expect(result.ok).toBe(false);
+    });
+});
+
+describe('external attachments', () => {
+    const external = { data: '', mime_type: 'image/png', url: 'attachments/abc.png', size: 2048 };
+
+    test('use file url and stored size', () => {
+        expect(embeddingDataUrl(external)).toBe('attachments/abc.png');
+        expect(embeddingSize(external)).toBe(2048);
+        expect(embeddingSize({ data: 'abc', mime_type: 'text/plain', contentEncoding: 'IDENTITY' })).toBe(3);
     });
 });

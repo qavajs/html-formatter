@@ -6,22 +6,18 @@ import '@epam/uui-components/styles.css';
 import '@epam/uui/styles.css';
 import '@epam/loveship/styles.css';
 import '@epam/assets/theme/theme_loveship_dark.scss';
+import '@epam/assets/theme/no-fonts/theme_loveship.scss';
 import './index.css';
 
 import { App } from './App';
 import { buildReport } from './report';
 import { ReportProvider } from './ReportContext';
-import type { SourceScenario } from './types';
+import { initTheme } from './theme';
+import { readReportData } from './reportData';
 
-declare global {
-    interface Window {
-        /** injected by formatter/formatter.js (or by dev server, see scripts/vite-report-data.mjs) */
-        sourceData?: SourceScenario[];
-        metaSourceData?: Record<string, string>;
-    }
-}
-
-const report = buildReport(window.sourceData, window.metaSourceData);
+initTheme();
+const { scenarios, metadata } = readReportData(document);
+const report = buildReport(scenarios, metadata);
 
 const root = createRoot(window.document.getElementById('root') as Element);
 root.render(

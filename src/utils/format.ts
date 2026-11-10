@@ -1,8 +1,9 @@
 const NANOS_IN_SECOND = 1_000_000_000;
 
-/** Formats duration in nanoseconds into human-readable string, e.g. 1.25s, 2m 3.10s, 1h 2m 3s */
+/** Formats duration in nanoseconds into human-readable string, e.g. 340ms, 1.25s, 2m 3.10s, 1h 2m 3s */
 export function formatDuration(nanos: number): string {
     const totalSeconds = (nanos ?? 0) / NANOS_IN_SECOND;
+    if (totalSeconds < 1) return `${Math.round(totalSeconds * 1000)}ms`;
     if (totalSeconds < 60) return `${totalSeconds.toFixed(2)}s`;
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);

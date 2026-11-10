@@ -4,12 +4,14 @@ import { AdaptiveItemProps } from '@epam/uui-components';
 import { MetadataModal } from './components/MetadataModal';
 import { useReport } from './ReportContext';
 import { showModal } from './utils/showModal';
+import { useTheme } from './theme';
 
 const TITLE = '@qavajs/html-formatter';
 
 export const AppHeader = () => {
     const { uuiModals } = useUuiContext();
     const { metadata } = useReport();
+    const [theme, toggleTheme] = useTheme();
 
     const items: AdaptiveItemProps[] = [
         {
@@ -31,8 +33,18 @@ export const AppHeader = () => {
             id: 'Failed',
             priority: 4,
             render: p => <MainMenuButton key={p.id} href='#/failed-scenarios' caption='Failed Scenarios'/>
+        },
+        {
+            id: 'Theme',
+            priority: 5,
+            render: p => <MainMenuButton
+                key={p.id}
+                caption={theme === 'dark' ? 'Light theme' : 'Dark theme'}
+                onClick={toggleTheme}
+                rawProps={{ title: 'Switch report color theme' }}
+            />
         }
     ];
 
-    return <MainMenu items={items}/>;
+    return <div className='reportHeader'><MainMenu items={items}/></div>;
 };

@@ -58,13 +58,19 @@ export function embeddingAsText(embedding: Embedding): string {
     return hasBase64Data(embedding) ? decodeBase64(embedding.data) : embedding.data;
 }
 
+export function embeddingSize(embedding: Embedding): number {
+    return embedding.url ? embedding.size ?? 0 : embeddingAsBytes(embedding).byteLength;
+}
+
 export function embeddingAsBytes(embedding: Embedding): Uint8Array<ArrayBuffer> {
     return hasBase64Data(embedding)
         ? base64ToBytes(embedding.data)
         : new TextEncoder().encode(embedding.data);
 }
 
+/** Url usable as img/iframe src: external file url or inline data url */
 export function embeddingDataUrl(embedding: Embedding): string {
+    if (embedding.url) return embedding.url;
     return `data:${embedding.mime_type};base64,${embeddingAsBase64(embedding)}`;
 }
 

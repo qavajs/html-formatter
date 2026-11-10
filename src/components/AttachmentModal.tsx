@@ -11,7 +11,7 @@ import UnsupportedIcon from '@epam/assets/icons/common/file-file-36.svg?react';
 import { BaseModal, ModalProps } from './BaseModal';
 import { downloadEmbedding, openInNewTab } from '../utils/openInNewTab';
 import { image, iframe, json, mimeLabel, text } from '../utils/supportedMimeTypes';
-import { embeddingAsBytes, embeddingAsText, embeddingDataUrl, tryParseJson } from '../utils/encoding';
+import { embeddingAsText, embeddingDataUrl, embeddingSize, tryParseJson } from '../utils/encoding';
 import { formatBytes } from '../utils/format';
 import { useCopyToClipboard } from '../hooks/useCopyToClipboard';
 import type { Embedding } from '../types';
@@ -51,6 +51,8 @@ const plural = (count: number, word: string) => `${count.toLocaleString()} ${wor
 /** Image on a checkerboard backdrop; click toggles between fit-to-window and actual size */
 export const ImageAttachment = ({ embedding, onDimensions }: { embedding: Embedding, onDimensions?: (value: string) => void }) => {
     const [actualSize, setActualSize] = useState(false);
+    const [missing, setMissing] = useState(false);
+    if (missing) return <MissingFile embedding={embedding}/>;
     return <div className={`${css.attachmentImageFrame} ${actualSize ? css.attachmentImageActual : ''}`}>
         <img
             className={css.attachmentImage}
@@ -59,9 +61,20 @@ export const ImageAttachment = ({ embedding, onDimensions }: { embedding: Embedd
             title={actualSize ? 'Click to fit to window' : 'Click to view actual size'}
             onClick={() => setActualSize(value => !value)}
             onLoad={event => onDimensions?.(`${event.currentTarget.naturalWidth} × ${event.currentTarget.naturalHeight}`)}
+            onError={() => setMissing(Boolean(embedding.url))}
         />
     </div>;
 };
+
+/** External attachment file was not found next to the report (e.g. report copied without attachments folder) */
+const MissingFile = ({ embedding }: { embedding: Embedding }) =>
+    <div className={css.attachmentEmpty} role='alert'>
+        <IconContainer icon={UnsupportedIcon} cx={css.attachmentEmptyIcon}/>
+        <div className={css.attachmentEmptyTitle}>Attachment file not found</div>
+        <div className={css.attachmentEmptyText}>
+            Expected at <code>{embedding.url}</code> relative to the report. Keep the attachments folder next to the report file.
+        </div>
+    </div>;
 
 const Unsupported = ({ embedding }: { embedding: Embedding }) =>
     <div className={css.attachmentEmpty}>
@@ -71,10 +84,10 @@ const Unsupported = ({ embedding }: { embedding: Embedding }) =>
         <LinkButton caption='Download file' icon={DownloadIcon} size='30' onClick={downloadEmbedding(embedding)}/>
     </div>;
 
-export const AttachmentModal = ({ embedding, ...modal }: ModalProps & { embedding: Embedding }) => {
+export const AttachmentModal = ({ embedding, title, ...modal }: ModalProps & { embedding: Embedding, title?: string }) => {
     const kind = attachmentKind(embedding.mime_type);
     const label = mimeLabel(embedding.mime_type);
-    const size = useMemo(() => embeddingAsBytes(embedding).byteLength, [embedding]);
+    const size = useMemo(() => embeddingSize(embedding), [embedding]);
     const textView = useMemo(() => textContent(embedding, kind), [embedding, kind]);
     const [dimensions, setDimensions] = useState<string>();
     const [wrap, setWrap] = useState(true);
@@ -86,7 +99,7 @@ export const AttachmentModal = ({ embedding, ...modal }: ModalProps & { embeddin
         textView && plural(textView.content.split('\n').length, 'line')
     ].filter(Boolean);
 
-    return <BaseModal modal={modal} title={embedding.fileName ?? `${label} attachment`} width={1200}>
+    return <BaseModal modal={modal} title={title ?? embedding.fileName ?? `${label} attachment`} width={1200}>
         <div className={css.attachmentModal}>
             <FlexRow cx={css.attachmentToolbar} columnGap='12'>
                 <IconContainer icon={kindIcons[kind]} cx={css.attachmentToolbarIcon}/>

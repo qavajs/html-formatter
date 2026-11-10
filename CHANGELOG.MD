@@ -10,6 +10,30 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 :pencil: - chore  
 :microscope: - experimental
 
+# [1.4.0]
+- :rocket: steps show gherkin keywords (Given/When/Then/And) and hooks show Before/After, scenario outlines show `Scenario Outline` keyword
+- :rocket: retried scenarios are marked (`flaky` when passed after retry), added flaky scenarios KPI
+- :rocket: duration KPI shows wall clock time (correct for parallel runs), run start time and summed total
+- :rocket: failed scenarios page: "Group by error" mode, failed scenarios expanded by default
+- :rocket: expand all / collapse all scenarios on feature and failed pages
+- :rocket: passed Before/After hooks are hidden by default ("Show passed hooks" switch)
+- :rocket: durations below a second are shown in milliseconds
+- :rocket: features table: failed features first by default, flaky column
+- :rocket: clicking a tag filters by it (`?tag=`), active tag can be copied or cleared
+- :rocket: search covers scenario names, step text, error messages, tags and example values
+- :rocket: feature urls are derived from feature file path (stable between runs), copy link to scenario (`?scenario=`) opens it expanded
+- :rocket: previous attempts of retried scenarios are shown with the failed step and error
+- :rocket: scenario outline example values are shown next to the scenario name
+- :rocket: scenario statistics show undefined / ambiguous / pending separately
+- :rocket: logs modal got copy / wrap / download toolbar
+- :rocket: light theme (header toggle, remembered), print stylesheet (always light, without navigation and filters)
+- :rocket: `htmlConfig.attachments: 'external'` writes binary attachments next to the report (`htmlConfig.attachmentsDir`) instead of inlining them
+- :rocket: error dialog uses the text attachment viewer (wrap, copy, download), error previews have a "Copy" button; errors are copied without ansi colors
+- :beetle: fixed attachments being embedded twice (report size roughly halved for attachment-heavy reports)
+- :beetle: fixed tags and copy link inside scenario header not working from keyboard (Enter toggled the scenario)
+- :pencil: report data is embedded as json (`<script type="application/json">`) instead of a js literal
+- :pencil: documented options, report features and url parameters in README
+
 # [1.3.0]
 - :rocket: added support of cucumber 13
 - :rocket: skipped/pending scenarios are reported separately from failed ones

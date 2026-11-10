@@ -1,31 +1,22 @@
 const { Formatter } = require('@cucumber/cucumber');
-const { buildScenario } = require('./common');
+const { ScenarioCollector } = require('./common');
 
 class JsonFormatter extends Formatter {
 
     constructor(options) {
         super(options);
-        options.eventBroadcaster.on('envelope', this.processEnvelope.bind(this));
         this.json = [];
-        this.hooks = {};
+        this.collector = new ScenarioCollector(this.eventDataCollector);
+        options.eventBroadcaster.on('envelope', this.processEnvelope.bind(this));
     }
 
     processEnvelope(envelope) {
-        if (envelope.testCaseFinished) {
-            this.finishTest(envelope);
-        } else if (envelope.testRunFinished) {
-            this.finishLaunch();
-        } else if (envelope.hook) {
-            this.hooks[envelope.hook.id] = envelope.hook;
+        if (envelope.testRunFinished) return this.finishLaunch();
+        const scenario = this.collector.processEnvelope(envelope);
+        if (scenario) {
+            scenario.feature.elements = [];
+            this.json.push(scenario);
         }
-    }
-
-    finishTest(envelope) {
-        if (envelope.testCaseFinished.willBeRetried) return;
-        const testCase = this.eventDataCollector.getTestCaseAttempt(envelope.testCaseFinished.testCaseStartedId);
-        const scenario = buildScenario(testCase, this.hooks);
-        scenario.feature.elements = [];
-        this.json.push(scenario);
     }
 
     finishLaunch() {

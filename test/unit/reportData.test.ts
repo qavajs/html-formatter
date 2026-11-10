@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { injectReportData, readScenarios } from '../../scripts/vite-report-data.mjs';
 
-const template = '<script>window.metaSourceData = METADATA; window.sourceData = [SOURCE_DATA];</script>';
+const template = '<script type="application/json" id="report-data">{"metadata":METADATA,"scenarios":[SOURCE_DATA]}</script>';
 const logger = { warn: vi.fn<(message: string) => void>() };
 
 const scenario = {
@@ -18,15 +18,15 @@ const scenario = {
     }]
 };
 
+/** Parses embedded json the way the report does (script element text is taken verbatim) */
 function evaluate(html: string) {
-    const window: Record<string, unknown> = {};
-    const script = html.replace(/^<script>|<\/script>$/g, '');
-    new Function('window', script)(window);
-    return window;
+    const json = html.replace(/^<script[^>]*>|<\/script>$/g, '');
+    const { metadata, scenarios } = JSON.parse(json);
+    return { metaSourceData: metadata, sourceData: scenarios };
 }
 
 describe('injectReportData', () => {
-    test('injects scenarios and metadata as valid, script-safe js', () => {
+    test('injects scenarios and metadata as valid, script-safe json', () => {
         const html = injectReportData(template, [scenario, scenario], { metadata: { OS: '$& macos' } });
         expect(html.match(/<\/script>/g)).toHaveLength(1);
         const window = evaluate(html);

@@ -7,10 +7,8 @@
   </head>
   <body class="uui-theme-loveship_dark"><!-- This class is necessary to enable theme promo -->
     <div id="root"></div>
-  <script>
-    window.metaSourceData = METADATA;
-    window.sourceData = [SOURCE_DATA];
-  </script>
+  <!-- filled by formatter/formatter.js; json (not a js literal) parses faster and cannot execute -->
+  <script type="application/json" id="report-data">{"metadata":METADATA,"scenarios":[SOURCE_DATA]}</script>
   <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>

@@ -3,6 +3,7 @@ import { FlexSpacer } from '@epam/uui';
 import { Icon, IModalContext, useUuiContext } from '@epam/uui-core';
 import { showModal } from '../utils/showModal';
 import { ErrorModal } from './ErrorModal';
+import { ErrorPreview } from './ErrorPreview';
 import { AttachmentModal } from './AttachmentModal';
 import { ResponseModal, responseSummary, statusColor } from './ResponseModal';
 import { AttachmentChip } from './AttachmentChip';
@@ -118,7 +119,10 @@ export const Step = ({ step }: { step: StepType }) => {
     return <div className={[css.step, isFailed && css.stepFailed].filter(Boolean).join(' ')}>
         <FlexRow size='30' columnGap='6'>
             <StatusIcon status={step.result.status}/>
-            <Text size='30' fontSize='16' cx={css.stepText}>{step.name ?? step.keyword}</Text>
+            <Text size='30' fontSize='16' cx={css.stepText}>
+                {step.keyword && <span className={css.stepKeyword}>{step.keyword}</span>}
+                {step.name && step.name !== step.keyword && <span>{step.name}</span>}
+            </Text>
             {isFailed && errorMessage && <IconButton
                 icon={ErrorIcon}
                 color='fire'
@@ -157,9 +161,7 @@ export const Step = ({ step }: { step: StepType }) => {
             <FlexSpacer/>
             <TimeLabel time={formatDuration(step.result.duration)}/>
         </FlexRow>
-        {isFailed && errorMessage && <button type='button' className={css.stepError} onClick={showError} title='Show full error'>
-            {errorMessage.split('\n').slice(0, 4).join('\n')}
-        </button>}
+        {isFailed && errorMessage && <ErrorPreview error={errorMessage} onOpen={() => showError()}/>}
         {step.arguments && <div className={css.stepArguments}>
             {step.arguments.map((arg, index) => <Argument key={index} arg={arg}/>)}
         </div>}

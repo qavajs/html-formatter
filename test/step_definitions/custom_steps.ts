@@ -3,6 +3,10 @@ import { DataTable, Given, When, Before, After } from '@cucumber/cucumber';
 Given('background', () => {});
 When('passed step', () => {});
 When('failed step', () => { throw new Error('failed step') });
+let flakyAttempts = 0;
+When('flaky step', () => {
+    if (flakyAttempts++ === 0) throw new Error('flaky step failed on the first attempt');
+});
 When('pending step', () => { return 'pending' });
 When('ambiguous step', () => {});
 When('ambiguous step', () => {});

@@ -2,7 +2,9 @@ import { formatBytes, formatDuration, matchesSearch, percent } from './format';
 
 describe('formatDuration', () => {
     test.each([
-        [0, '0.00s'],
+        [0, '0ms'],
+        [12_400_000, '12ms'],
+        [999_400_000, '999ms'],
         [1_234_000_000, '1.23s'],
         [63_500_000_000, '1m 3.50s'],
         [3_723_000_000_000, '1h 2m 3s']

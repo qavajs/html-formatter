@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Panel, FlexRow, DataTable, Text, Badge, LinkButton, TextInput, Switch, FlexSpacer } from '@epam/loveship';
 import { DataColumnProps, DataTableState, useArrayDataSource } from '@epam/uui-core';
-import { TagList } from './TagList';
+import { ActiveTagFilter, TagList } from './TagList';
+import { SEARCH_PLACEHOLDER } from './ScenarioFilters';
+import { featureHasTag, featureMatchesSearch } from '../report';
 import { StatusBar } from './StatusBar';
 import type { Feature } from '../types';
-import { formatDuration, matchesSearch, percent } from '../utils/format';
+import { formatDuration, percent } from '../utils/format';
 import { useFilterParams } from '../hooks/useFilterParams';
 import css from '../App.module.scss';
 
@@ -14,7 +16,7 @@ const statusColors = {
     skipped: 'cobalt'
 } as const;
 
-const Count = ({ value, status }: { value: number, status?: 'passed' | 'failed' | 'skipped' }) =>
+const Count = ({ value, status }: { value: number, status?: 'passed' | 'failed' | 'skipped' | 'undefined' }) =>
     <span className={value === 0 ? css.muted : status ? css[`text-${status}`] : undefined}>{value}</span>;
 
 const featureColumns: DataColumnProps<Feature>[] = [
@@ -23,7 +25,8 @@ const featureColumns: DataColumnProps<Feature>[] = [
         caption: 'Name',
         render: item => <LinkButton caption={item.name} href={`#/feature/${item.id}`} size='36'/>,
         isSortable: true,
-        width: 280
+        width: 220,
+        grow: 2
     },
     {
         key: 'status',
@@ -32,7 +35,7 @@ const featureColumns: DataColumnProps<Feature>[] = [
             <Badge size='24' color={statusColors[item.status]} fill='outline' caption={item.status}/>
         </FlexRow>,
         isSortable: true,
-        width: 100
+        width: 90
     },
     {
         key: 'progress',
@@ -41,15 +44,15 @@ const featureColumns: DataColumnProps<Feature>[] = [
             <StatusBar passed={item.passed} failed={item.failed} skipped={item.skipped} total={item.total}/>
             <span className={css.progressPercent}>{percent(item.passed, item.total)}%</span>
         </div>,
-        width: 160,
+        width: 140,
         grow: 1
     },
     {
         key: 'tags',
         caption: 'Tags',
         render: item => <div className={css.tableCell}><TagList tags={item.tags} itemsToRender={3}/></div>,
-        grow: 2,
-        width: 260,
+        grow: 1,
+        width: 140,
     },
     {
         key: 'total',
@@ -65,7 +68,7 @@ const featureColumns: DataColumnProps<Feature>[] = [
         render: item => <Text><Count value={item.passed} status='passed'/></Text>,
         isSortable: true,
         grow: 1,
-        width: 80,
+        width: 92,
     },
     {
         key: 'failed',
@@ -73,12 +76,20 @@ const featureColumns: DataColumnProps<Feature>[] = [
         render: item => <Text><Count value={item.failed} status='failed'/></Text>,
         isSortable: true,
         grow: 1,
-        width: 80,
+        width: 88,
     },
     {
         key: 'skipped',
         caption: 'Skipped',
         render: item => <Text><Count value={item.skipped} status='skipped'/></Text>,
+        isSortable: true,
+        grow: 1,
+        width: 100,
+    },
+    {
+        key: 'flaky',
+        caption: 'Flaky',
+        render: item => <Text><Count value={item.flaky} status='undefined'/></Text>,
         isSortable: true,
         grow: 1,
         width: 80,
@@ -89,16 +100,19 @@ const featureColumns: DataColumnProps<Feature>[] = [
         render: item => <Text><span className={css.muted}>{formatDuration(item.duration)}</span></Text>,
         isSortable: true,
         grow: 1,
-        width: 100,
+        width: 112,
     },
 ];
 
 export const Features = ({ data }: { data: Feature[] }) => {
-    const [table, setTable] = useState<DataTableState>({});
-    const { search, setSearch, showOnlyFailed, setShowOnlyFailed } = useFilterParams('isMainShowOnlyFailed');
+    // failed features first by default ("failed" < "passed" < "skipped")
+    const [table, setTable] = useState<DataTableState>({ sorting: [{ field: 'status', direction: 'asc' }] });
+    const { search, setSearch, showOnlyFailed, setShowOnlyFailed, tag } = useFilterParams('isMainShowOnlyFailed');
 
-    const items = data.filter(feature => matchesSearch(feature.name, search) && (!showOnlyFailed || feature.failed > 0));
-    const dataSource = useArrayDataSource<Feature, string, unknown>({ items }, [data, search, showOnlyFailed]);
+    const items = data.filter(feature => featureMatchesSearch(feature, search)
+        && featureHasTag(feature, tag)
+        && (!showOnlyFailed || feature.failed > 0));
+    const dataSource = useArrayDataSource<Feature, string, unknown>({ items }, [data, search, showOnlyFailed, tag]);
     // useView is UUI data source API hook, it is stable for a given data source
     // oxlint-disable-next-line react/hooks
     const view = dataSource.useView(table, setTable, {});
@@ -108,7 +122,8 @@ export const Features = ({ data }: { data: Feature[] }) => {
             <h2 className={css.cardTitle}>All features</h2>
             <Panel cx={css.features}>
                 <FlexRow vPadding='12'>
-                    <TextInput cx={css.searchInput} value={search} onValueChange={setSearch} placeholder='Search'/>
+                    <TextInput cx={css.searchInput} value={search} onValueChange={setSearch} placeholder={SEARCH_PLACEHOLDER}/>
+                    <ActiveTagFilter/>
                     <FlexSpacer/>
                     <Switch label='Show Only Failed' value={showOnlyFailed} onValueChange={setShowOnlyFailed}/>
                 </FlexRow>

@@ -4,6 +4,9 @@ import { percent } from '../utils/format';
 export const STATUS_COLORS: Record<ChartItem['name'], string> = {
     Passed: 'var(--report-status-passed)',
     Failed: 'var(--report-status-failed)',
+    Undefined: 'var(--report-status-undefined)',
+    Ambiguous: 'var(--report-status-ambiguous)',
+    Pending: 'var(--report-status-pending)',
     Skipped: 'var(--report-status-skipped)'
 };
 

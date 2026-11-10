@@ -9,11 +9,44 @@
     --report-status-ambiguous: orange;
     --report-status-pending: lightgrey;
     --report-muted: #acafbf;
+    --report-keyword: #8fa3c7;
     --report-surface: #303240;
     --report-surface-sunken: #272833;
     --report-divider: #474a59;
     --report-radius: 8px;
     --report-mono: 'Roboto Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --report-surface-deep: #1f2029;
+    --report-hover-weak: rgb(255 255 255 / 3%);
+    --report-hover: rgb(255 255 255 / 4%);
+    --report-chip: rgb(255 255 255 / 7%);
+    --report-chip-hover: rgb(255 255 255 / 12%);
+    --report-error-text: #ffb3a3;
+    color-scheme: dark;
+}
+
+/* light theme, toggled from the header (html[data-theme]) */
+html[data-theme='light'] {
+    --report-background: #f5f6fa;
+    --report-text: #1d1e26;
+    --report-border: #c4c7d1;
+    --report-status-passed: #4f8a00;
+    --report-status-failed: #d1361a;
+    --report-status-skipped: #0071d6;
+    --report-status-undefined: #a07c00;
+    --report-status-ambiguous: #c76a00;
+    --report-status-pending: #7a7d8c;
+    --report-muted: #5f6272;
+    --report-keyword: #4f6a9a;
+    --report-surface: #ffffff;
+    --report-surface-sunken: #eef0f5;
+    --report-surface-deep: #e4e7ee;
+    --report-divider: #dde0e8;
+    --report-hover-weak: rgb(0 0 0 / 2%);
+    --report-hover: rgb(0 0 0 / 3%);
+    --report-chip: rgb(0 0 0 / 6%);
+    --report-chip-hover: rgb(0 0 0 / 10%);
+    --report-error-text: #a8260d;
+    color-scheme: light;
 }
 
 html, body {
@@ -73,4 +106,24 @@ footer {
     letter-spacing: 0.06em;
     text-transform: uppercase;
     fill: var(--report-muted);
+}
+
+/* ---------- print: light theme is applied on beforeprint (see theme.ts) ---------- */
+@media print {
+    html, body {
+        height: auto;
+        background: #fff;
+    }
+
+    .reportHeader,
+    footer,
+    .uui-accordion-toggle-container > .uui-icon:last-child,
+    [data-print='hide'] {
+        display: none !important;
+    }
+
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
 }

@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import { renderWithContextAsync } from '@epam/uui-test-utils';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { ErrorBoundary } from './ErrorBoundary';
@@ -103,17 +103,104 @@ describe('FeaturePage', () => {
 
 describe('TagList', () => {
     test('dedupes tags and collapses overflow into +N', async () => {
-        await renderWithContextAsync(<TagList itemsToRender={2} tags={[
+        await renderWithContextAsync(<MemoryRouter><TagList itemsToRender={2} tags={[
             { name: '@a' }, { name: '@a' }, { name: '@b' }, { name: '@c' }, { name: '@d' }
-        ]}/>);
+        ]}/></MemoryRouter>);
         expect(screen.getAllByText('@a')).toHaveLength(1);
         expect(screen.getByText('@b')).toBeInTheDocument();
         expect(screen.getByText('+2')).toHaveAttribute('title', '@c, @d');
     });
 
     test('renders nothing without tags', async () => {
-        const { container } = await renderWithContextAsync(<TagList tags={[]}/>);
+        const { container } = await renderWithContextAsync(<MemoryRouter><TagList tags={[]}/></MemoryRouter>);
         expect(container.querySelector('button')).toBeNull();
+    });
+});
+
+describe('FeaturePage filters', () => {
+    const source = (id: string, tags: string[], steps: Array<{ name: string, status: 'passed' | 'failed', hookId?: string, error?: string }>) => ({
+        id,
+        name: `scenario ${id}`,
+        tags: tags.map(name => ({ name })),
+        feature: { id: 'f', name: 'Feature', uri: 'features/login.feature', tags: [] },
+        steps: steps.map((step, index) => ({
+            id: `${id}-${index}`,
+            name: step.name,
+            hookId: step.hookId,
+            result: { status: step.status, duration: 0, error_message: step.error }
+        }))
+    });
+    const report = buildReport([
+        source('a', ['@smoke'], [{ name: 'Before', status: 'passed', hookId: 'h' }, { name: 'open login page', status: 'passed' }]),
+        source('b', [], [{ name: 'open cart', status: 'failed', error: 'TimeoutError: cart' }])
+    ]);
+    const renderAt = (url: string) => renderWithContextAsync(
+        <ReportProvider report={report}>
+            <MemoryRouter initialEntries={[url]}>
+                <Routes>
+                    <Route path='/feature/:id' element={<FeaturePage/>}/>
+                </Routes>
+            </MemoryRouter>
+        </ReportProvider>
+    );
+
+    test('feature id is derived from file path', () => {
+        expect(report.features[0].id).toBe('features-login');
+    });
+
+    test('search matches step text and error messages', async () => {
+        await renderAt('/feature/features-login?q=timeouterror');
+        expect(screen.getByText('scenario b')).toBeInTheDocument();
+        expect(screen.queryByText('scenario a')).toBeNull();
+    });
+
+    test('tag filter shows only tagged scenarios and the active tag', async () => {
+        await renderAt('/feature/features-login?tag=@smoke');
+        expect(screen.getByText('scenario a')).toBeInTheDocument();
+        expect(screen.queryByText('scenario b')).toBeNull();
+        expect(screen.getByTestId('active-tag')).toHaveTextContent('@smoke');
+    });
+
+    test('deep linked scenario is expanded and passed hooks are hidden by default', async () => {
+        await renderAt('/feature/features-login?scenario=a');
+        expect(screen.getByText('open login page')).toBeInTheDocument();
+        expect(screen.queryByText('Before')).toBeNull();
+        expect(screen.getByText('1 passed hook hidden')).toBeInTheDocument();
+    });
+});
+
+describe('keyboard and copy controls', () => {
+    const report = buildReport([{
+        id: 'k',
+        name: 'keyboard scenario',
+        tags: [{ name: '@kb' }],
+        feature: { id: 'f', name: 'Feature', uri: 'k.feature', tags: [] },
+        steps: [{ id: 'k1', name: 'broken step', result: { status: 'failed', duration: 0, error_message: 'Error: \u001b[31mboom\u001b[39m' } }]
+    }]);
+    const renderFeature = () => renderWithContextAsync(
+        <ReportProvider report={report}>
+            <MemoryRouter initialEntries={['/feature/k']}>
+                <Routes><Route path='/feature/:id' element={<FeaturePage/>}/></Routes>
+            </MemoryRouter>
+        </ReportProvider>
+    );
+
+    test('Enter on a tag inside scenario header does not toggle the scenario', async () => {
+        await renderFeature();
+        const header = screen.getByRole('button', { name: /keyboard scenario/ });
+        fireEvent.keyDown(screen.getByRole('button', { name: '@kb' }), { key: 'Enter' });
+        expect(header).toHaveAttribute('aria-expanded', 'false');
+        fireEvent.keyDown(header, { key: 'Enter' });
+        expect(header).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    test('error preview copies full error without ansi colors', async () => {
+        const writeText = vi.fn<(text: string) => Promise<void>>(() => Promise.resolve());
+        Object.assign(navigator, { clipboard: { writeText } });
+        await renderFeature();
+        fireEvent.click(screen.getByRole('button', { name: /keyboard scenario/ }));
+        fireEvent.click(screen.getByRole('button', { name: 'Copy error' }));
+        expect(writeText).toHaveBeenCalledWith('Error: boom');
     });
 });
 
